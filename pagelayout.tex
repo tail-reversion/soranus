@@ -18,6 +18,25 @@
 \ProvidesExplFile{pagelayout.tex}{2018/10/06}{0.0.0}{Page layout template system for the Soranus class.}
 
 
+% Here, I create aliases to some TeX Primitives.
+
+\cs_new:Npn \g__soranus_paper_width_dim
+  {\tex_pagewidth:D}
+
+\cs_new:Npn \g__soranus_paper_height_dim
+  {\tex_pageheight:D}
+
+
+
+% Here, I create aliases to the 2e layout parameters.
+
+\cs_new:Npn \g__soranus_top_margin_dim
+  {\topmargin}
+
+%\cs_new:Npn \g__soranus_
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Layout

@@ -18,6 +18,27 @@
 \ProvidesExplFile{fontsize.tex}{2018/10/15}{0.6.0}{Font size template system for the Soranus class.}
 
 
+% Here, I create aliases to the TeX primitives.
+
+\cs_new:Npn \g__soranus_top_skip
+  {\tex_topskip:D}
+
+\cs_new:Npn \g__soranus_max_depth_skip
+  {\tex_maxdepth:D}
+
+\cs_new:Npn \l__soranus_above_display_skip
+  {\tex_abovedisplayskip:D}
+
+\cs_new:Npn \l__soranus_above_display_short_skip
+  {\tex_abovedisplayshortskip:D}
+
+\cs_new:Npn \l__soranus_below_display_skip
+  {\tex_belowdisplayskip:D}
+
+\cs_new:Npn \l__soranus_below_display_short_skip
+  {\tex_belowdisplayshortskip:D}
+
+
 % Here I define global font size variables.
 \dim_new:N \g__soranus_point_size_dim
 \fp_new:N \g__soranus_baseline_scale_fp

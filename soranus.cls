@@ -30,14 +30,15 @@
     \endinput
   }
 
-\RequirePackage{lmodern,l3keys2e,xgalley,xparse,xtemplate}
+\RequirePackage{lmodern,multicol}
+\RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
 
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}{A modern, flexible class.}
 
 
 \input{bootstrap.tex}
 \input{fontsize.tex}
-%\input{pagelayout.tex}
+\input{pagelayout.tex}
 
 
 
@@ -50,7 +51,13 @@
 
 \keys_define:nn {soranus}
   {
-    point-size .dim_gset:N       = \g__soranus_point_size_dim,
+    point-size .code:n           =
+      {
+        \dim_gset:Nn \g__soranus_point_size_dim {#1}
+        \dim_gset:Nn \g__soranus_top_skip {#1}
+        \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
+        \dim_gset_eq:NN \@maxdepth \g__soranus_max_depth_skip
+      },
     point-size .value_required:n = true,
     point-size .initial:n        = 10pt,
 
