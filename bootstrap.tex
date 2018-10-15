@@ -1,0 +1,77 @@
+% bootstrap.tex
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+\ProvidesExplFile{bootstrap.tex}{2018/10/06}{0.0.0}{Bootstrap code for the Soranus class.}
+
+
+% Here, I create aliases to the TeX primitives.
+
+\cs_new:Npn \l__soranus_above_display_skip
+  {\tex_abovedisplayskip:D}
+
+\cs_new:Npn \l__soranus_above_display_short_skip
+  {\tex_abovedisplayshortskip:D}
+
+\cs_new:Npn \l__soranus_below_display_skip
+  {\tex_belowdisplayskip:D}
+
+\cs_new:Npn \l__soranus_below_display_short_skip
+  {\tex_belowdisplayshortskip:}
+
+\cs_new:Npn \g__soranus_top_skip
+  {\tex_topskip:D}
+
+\cs_new:Npn \g__soranus_max_depth_skip
+  {\tex_maxdepth:D}
+
+\cs_new:Npn \g__soranus_page_width_dim
+  {\tex_pagewidth:D}
+
+\cs_new:Npn \g__soranus_page_height_dim
+  {\tex_pageheight:D}
+
+
+
+% Here, I create aliases to the 2e layout parameters.
+
+\cs_new:Npn \g__soranus_top_margin_dim
+  {\topmargin}
+
+%\cs_new:Npn \g__soranus_
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Private Variables
+%
+
+\seq_new:N \l__soranus_tmpa_seq
+\seq_new:N \l__soranus_tmpb_seq
+
+\tl_new:N \l__soranus_tmpa_tl
+\tl_new:N \l__soranus_tmpb_tl
+
+\dim_new:N \l__soranus_tmpa_dim
+\dim_new:N \l__soranus_tmpb_dim
+
+\skip_new:N \l__soranus_tmpa_skip
+\skip_new:N \l__soranus_tmpb_skip
+
+\int_new:N \l__soranus_tmpa_int
+\int_new:N \l__soranus_tmpb_int

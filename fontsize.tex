@@ -1,0 +1,246 @@
+% fontsize.tex
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+\ProvidesExplFile{fontsize.tex}{2018/10/14}{0.4.0}{Font size template system for the Soranus class.}
+
+
+% Here I define the template variables.
+
+\dim_new:N \l__soranus_fontsize_point_size_dim
+\dim_new:N \l__soranus_fontsize_baseline_separation_dim
+\bool_new:N \l__soranus_fontsize_change_display_bool
+\skip_new:N \l__soranus_fontsize_above_display_skip
+\skip_new:N \l__soranus_fontsize_above_display_short_skip
+\skip_new:N \l__soranus_fontsize_below_display_skip
+\skip_new:N \l__soranus_fontsize_below_display_short_skip
+
+
+% Define an object that represents a font size command.
+\DeclareObjectType {fontsize} {0}
+
+
+% Define the interface for the standard (only) font size template.
+\DeclareTemplateInterface {fontsize} {standard} {0}
+  {
+    point-size               : length  = 10pt,
+    baseline-separation      : length  = 12pt,
+    change-display-skips     : boolean = false
+    above-display-skip       : skip    = 0pt,
+    above-display-short-skip : skip    = 0pt,
+    below-display-skip       : skip    = 0pt,
+    below-display-short-skip : skip    = 0pt
+  }
+
+
+% I forbid normal font size switches in the middle of a math environment.
+\msg_new:nnn {soranus} {fontsize-in-mmode}
+  {
+    Normal~font~size~commands~are~forbidden~in~math~mode.~Command~ignored.
+  }
+
+% 
+\DeclareTemplateCode {fontsize} {standard} {0}
+  {
+    point-size               = \l__soranus_fontsize_point_size_dim,
+    baseline-separation      = \l__soranus_fontsize_baseline_separation_dim,
+    change-display-skips     = \l__soranus_fontsize_change_display_bool,
+    above-display-skip       = \l__soranus_fontsize_above_display_skip,
+    above-display-short-skip = \l__soranus_fontsize_above_display_short_skip,
+    below-display-skip       = \l__soranus_fontsize_below_display_skip,
+    below-display-short-skip = \l__soranus_fontsize_below_display_short_skip
+  }
+  {
+    \mode_if_math:TF
+      {
+        \msg_warning:nn {soranus} {fontsize-in-mmode}
+      }
+      {
+        \AssignTemplateKeys
+        % I do not use \@setfontsize since I handle math mode in my own way
+        % and because \@currsize is of no use in this class.
+        \fontsize
+          \l__soranus_fontsize_point_size_dim
+          \l__soranus_fontsize_baseline_separation_dim
+        \selectfont
+        \bool_if:nT {\l__soranus_fontsize_change_display_bool}
+          {
+            \skip_set_eq:NN \l__soranus_above_display_skip
+              \l__soranus_fontsize_above_display_skip
+            \skip_set_eq:NN \l__soranus_above_display_short_skip
+              \l__soranus_fontsize_above_display_short_skip
+            \skip_set_eq:NN \l__soranus_below_display_skip
+              \l__soranus_fontsize_below_display_skip
+            \skip_set_eq:NN \l__soranus_below_display_short_skip
+              \l__soranus_fontsize_below_display_short_skip
+          }
+      }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Instances
+%
+% These default values set the baselineskip to 1.2 times the font size,
+% rounded to the nearest quarter point. The font sizes themselves follow
+% the series of scales relative to the normal size in this table:
+%
+%   miniscule     0.5
+%   tiny          0.6
+%   scriptsize    0.7
+%   footnotesize  0.8
+%   small         0.9
+%   normalsize    1.0
+%   large         1.2
+%   Large         1.4
+%   LARGE         1.6
+%   huge          2.4
+%   Huge          2.8
+%   HUGE          3.2
+
+\DeclareInstance {fontsize} {miniscule} {standard}
+  {
+    point-size          = 5pt,
+    baseline-separation = 6pt
+  }
+
+\DeclareInstance {fontsize} {tiny} {standard}
+  {
+    point-size          = 6pt,
+    baseline-separation = 7.25pt
+  }
+
+\DeclareInstance {fontsize} {scriptsize} {standard}
+  {
+    point-size          = 7pt,
+    baseline-separation = 8.5pt
+  }
+
+\DeclareInstance {fontsize} {footnotesize} {standard}
+  {
+    point-size               = 8pt,
+    baseline-separation      = 9.5pt,
+    change-display-skips     = true,
+    above-display-skip       = 6pt plus 2pt minus 4pt,
+    above-display-short-skip = 0pt plus 1pt,
+    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-short-skip = 3pt plus 1pt minus 2pt
+  }
+
+\DeclareInstance {fontsize} {small} {standard}
+  {
+    point-size               = 9pt,
+    baseline-separation      = 10.75pt,
+    change-display-skips     = true,
+    above-display-skip       = 8.5pt plus 3pt minus 4pt,
+    above-display-short-skip = 0pt plus 2pt,
+    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-short-skip = 4pt plus 2pt minus 2pt
+  }
+
+\DeclareInstance {fontsize} {normalsize} {standard}
+  {
+    point-size               = 10pt,
+    baseline-separation      = 12pt,
+    change-display-skips     = true,
+    above-display-skip       = 10pt plus 2pt minus 5pt,
+    above-display-short-skip = 0pt plus 3pt,
+    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-short-skip = 6pt plus 3pt minus 3pt
+  }
+
+\DeclareInstance {fontsize} {large} {standard}
+  {
+    point-size          = 12pt,
+    baseline-separation = 14.5pt
+  }
+
+\DeclareInstance {fontsize} {Large} {standard}
+  {
+    point-size          = 14pt,
+    baseline-separation = 16.75pt
+  }
+
+\DeclareInstance {fontsize} {LARGE} {standard}
+  {
+    point-size          = 16pt,
+    baseline-separation = 19.25pt
+  }
+
+\DeclareInstance {fontsize} {huge} {standard}
+  {
+    point-size          = 24pt,
+    baseline-separation = 28.75pt
+  }
+
+\DeclareInstance {fontsize} {Huge} {standard}
+  {
+    point-size          = 28pt,
+    baseline-separation = 33.5pt
+  }
+
+\DeclareInstance {fontsize} {HUGE} {standard}
+  {
+    point-size          = 32pt,
+    baseline-separation = 38.5pt
+  }
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Document Size Commands
+%
+% Now, a font size is changed by editing its respective instance.
+% It is assumed that all the instances will be edited as a set.
+
+\NewDocumentCommand \miniscule {}
+  {\UseInstance {fontsize} {miniscule}}
+
+\NewDocumentCommand \tiny {}
+  {\UseInstance {fontsize} {tiny}}
+
+\NewDocumentCommand \scriptsize {}
+  {\UseInstance {fontsize} {scriptsize}}
+
+\NewDocumentCommand \footnotesize {}
+  {\UseInstance {fontsize} {footnotesize}}
+
+\NewDocumentCommand \small {}
+  {\UseInstance {fontsize} {small}}
+
+\RenewDocumentCommand \normalsize {}
+  {\UseInstance {fontsize} {normalsize}}
+
+\NewDocumentCommand \large {}
+  {\UseInstance {fontsize} {large}}
+
+\NewDocumentCommand \Large {}
+  {\UseInstance {fontsize} {Large}}
+
+\NewDocumentCommand \LARGE {}
+  {\UseInstance {fontsize} {LARGE}}
+
+\NewDocumentCommand \huge {}
+  {\UseInstance {fontsize} {huge}}
+
+\NewDocumentCommand \Huge {}
+  {\UseInstance {fontsize} {Huge}}
+
+\NewDocumentCommand \HUGE {}
+  {\UseInstance {fontsize} {HUGE}}

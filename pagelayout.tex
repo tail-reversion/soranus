@@ -1,0 +1,133 @@
+% pagelayout.tex
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+\ProvidesExplFile{pagelayout.tex}{2018/10/06}{0.0.0}{Page layout template system for the Soranus class.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout
+%
+
+\dim_new:N \g__soranus_pagelayout_edge_trim_dim
+\dim_new:N \g__soranus_pagelayout_top_trim_dim
+\dim_new:N \g__soranus_pagelayout_page_width_dim
+\dim_new:N \g__soranus_pagelayout_page_height_dim
+\dim_new:N \g__soranus_pagelayout_spine_margin_dim
+\dim_new:N \g__soranus_pagelayout_top_margin_dim
+\dim_new:N \g__soranus_pagelayout_text_width_dim
+\dim_new:N \g__soranus_pagelayout_text_height_dim
+
+
+\DeclareObjectType {pagelayout} {0}
+
+
+\DeclareTemplateInterface {pagelayout} {standard} {0}
+  {
+    edge-trim    : length  = 0pt,
+    top-trim     : length  = 0pt,
+    page-width   : length  = 210mm,
+    page-height  : length  = 297mm,
+    spine-margin : length  = 10mm,
+    top-margin   : length  = 20mm,
+    text-width   : length  = 30pc,
+    text-height  : length  = 50pc
+  }
+
+
+\DeclareTemplateCode {pagelayout} {standard} {0}
+  {
+    edge-trim    = global \g__soranus_pagelayout_edge_trim_dim,
+    top-trim     = global \g__soranus_pagelayout_top_trim_dim,
+    page-width   = global \g__soranus_pagelayout_page_width_dim,
+    page-height  = global \g__soranus_pagelayout_page_height_dim,
+    spine-margin = global \g__soranus_pagelayout_spine_margin_dim,
+    top-margin   = global \g__soranus_pagelayout_top_margin_dim,
+    text-width   = global \g__soranus_pagelayout_text_width_dim,
+    text-height  = global \g__soranus_pagelayout_text_height_dim
+  }
+  {
+    \AssignTemplateKeys
+    \dim_gset_eq:NN \oddsidemargin \g__soranus_pagelayout_spine_margin_dim
+    \dim_gzero:N \headheight
+    \dim_gzero:N \headsep
+    \dim_gzero:N \footskip
+    \dim_gset_eq:NN \topmargin \g__soranus_pagelayout_top_margin_dim
+    \dim_gset_eq:NN \textwidth \g__soranus_pagelayout_text_width_dim
+    \dim_gset_eq:NN \textheight \g__soranus_pagelayout_text_height_dim
+  }
+
+
+
+%\keys_define:nn {soranus/layout}
+%  {
+%    % Standard page sizes.
+%    page .code:n           =
+%      {
+%        \dim_gset:Nn \g__soranus_page_width_dim {\PaperSizeWidth {#1}}
+%        \dim_gset:Nn \g__soranus_page_height_dim {\PaperSizeHeight {#1}}
+%      },
+%    page .value_required:n = true,
+%
+%    % Custom page sizes.
+%    page-size .code:n           =
+%      {
+%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
+%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {\dim_gset:Nn \g__soranus_page_width_dim {\l__soranus_tmpa_tl}}
+%        \seq_pop:NNTF \l__soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {\dim_gset:Nn \g__soranus_page_height_dim {\l__soranus_tmpa_tl}}
+%          {\dim_gset_eq:NN \g__soranus_page_height_dim \g__soranus_page_width_dim}
+%      },
+%    page-size .value_required:n = true,
+%
+%
+%    % Text block size.
+%    text .code:n           =
+%      {
+%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
+%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {\dim_gset:Nn \g__soranus_text_width_dim {\l__soranus_tmpa_tl}}
+%        \seq_pop:NNTF \l__soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {\dim_gset:Nn \g__soranus_text_height_dim {\l__soranus_tmpa_tl}}
+%          {\dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_text_width_dim}
+%      },
+%    text .value_required:n = true,
+%    text .initial:n        = {30pc, 50pc},
+%
+%
+%    % Ratio.
+%    ratio .value_required = true,
+%    ratio .initial        = 2:3,
+%    ratio .code:n         =
+%      {
+%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
+%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {
+%            \seq_set_split:Nnn \l__soranus_tmpb_seq {:} {\l__soranus_tmpa_tl}
+%            \seq_pop:NNT \l__soranus_tmb_seq \l__soranus_tmpb_tl
+%              {\int_set:Nn \l__soranus_tmpa_int {\l__soranus_tmpb_tl}}
+%            \seq_pop:NNT \l__soranus_tmb_seq \l__soranus_tmpb_tl
+%              {\int_set:Nn \l__soranus_tmpb_int {\l__soranus_tmpb_tl}}
+%            \dim_set:Nn \g__soranus_spine_margin_dim
+%              {(\l__soranus_tmpa_int * (\g__soranus_)) / 3}
+%          }
+%        \seq_pop:NNTF \l_soranus_tmpa_seq \l__soranus_tmpa_tl
+%          {\dim_gset:Nn \g__soranus_text_height_dim {\l__soranus_tmpa_tl}}
+%          {\dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_text_width_dim}
+%      }
+%  }

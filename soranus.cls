@@ -1,0 +1,143 @@
+% soranus.cls
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{expl3}[2018/02/21]
+\@ifpackagelater{expl3}{2018/02/21}
+  {}
+  {%
+    \PackageError{soranus}{Support package l3kernel too old}
+      {%
+        Please install an up to date version of l3kernel\MessageBreak
+        using your TeX package manager or from CTAN.\MessageBreak
+        \MessageBreak
+        Loading class soranus will abort!%
+      }%
+    \endinput
+  }
+
+\RequirePackage{lmodern,l3keys2e,xgalley,xparse,xtemplate}
+
+\ProvidesExplClass{soranus}{2018/10/06}{0.0.0}{A modern, flexible class.}
+
+
+\input{bootstrap.tex}
+\input{fontsize.tex}
+%\input{pagelayout.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Class Options And Core Layout
+%
+
+\bool_new:N \g__soranus_landscape_bool
+
+\keys_define:nn {soranus}
+  {
+    point-size .choices:nn       =
+      {
+        9pt,      10pt,      11pt,      12pt,      14pt,      16pt,      18pt,
+        9pt+,     10pt+,     11pt+,     12pt+,     14pt+,     16pt+,     18pt+,
+        9pt++,    10pt++,    11pt++,    12pt++,    14pt++,    16pt++,    18pt++,
+        9pt+++,   10pt+++,   11pt+++,   12pt+++,   14pt+++,   16pt+++,   18pt+++,
+        9pt++++,  10pt++++,  11pt++++,  12pt++++,  14pt++++,  16pt++++,  18pt++++,
+        9pt+++++, 10pt+++++, 11pt+++++, 12pt+++++, 14pt+++++, 16pt+++++, 18pt+++++
+      }
+      {
+        \input{soranus#1.clo}
+      },
+
+    point-size .value_required:n = true,
+    point-size .initial:n        = 10pt,
+
+
+    paper-width .dim_gset:N       = \g__soranus_paper_width_dim,
+    paper-width .value_required:n = true,
+
+    paper-height .dim_gset:N       = \g__soranus_paper_height_dim,
+    paper-height .value_required:n = true,
+
+
+    paper .choice:,
+
+    paper / a2 .meta:n = {paper-width = 420mm, paper-height = 594mm},
+    paper / a3 .meta:n = {paper-width = 297mm, paper-height = 420mm},
+    paper / a4 .meta:n = {paper-width = 210mm, paper-height = 297mm},
+    paper / a5 .meta:n = {paper-width = 148mm, paper-height = 210mm},
+    paper / a6 .meta:n = {paper-width = 105mm, paper-height = 148mm},
+
+    paper / b2 .meta:n = {paper-width = 500mm, paper-height = 707mm},
+    paper / b3 .meta:n = {paper-width = 353mm, paper-height = 500mm},
+    paper / b4 .meta:n = {paper-width = 250mm, paper-height = 353mm},
+    paper / b5 .meta:n = {paper-width = 176mm, paper-height = 250mm},
+    paper / b6 .meta:n = {paper-width = 125mm, paper-height = 176mm},
+
+    paper / c2 .meta:n = {paper-width = 458mm, paper-height = 648mm},
+    paper / c3 .meta:n = {paper-width = 324mm, paper-height = 458mm},
+    paper / c4 .meta:n = {paper-width = 229mm, paper-height = 324mm},
+    paper / c5 .meta:n = {paper-width = 162mm, paper-height = 229mm},
+    paper / c6 .meta:n = {paper-width = 114mm, paper-height = 162mm},
+
+    paper / din-d2 .meta:n = {paper-width = 385mm, paper-height = 545mm},
+    paper / din-d3 .meta:n = {paper-width = 172mm, paper-height = 385mm},
+    paper / din-d4 .meta:n = {paper-width = 192mm, paper-height = 272mm},
+    paper / din-d5 .meta:n = {paper-width = 136mm, paper-height = 192mm},
+    paper / din-d6 .meta:n = {paper-width = 96mm, paper-height = 136mm},
+
+    paper / jis-b2 .meta:n = {paper-width = 515mm, paper-height = 728mm},
+    paper / jis-b3 .meta:n = {paper-width = 364mm, paper-height = 515mm},
+    paper / jis-b4 .meta:n = {paper-width = 257mm, paper-height = 364mm},
+    paper / jis-b5 .meta:n = {paper-width = 182mm, paper-height = 257mm},
+    paper / jis-b6 .meta:n = {paper-width = 128mm, paper-height = 182mm},
+
+    paper / half-letter       .meta:n = {paper-width = 5.5in, paper-height = 8.5in},
+    paper / letter            .meta:n = {paper-width = 8.5in, paper-height = 11in},
+    paper / government-letter .meta:n = {paper-width = 8in, paper-height = 10.25in},
+    paper / junior-legal      .meta:n = {paper-width = 5in, paper-height = 8in},
+    paper / government-legal  .meta:n = {paper-width = 8.5in, paper-height = 13in},
+    paper / legal             .meta:n = {paper-width = 8.5in, paper-height = 14in},
+    paper / tabloid           .meta:n = {paper-width = 11in, paper-height = 17in},
+    paper / ledger            .meta:n = {paper-width = 17in, paper-height = 11in},
+    paper / broadsheet        .meta:n = {paper-width = 17in, paper-height = 22in},
+
+    paper .value_required:n = true,
+    paper .initial:n        = a4,
+
+
+    landscape .bool_gset:N       = \g__soranus_landscape_bool,
+    landscape .value_forbidden:n = true,
+    landscape .initial:n         = false,
+    landscape .default:n         = true
+  }
+
+\ProcessKeysOptions {soranus}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Initialization
+%
+
+\bool_if:nT {\g__soranus_landscape_bool}
+  {
+    \dim_set_eq:NN \l__soranus_tmpa_dim \g__soranus_paper_width_dim
+    \dim_gset_eq:NN \g__soranus_paper_width_dim \g__soranus_paper_height_dim
+    \dim_gset_eq:NN \g__soranus_paper_height_dim \l__soranus_tmpa_dim
+  }

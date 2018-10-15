@@ -1,0 +1,93 @@
+% soranus9pt++.clo
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+\ProvidesExplFile{soranus9pt++.clo}{2018/10/11}{0.1.0}{Soranus class 9pt++ size option.}
+
+\EditInstance {fontsize} {miniscule}
+  {
+    point-size          = 4.5pt,
+    baseline-separation = 5.75pt
+  }
+
+\EditInstance {fontsize} {tiny}
+  {
+    point-size          = 5.5pt,
+    baseline-separation = 7.25pt
+  }
+
+\EditInstance {fontsize} {scriptsize}
+  {
+    point-size          = 6.25pt,
+    baseline-separation = 8.0pt
+  }
+
+\EditInstance {fontsize} {footnotesize}
+  {
+    point-size          = 7.25pt,
+    baseline-separation = 9.5pt
+  }
+
+\EditInstance {fontsize} {small}
+  {
+    point-size          = 8.0pt,
+    baseline-separation = 10.5pt
+  }
+
+\EditInstance {fontsize} {normalsize}
+  {
+    point-size          = 9pt,
+    baseline-separation = 11.75pt
+  }
+
+\EditInstance {fontsize} {large}
+  {
+    point-size          = 10.75pt,
+    baseline-separation = 14.0pt
+  }
+
+\EditInstance {fontsize} {Large}
+  {
+    point-size          = 12.5pt,
+    baseline-separation = 16.25pt
+  }
+
+\EditInstance {fontsize} {LARGE}
+  {
+    point-size          = 14.5pt,
+    baseline-separation = 18.75pt
+  }
+
+\EditInstance {fontsize} {huge}
+  {
+    point-size          = 21.5pt,
+    baseline-separation = 28.0pt
+  }
+
+\EditInstance {fontsize} {Huge}
+  {
+    point-size          = 25.25pt,
+    baseline-separation = 32.75pt
+  }
+
+\EditInstance {fontsize} {HUGE}
+  {
+    point-size          = 28.75pt,
+    baseline-separation = 37.5pt
+  }
+
+\dim_gset:Nn \g__soranus_top_skip {9pt}
+\dim_gset:Nn \g__soranus_max_depth_skip {4.5pt}
