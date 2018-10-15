@@ -50,21 +50,14 @@
 
 \keys_define:nn {soranus}
   {
-    point-size .choices:nn       =
-      {
-        9pt,      10pt,      11pt,      12pt,      14pt,      16pt,      18pt,
-        9pt+,     10pt+,     11pt+,     12pt+,     14pt+,     16pt+,     18pt+,
-        9pt++,    10pt++,    11pt++,    12pt++,    14pt++,    16pt++,    18pt++,
-        9pt+++,   10pt+++,   11pt+++,   12pt+++,   14pt+++,   16pt+++,   18pt+++,
-        9pt++++,  10pt++++,  11pt++++,  12pt++++,  14pt++++,  16pt++++,  18pt++++,
-        9pt+++++, 10pt+++++, 11pt+++++, 12pt+++++, 14pt+++++, 16pt+++++, 18pt+++++
-      }
-      {
-        \input{soranus#1.clo}
-      },
-
+    point-size .dim_gset:N       = \g__soranus_point_size_dim,
     point-size .value_required:n = true,
     point-size .initial:n        = 10pt,
+
+
+    baseline-scale .fp_gset:N        = \g__soranus_baseline_scale_fp,
+    baseline-scale .value_required:n = true,
+    baseline-scale .initial:n        = 1.2,
 
 
     paper-width .dim_gset:N       = \g__soranus_paper_width_dim,
