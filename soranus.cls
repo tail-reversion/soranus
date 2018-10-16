@@ -30,8 +30,8 @@
     \endinput
   }
 
-\RequirePackage{lmodern,multicol}
 \RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
+\RequirePackage{lmodern,multicol}
 
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
   {A modern, flexible class for articles and books of all sorts.}
@@ -124,6 +124,7 @@
     landscape .default:n         = true
   }
 
+
 \ProcessKeysOptions {soranus}
 
 
@@ -135,9 +136,9 @@
 
 \bool_if:nT {\g__soranus_landscape_bool}
   {
-    \dim_set_eq:NN \l__soranus_tmpa_dim \g__soranus_paper_width_dim
+    \dim_set_eq:NN \l_soranus_tmpa_dim \g__soranus_paper_width_dim
     \dim_gset_eq:NN \g__soranus_paper_width_dim \g__soranus_paper_height_dim
-    \dim_gset_eq:NN \g__soranus_paper_height_dim \l__soranus_tmpa_dim
+    \dim_gset_eq:NN \g__soranus_paper_height_dim \l_soranus_tmpa_dim
   }
 
 % Hard code text width until pagelayout.tex is functional.

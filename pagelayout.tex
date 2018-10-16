@@ -18,6 +18,11 @@
 \ProvidesExplFile{pagelayout.tex}{2018/10/06}{0.0.0}{Page layout template system for the Soranus class.}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Variables
+%
+
 % Here, I create aliases for some TeX Primitives.
 
 \cs_new:Npn \g__soranus_paper_width_dim
@@ -49,20 +54,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Layout
+% Template
 %
-
-\bool_new:N \g__soranus_landscape_bool
-
-\dim_new:N \g__soranus_pagelayout_edge_trim_dim
-\dim_new:N \g__soranus_pagelayout_top_trim_dim
-\dim_new:N \g__soranus_pagelayout_page_width_dim
-\dim_new:N \g__soranus_pagelayout_page_height_dim
-\dim_new:N \g__soranus_pagelayout_spine_margin_dim
-\dim_new:N \g__soranus_pagelayout_top_margin_dim
-\dim_new:N \g__soranus_pagelayout_text_width_dim
-\dim_new:N \g__soranus_pagelayout_text_height_dim
-
 
 \DeclareObjectType {pagelayout} {0}
 
@@ -79,6 +72,22 @@
     text-height  : length  = 50pc
   }
 
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Implementation
+%
+
+\bool_new:N \g__soranus_landscape_bool
+
+\dim_new:N \g__soranus_pagelayout_edge_trim_dim
+\dim_new:N \g__soranus_pagelayout_top_trim_dim
+\dim_new:N \g__soranus_pagelayout_page_width_dim
+\dim_new:N \g__soranus_pagelayout_page_height_dim
+\dim_new:N \g__soranus_pagelayout_spine_margin_dim
+\dim_new:N \g__soranus_pagelayout_top_margin_dim
+\dim_new:N \g__soranus_pagelayout_text_width_dim
+\dim_new:N \g__soranus_pagelayout_text_height_dim
 
 \DeclareTemplateCode {pagelayout} {standard} {0}
   {
