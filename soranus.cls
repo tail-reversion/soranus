@@ -56,7 +56,6 @@
         \dim_gset:Nn \g__soranus_point_size_dim {#1}
         \dim_gset:Nn \g__soranus_top_skip {#1}
         \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
-        \dim_gset_eq:NN \@maxdepth \g__soranus_max_depth_skip
       },
     point-size .value_required:n = true,
     point-size .initial:n        = 10pt,
@@ -141,3 +140,7 @@
     \dim_gset_eq:NN \g__soranus_paper_width_dim \g__soranus_paper_height_dim
     \dim_gset_eq:NN \g__soranus_paper_height_dim \l__soranus_tmpa_dim
   }
+
+% Hard code text width until pagelayout.tex is functional.
+\dim_gset:Nn \g__soranus_text_width_dim {30pc}
+\dim_gset:Nn \g__soranus_text_height_dim {50pc}

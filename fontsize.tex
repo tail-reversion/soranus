@@ -18,7 +18,7 @@
 \ProvidesExplFile{fontsize.tex}{2018/10/15}{0.6.0}{Font size template system for the Soranus class.}
 
 
-% Here, I create aliases to the TeX primitives.
+% Here I create aliases for the some TeX font size primitives.
 
 \cs_new:Npn \g__soranus_top_skip
   {\tex_topskip:D}
@@ -39,14 +39,16 @@
   {\tex_belowdisplayshortskip:D}
 
 
-% Here I define global font size variables.
+% Here I define global document font size variables.
 \dim_new:N \g__soranus_point_size_dim
 \fp_new:N \g__soranus_baseline_scale_fp
 
 
-% Utilities for scaling dimensions.
+% Function for scaling dimensions to nearest nth point. (avoid icky fp roundoff)
 \cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
   {\fp_to_dim:n {round(#3 * #2 * \dim_to_fp:n {#1}) / #3}}
+
+% User commands for rounded dimension scaling.
 
 \NewDocumentCommand \ScaleToNearestPoint {m m}
   {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {1}}
@@ -64,12 +66,20 @@
   {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {10}}
 
 
-% User commands for safely accessing document point size.
+% User command for safely accessing document point size.
 \NewDocumentCommand \NormalPointSize {}
   {\dim_use:N \g__soranus_point_size_dim}
 
+% User command for safely accessing document baseline scale.
 \NewDocumentCommand \NormalBaselineScale {}
   {\fp_to_decimal:N \g__soranus_baseline_scale_fp}
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Template
+%
 
 % Here I define the template variables.
 
@@ -152,22 +162,9 @@
 %%%%%%%%%%%%%%%%%%%%
 % Instances
 %
-% These default values set the baselineskip to 1.2 times the font size,
-% rounded to the nearest quarter point. The font sizes themselves follow
-% the series of scales relative to the normal size in this table:
-%
-%   miniscule     0.5
-%   tiny          0.6
-%   scriptsize    0.7
-%   footnotesize  0.8
-%   small         0.9
-%   normalsize    1.0
-%   large         1.2
-%   Large         1.4
-%   LARGE         1.6
-%   huge          2.4
-%   Huge          2.8
-%   HUGE          3.2
+% The default values for these instances make the font size and baseline scale
+% of each font size dependent on the normal font size and baseline scale, which
+% are set with class options.
 
 \DeclareInstance {fontsize} {miniscule} {standard}
   {
@@ -263,7 +260,7 @@
 %%%%%%%%%%%%%%%%%%%%
 % Document Size Commands
 %
-% Now, a font size is changed by editing its respective instance.
+% A font size command is changed by editing its respective instance.
 
 \NewDocumentCommand \miniscule {}
   {\UseInstance {fontsize} {miniscule}}

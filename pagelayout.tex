@@ -18,7 +18,7 @@
 \ProvidesExplFile{pagelayout.tex}{2018/10/06}{0.0.0}{Page layout template system for the Soranus class.}
 
 
-% Here, I create aliases to some TeX Primitives.
+% Here, I create aliases for some TeX Primitives.
 
 \cs_new:Npn \g__soranus_paper_width_dim
   {\tex_pagewidth:D}
@@ -33,7 +33,17 @@
 \cs_new:Npn \g__soranus_top_margin_dim
   {\topmargin}
 
-%\cs_new:Npn \g__soranus_
+\cs_new:Npn \g__soranus_head_height_dim
+  {\headheight}
+
+\cs_new:Npn \g__soranus_foot_sep_dim
+  {\footskip}
+
+\cs_new:Npn \g__soranus_text_width_dim
+  {\textwidth}
+
+\cs_new:Npn \g__soranus_text_height_dim
+  {\textheight}
 
 
 
@@ -81,72 +91,11 @@
   }
   {
     \AssignTemplateKeys
-    \dim_gset_eq:NN \oddsidemargin \g__soranus_pagelayout_spine_margin_dim
-    \dim_gzero:N \headheight
-    \dim_gzero:N \headsep
-    \dim_gzero:N \footskip
-    \dim_gset_eq:NN \topmargin \g__soranus_pagelayout_top_margin_dim
-    \dim_gset_eq:NN \textwidth \g__soranus_pagelayout_text_width_dim
-    \dim_gset_eq:NN \textheight \g__soranus_pagelayout_text_height_dim
+%    \dim_gset_eq:NN \oddsidemargin \g__soranus_pagelayout_spine_margin_dim
+%    \dim_gzero:N \g__soranus_head_height_dim
+%    \dim_gzero:N \headsep
+%    \dim_gzero:N \g__soranus_head_sep_dim
+%    \dim_gset_eq:NN \g__soranus_top_margin_dim \g__soranus_pagelayout_top_margin_dim
+    \dim_gset_eq:NN \g__soranus_text_width_dim \g__soranus_pagelayout_text_width_dim
+    \dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_pagelayout_text_height_dim
   }
-
-
-
-%\keys_define:nn {soranus/layout}
-%  {
-%    % Standard page sizes.
-%    page .code:n           =
-%      {
-%        \dim_gset:Nn \g__soranus_page_width_dim {\PaperSizeWidth {#1}}
-%        \dim_gset:Nn \g__soranus_page_height_dim {\PaperSizeHeight {#1}}
-%      },
-%    page .value_required:n = true,
-%
-%    % Custom page sizes.
-%    page-size .code:n           =
-%      {
-%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
-%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {\dim_gset:Nn \g__soranus_page_width_dim {\l__soranus_tmpa_tl}}
-%        \seq_pop:NNTF \l__soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {\dim_gset:Nn \g__soranus_page_height_dim {\l__soranus_tmpa_tl}}
-%          {\dim_gset_eq:NN \g__soranus_page_height_dim \g__soranus_page_width_dim}
-%      },
-%    page-size .value_required:n = true,
-%
-%
-%    % Text block size.
-%    text .code:n           =
-%      {
-%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
-%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {\dim_gset:Nn \g__soranus_text_width_dim {\l__soranus_tmpa_tl}}
-%        \seq_pop:NNTF \l__soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {\dim_gset:Nn \g__soranus_text_height_dim {\l__soranus_tmpa_tl}}
-%          {\dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_text_width_dim}
-%      },
-%    text .value_required:n = true,
-%    text .initial:n        = {30pc, 50pc},
-%
-%
-%    % Ratio.
-%    ratio .value_required = true,
-%    ratio .initial        = 2:3,
-%    ratio .code:n         =
-%      {
-%        \seq_set_split:Nnn \l__soranus_tmpa_seq {,} {#1}
-%        \seq_pop:NNT \l__soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {
-%            \seq_set_split:Nnn \l__soranus_tmpb_seq {:} {\l__soranus_tmpa_tl}
-%            \seq_pop:NNT \l__soranus_tmb_seq \l__soranus_tmpb_tl
-%              {\int_set:Nn \l__soranus_tmpa_int {\l__soranus_tmpb_tl}}
-%            \seq_pop:NNT \l__soranus_tmb_seq \l__soranus_tmpb_tl
-%              {\int_set:Nn \l__soranus_tmpb_int {\l__soranus_tmpb_tl}}
-%            \dim_set:Nn \g__soranus_spine_margin_dim
-%              {(\l__soranus_tmpa_int * (\g__soranus_)) / 3}
-%          }
-%        \seq_pop:NNTF \l_soranus_tmpa_seq \l__soranus_tmpa_tl
-%          {\dim_gset:Nn \g__soranus_text_height_dim {\l__soranus_tmpa_tl}}
-%          {\dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_text_width_dim}
-%      }
-%  }
