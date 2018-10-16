@@ -34,7 +34,7 @@
 \RequirePackage{lmodern,multicol}
 
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
-  {A modern, flexible class for articles and books of all sorts.}
+  {A modern, flexible class for articles, reports, and books of all sorts.}
 
 
 \input{utility.tex}
