@@ -1,6 +1,6 @@
 # Contributing
 
-Thank-you for your interest in the Soranus class! You can contribute by submitting a pull request or by posting an issue. Please check the (Issues)[https://github.com/tail-reversion/soranus/issues] and (Projects)[https://github.com/tail-reversion/soranus/projects] tabs to see if a desired feature or fix is already under discussion or planned. If you have any questions, you can contact the developer (me) at kellysmith12.21@gmail.com.
+Thank-you for your interest in the Soranus class! You can contribute by submitting a pull request or by posting an issue. Please check the [Issues](https://github.com/tail-reversion/soranus/issues) and [Projects](https://github.com/tail-reversion/soranus/projects) tabs to see if a desired feature or fix is already under discussion or planned. If you have any questions, you can contact the developer (me) at kellysmith12.21@gmail.com.
 
 ## Style Guide
 
