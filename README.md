@@ -8,10 +8,10 @@ Named after [the Roman](https://en.wikipedia.org/wiki/Quintus_Valerius_Soranus "
 
 The files listed in order of dependency are:
 
-- bootstrap.tex
-- fontsize.tex
-- pagelayout.tex
-- soranus.cls
+- [utility.tex]
+- [fontsize.tex]
+- [pagelayout.tex]
+- [soranus.cls]
 
 
 ## Contributing
