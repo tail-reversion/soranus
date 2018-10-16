@@ -20,7 +20,7 @@
 \@ifpackagelater{expl3}{2018/02/21}
   {}
   {%
-    \PackageError{soranus}{Support package l3kernel too old}
+    \ClassError{soranus}{Support package l3kernel too old}
       {%
         Please install an up to date version of l3kernel\MessageBreak
         using your TeX package manager or from CTAN.\MessageBreak
@@ -33,10 +33,11 @@
 \RequirePackage{lmodern,multicol}
 \RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
 
-\ProvidesExplClass{soranus}{2018/10/06}{0.0.0}{A modern, flexible class.}
+\ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
+  {A modern, flexible class for articles and books of all sorts.}
 
 
-\input{bootstrap.tex}
+\input{utility.tex}
 \input{fontsize.tex}
 \input{pagelayout.tex}
 
@@ -46,8 +47,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Class Options And Core Layout
 %
-
-\bool_new:N \g__soranus_landscape_bool
 
 \keys_define:nn {soranus}
   {
