@@ -1,17 +1,22 @@
 # The Soranus Class
 
-This is an experimental class that is _somewhat_ functional but _not_ production ready. It is intended for general use, _i.e._ technical reports, journal articles, books of all kinds, _&c._ My hope is that even people outside the natural sciences and mathematics will find this class valuable and pleasant to use.
+This is an experimental class that is _somewhat_ functional but _not_ production-ready. It is intended for general use, _i.e._ technical reports, journal articles, books of all kinds, _&c._ My hope is that even people outside the natural sciences and mathematics will find this class valuable and pleasant to use.
 
 Named after [the Roman](https://en.wikipedia.org/wiki/Quintus_Valerius_Soranus "Quintus Valerius Soranus") who is credited with inventing the table of contents.
+
+## Documentation
+
+LaTeXed documentation will be produced when the class is ready to publish to CTAN. However, online documentation can be found at [the Wiki](https://github.com/tail-reversion/soranus/wiki).
+
 
 ## File Manifest
 
 The files listed in order of dependency are:
 
-- utility.tex
-- fontsize.tex
-- pagelayout.tex
-- soranus.cls
+- [utility.tex](utility.tex)
+- [fontsize.tex](fontsize.tex)
+- [pagelayout.tex](pagelayout.tex)
+- [soranus.cls](soranus.cls)
 
 
 ## Contributing
