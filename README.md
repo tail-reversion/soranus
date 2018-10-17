@@ -9,16 +9,6 @@ Named after [the Roman](https://en.wikipedia.org/wiki/Quintus_Valerius_Soranus "
 LaTeXed documentation will be produced when the class is ready to publish to CTAN. However, online documentation can be found at [the Wiki](https://github.com/tail-reversion/soranus/wiki).
 
 
-## File Manifest
-
-The files listed in order of dependency are:
-
-- [utility.tex](utility.tex)
-- [fontsize.tex](fontsize.tex)
-- [pagelayout.tex](pagelayout.tex)
-- [soranus.cls](soranus.cls)
-
-
 ## Contributing
 
 Contributions and feedback are [always welcome](CONTRIBUTING.md).
@@ -27,3 +17,9 @@ Contributions and feedback are [always welcome](CONTRIBUTING.md).
 ## License
 
 This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
+
+**File Manifest**
+- utility.tex
+- fontsize.tex
+- pagelayout.tex
+- soranus.cls
