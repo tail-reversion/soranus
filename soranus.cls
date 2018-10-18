@@ -50,12 +50,7 @@
 
 \keys_define:nn {soranus}
   {
-    point-size .code:n           =
-      {
-        \dim_gset:Nn \g__soranus_point_size_dim {#1}
-        \dim_gset:Nn \g__soranus_top_skip {#1}
-        \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
-      },
+    point-size .code:n           = {\__soranus_set_document_point_size:n {#1}},
     point-size .value_required:n = true,
     point-size .initial:n        = 10pt,
 

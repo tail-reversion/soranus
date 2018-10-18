@@ -15,7 +15,7 @@
 %
 % This work consists of the files listed in the README.
 
-\ProvidesExplFile{fontsize.tex}{2018/10/15}{0.6.0}{Font size template system for the Soranus class.}
+\ProvidesExplFile{fontsize.tex}{2018/10/18}{0.7.0}{Font size template system for the Soranus class.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,15 +26,15 @@
 % Here I create aliases for the some TeX font size primitives.
 
 \cs_new_eq:NN \g__soranus_top_skip \tex_topskip:D
-
 \cs_new_eq:NN \g__soranus_max_depth_skip \tex_maxdepth:D
 
+\cs_new_eq:NN \g__soranus_small_amount_skip \smallskipamount
+\cs_new_eq:NN \g__soranus_med_amount_skip \medskipamount
+\cs_new_eq:NN \g__soranus_big_amount_skip \bigskipamount
+
 \cs_new_eq:NN \l__soranus_above_display_skip \tex_abovedisplayskip:D
-
 \cs_new_eq:NN \l__soranus_above_display_short_skip \tex_abovedisplayshortskip:D
-
 \cs_new_eq:NN \l__soranus_below_display_skip \tex_belowdisplayskip:D
-
 \cs_new_eq:NN \l__soranus_below_display_short_skip \tex_belowdisplayshortskip:D
 
 
@@ -81,6 +81,39 @@
 % User command for safely accessing document baseline scale.
 \NewDocumentCommand \NormalBaselineScale {}
   {\fp_to_decimal:N \g__soranus_baseline_scale_fp}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Command to Set Document Point Size
+%
+
+\cs_new:Nn \__soranus_set_document_point_size:n
+  {
+    \dim_gset:Nn \g__soranus_point_size_dim {#1}
+    \dim_gset:Nn \g__soranus_top_skip {#1}
+    \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
+    \skip_gset:Nn \g__soranus_small_amount_skip
+      {
+        \ScaleToNearestPoint {#1} {0.3}
+        plus \ScaleToNearestPoint {#1} {0.1}
+        minus \ScaleToNearestPoint {#1} {0.1}
+      }
+    \skip_gset:Nn \g__soranus_med_amount_skip
+      {
+        \ScaleToNearestPoint {#1} {0.6}
+        plus \ScaleToNearestPoint {#1} {0.2}
+        minus \ScaleToNearestPoint {#1} {0.2}
+      }
+    \skip_gset:Nn \g__soranus_big_amount_skip
+      {
+        \ScaleToNearestPoint {#1} {1.2}
+        plus \ScaleToNearestPoint {#1} {0.4}
+        minus \ScaleToNearestPoint {#1} {0.4}
+      }
+  }
 
 
 
