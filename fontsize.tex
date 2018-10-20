@@ -49,31 +49,6 @@
 % Designer Utility Commands
 %
 
-% Function for scaling dimensions to nearest nth point. (avoid icky fp roundoff)
-\cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
-  {\fp_to_dim:n {round(#3 * #2 * \dim_to_fp:n {#1}) / #3}}
-
-% User commands for rounded dimension scaling.
-
-\NewDocumentCommand \ScaleToNearestPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {1}}
-
-\NewDocumentCommand \ScaleToNearestHalfPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {2}}
-
-\NewDocumentCommand \ScaleToNearestQuarterPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {4}}
-
-\NewDocumentCommand \ScaleToNearestEighthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {8}}
-
-\NewDocumentCommand \ScaleToNearestTenthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {10}}
-
-\NewDocumentCommand \ScaleToNearestHundredthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {100}}
-
-
 % User command for safely accessing document point size.
 \NewDocumentCommand \NormalPointSize {}
   {\dim_use:N \g__soranus_point_size_dim}
