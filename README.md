@@ -6,7 +6,7 @@ Named after [the Roman](https://en.wikipedia.org/wiki/Quintus_Valerius_Soranus "
 
 ## Documentation
 
-LaTeXed documentation will be produced when the class is ready to publish to [CTAN](ctan.org). However, online documentation can be found at [the Wiki](https://github.com/tail-reversion/soranus/wiki).
+LaTeXed documentation will be produced when the class is ready to publish to [CTAN](https://ctan.org). However, online documentation can be found at [the Wiki](https://github.com/tail-reversion/soranus/wiki).
 
 
 ## Contributing
