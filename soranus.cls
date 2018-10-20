@@ -249,8 +249,6 @@
     \bool_if:NTF {\g__soranus_twoside_bool}
       {\@twosidetrue}
       {\@twosidefalse}
-
-    \UseInstance {pagelayout} {thepagelayout}
   }
 
 
@@ -265,3 +263,4 @@
 
 % Initialize the document.
 \__soranus_init:
+\AtBeginDocument {\UseInstance {pagelayout} {thepagelayout}}

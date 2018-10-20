@@ -62,14 +62,19 @@
 
 \cs_new:Nn \__soranus_set_spine_margin:nn
   {
-    \dim_gset:Nn \oddsidemargin {#1 + #2}
+    \dim_gset:Nn \oddsidemargin
+      {
+        (\g__soranus_paper_width_dim - \g__soranus_page_width_dim)
+        + (#1 + #2)
+        - \g__soranus_edge_trim_dim
+      }
     %\dim_gset_eq:NN \evensidemargin \oddsidemargin
   }
 
 
 \cs_new:Nn \__soranus_set_top_margin_and_header:nnn
   {
-    \dim_gset:Nn \topmargin {#1 - (#2 + #3)}
+    \dim_gset:Nn \topmargin {\g__soranus_top_trim_dim + #1 - (#2 + #3)}
     \dim_gset:Nn \headheight {#2}
     \dim_gset:Nn \headsep {#3}
   }
