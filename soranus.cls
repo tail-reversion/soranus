@@ -89,6 +89,12 @@
 % Class Options And Core Layout
 %
 
+\msg_new:nnnn {soranus} {unknown-choice}
+  {Key~`#1'~given~unknown~value~#2.}
+  {You~gave~the~key~`#1'~the~unknown~value~#2.~Accepted~values~are:~#3.}
+
+
+
 \keys_define:nn {soranus/advanced}
   {
     paper-size .code:n           =
@@ -137,6 +143,23 @@
     paper / tabloid           .meta:n = {paper-size = {11in, 17in}},
     paper / ledger            .meta:n = {paper-size = {17in, 11in}},
     paper / broadsheet        .meta:n = {paper-size = {17in, 22in}},
+
+    paper / unknown .code:n =
+      {
+        \msg_error:nnnnn {soranus} {unknown-choice}
+          {paper}
+          {#1}
+          {
+            a2,~a3,~a4,~a5,~a6,~
+            b2,~b3,~b4,~b5,~b6,~
+            c2,~c3,~c4,~c5,~c6,~
+            din-d2,~din-d3,~din-d4,~din-d5,~din-d6,~
+            jis-b2,~jis-b3,~jis-b4,~jis-b5,~jis-b6,~
+            half-letter,~letter,~government-letter,~
+            junior-legal,~government-legal,~legal,~
+            tabloid,~ledger,~broadsheet
+          }
+      },
 
     paper .value_required:n = true,
 
