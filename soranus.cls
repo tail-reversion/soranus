@@ -17,24 +17,46 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3}[2018/02/21]
-\@ifpackagelater{expl3}{2018/02/21}
-  {}
-  {%
-    \ClassError{soranus}{Support package l3kernel too old}
-      {%
-        Please install an up to date version of l3kernel\MessageBreak
-        using your TeX package manager or from CTAN.\MessageBreak
-        \MessageBreak
-        Loading class soranus will abort!%
-      }%
-    \endinput
-  }
-
-\RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
-\RequirePackage{lmodern,multicol}
 
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
   {A modern, flexible class for articles, reports, and books of all sorts.}
+
+\@ifpackagelater {expl3} {2018/02/21}
+  {}
+  {
+    \ClassError {soranus} {Support~package~expl3~too~old}
+      {
+        You~need~to~update~your~installation~of~the~bundles~`l3kernel'~and~
+        `l3packages'.\MessageBreak
+        Loading~class~siunitx~will~abort!
+      }
+    \tex_endinput:D
+  }
+
+
+\msg_new:nnnn {soranus} {incompatible-package}
+  {Package~`#1'~incompatible.}
+  {The~#1~package~and~the~soranus~class~are~incompatible.}
+
+\cs_new_protected:Nn \__soranus_load_check:n
+  {
+    \group_begin:
+      \@ifpackageloaded {#1}
+        {\msg_error:nnx {soranus} {incompatible-package} {#1}}
+        {}
+    \group_end:
+  }
+
+\clist_const:Nn \c__soranus_incompatible_packages_clist
+  {changepage, enumitem, fancyhdr, geometry}
+
+\AtBeginDocument
+  {\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n}
+
+
+
+\RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
+\RequirePackage{lmodern}
 
 
 \input{utility.tex}
