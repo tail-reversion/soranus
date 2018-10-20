@@ -15,8 +15,6 @@
 %
 % This work consists of the files listed in the README.
 
-\ProvidesExplFile{utility.tex}{2018/10/16}{0.1.0}{Utility code for the Soranus class.}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,6 +54,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % General Utility Functions
 %
+
+% Function for applying a function to a comma pair.
+\cs_new:Nn \soranus_apply_comma_pair:Nn
+  {\__soranus_apply_comma_pair_aux:Nn #1 {#2}}
+
+\cs_new:Nn \__soranus_apply_comma_pair_aux:Nn
+  {
+    \seq_set_from_clist:Nn \l_soranus_tmpa_seq {#2}
+    \seq_pop:NN \l_soranus_tmpa_seq \l_soranus_tmpa_tl
+    \seq_pop:NNTF \l_soranus_tmpa_seq \l_soranus_tmpb_tl
+      {\exp_args:NVV #1 \l_soranus_tmpa_tl \l_soranus_tmpb_tl}
+      {\exp_args:NVV #1 \l_soranus_tmpa_tl \l_soranus_tmpa_tl}
+  }
+
 
 % Function for scaling dimensions to nearest nth point. (avoid icky fp roundoff)
 \cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
