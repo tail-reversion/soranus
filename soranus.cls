@@ -164,7 +164,7 @@
     paper .value_required:n = true,
 
 
-    point-size .code:n           = {\__soranus_set_document_point_size:n {#1}},
+    point-size .dim_gset:N       = \g__soranus_point_size_dim,
     point-size .value_required:n = true,
 
 
@@ -217,6 +217,8 @@
 
 \cs_new:Nn \__soranus_init:
   {
+    \__soranus_init_document_point_size:
+
     \bool_if:nT {\g__soranus_landscape_bool}
       {
         \dim_set_eq:NN \l_soranus_tmpa_dim \g__soranus_paper_width_dim

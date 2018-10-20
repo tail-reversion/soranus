@@ -62,31 +62,31 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Command to Set Document Point Size
+% Command to Initialize Document Point Size
 %
 
-\cs_new:Nn \__soranus_set_document_point_size:n
+\cs_new:Nn \__soranus_init_document_point_size:
   {
-    \dim_gset:Nn \g__soranus_point_size_dim {#1}
-    \dim_gset:Nn \g__soranus_top_skip {#1}
+    \dim_gset_eq:NN \g__soranus_point_size_dim \g__soranus_point_size_dim
+    \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_point_size_dim
     \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
     \skip_gset:Nn \g__soranus_small_amount_skip
       {
-        \ScaleToNearestPoint {#1} {0.3}
-        plus \ScaleToNearestPoint {#1} {0.1}
-        minus \ScaleToNearestPoint {#1} {0.1}
+        \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.3}
+        plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
+        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
       }
     \skip_gset:Nn \g__soranus_med_amount_skip
       {
-        \ScaleToNearestPoint {#1} {0.6}
-        plus \ScaleToNearestPoint {#1} {0.2}
-        minus \ScaleToNearestPoint {#1} {0.2}
+        \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.6}
+        plus \ScaleToNearestPoint {\g__soranus_point_size_dim1} {0.2}
+        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.2}
       }
     \skip_gset:Nn \g__soranus_big_amount_skip
       {
-        \ScaleToNearestPoint {#1} {1.2}
-        plus \ScaleToNearestPoint {#1} {0.4}
-        minus \ScaleToNearestPoint {#1} {0.4}
+        \ScaleToNearestPoint {\g__soranus_point_size_dim} {1.2}
+        plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.4}
+        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.4}
       }
   }
 
