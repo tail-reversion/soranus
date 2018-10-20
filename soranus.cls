@@ -21,6 +21,17 @@
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
   {A modern, flexible class for articles, reports, and books of all sorts.}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package-Related Business
+%
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Outdated l3kernel and l3packages
+%
+
 \@ifpackagelater {expl3} {2018/02/21}
   {}
   {
@@ -33,6 +44,12 @@
     \tex_endinput:D
   }
 
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Incompatible Packages
+%
+% This list is nonexhaustive but covers the essentials.
 
 \msg_new:nnnn {soranus} {incompatible-package}
   {Package~`#1'~incompatible.}
@@ -48,18 +65,18 @@
   }
 
 \clist_const:Nn \c__soranus_incompatible_packages_clist
-  {
-    changepage, crop, enumitem, fancyhdr, geometry, sidecap, titlesec, titletoc
-  }
+  {changepage, crop, enumitem, fancyhdr, geometry, sidecap, titleps, titlesec, titletoc}
 
 \AtBeginDocument
   {\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n}
 
 
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Load Packages and Modules
 
 \RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
 \RequirePackage{lmodern}
-
 
 \input{utility.tex}
 \input{fontsize.tex}
