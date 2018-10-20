@@ -48,7 +48,9 @@
   }
 
 \clist_const:Nn \c__soranus_incompatible_packages_clist
-  {changepage, enumitem, fancyhdr, geometry}
+  {
+    changepage, crop, enumitem, fancyhdr, geometry, sidecap, titlesec, titletoc
+  }
 
 \AtBeginDocument
   {\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n}
