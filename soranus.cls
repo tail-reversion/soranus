@@ -39,7 +39,7 @@
       {
         You~need~to~update~your~installation~of~the~bundles~`l3kernel'~and~
         `l3packages'.\MessageBreak
-        Loading~class~siunitx~will~abort!
+        Loading~class~soranus~will~abort!
       }
     \tex_endinput:D
   }
@@ -164,6 +164,18 @@
     paper .value_required:n = true,
 
 
+    trim .code:n           =
+      {\soranus_apply_comma_pair:Nn \__soranus_set_page_trim:nn {#1}},
+    trim .value_required:n = true,
+    trim .initial:n        = 0pt,
+
+
+    page-size .code:n           =
+      {\soranus_apply_comma_pair:Nn \__soranus_set_page_size:nn {#1}},
+    page-size .value_required:n = true,
+    page-size .initial:n        = {297mm, 420mm},
+
+
     point-size .dim_gset:N       = \g__soranus_point_size_dim,
     point-size .value_required:n = true,
 
@@ -171,6 +183,14 @@
     baseline-scale .fp_gset:N        = \g__soranus_baseline_scale_fp,
     baseline-scale .value_required:n = true,
     baseline-scale .initial:n        = 1.2,
+
+
+    notrim .meta:n            =
+      {
+        page-size = {\g__soranus_paper_width_dim, \g__soranus_paper_height_dim},
+        trim = 0pt
+      },
+    notrim .value_forbidden:n = true,
 
 
     landscape .bool_gset:N = \g__soranus_landscape_bool,
@@ -188,7 +208,7 @@
     point-size .initial:n        = 10pt,
 
 
-    paper .meta:nn          = {soranus/advanced} {paper = #1},
+    paper .meta:nn          = {soranus/advanced} {paper = #1, notrim},
     paper .value_required:n = true,
     paper .initial:n        = a4,
 
@@ -230,9 +250,7 @@
       {\@twosidetrue}
       {\@twosidefalse}
 
-    % Hard code text width until pagelayout.tex is functional.
-    \dim_gset:Nn \textwidth {30pc}
-    \dim_gset:Nn \textheight {50pc}
+    \UseInstance {pagelayout} {thepagelayout}
   }
 
 

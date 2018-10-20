@@ -15,33 +15,74 @@
 %
 % This work consists of the files listed in the README.
 
-\ProvidesExplFile{pagelayout.tex}{2018/10/06}{0.0.0}{Page layout template system for the Soranus class.}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Variables
 %
 
-% Here, I create aliases for some TeX Primitives.
+% Here, I define unchanging layout parameters.
 
 \cs_new_eq:NN \g__soranus_paper_width_dim \tex_pagewidth:D
-
 \cs_new_eq:NN \g__soranus_paper_height_dim \tex_pageheight:D
 
+\cs_new:Nn \__soranus_set_paper_size:nn
+  {
+    \dim_gset:Nn \g__soranus_paper_width_dim {#1}
+    \dim_gset:Nn \g__soranus_paper_height_dim {#2}
+  }
+
+\dim_new:N \g__soranus_edge_trim_dim
+\dim_new:N \g__soranus_top_trim_dim
+
+\cs_new:Nn \__soranus_set_page_trim:nn
+  {
+    \dim_gset:Nn \g__soranus_edge_trim_dim {#1}
+    \dim_gset:Nn \g__soranus_top_trim_dim {#2}
+  }
+
+\dim_new:N \g__soranus_page_width_dim
+\dim_new:N \g__soranus_page_height_dim
+
+\cs_new:Nn \__soranus_set_page_size:nn
+  {
+    \dim_gset:Nn \g__soranus_page_width_dim {#1}
+    \dim_gset:Nn \g__soranus_page_height_dim {#2}
+  }
 
 
-% Here, I create aliases to the 2e layout parameters.
 
-\cs_new_eq:NN \g__soranus_top_margin_dim \topmargin
+% Here, I define changeable layout parameters and commands.
 
-\cs_new_eq:NN \g__soranus_head_height_dim \headheight
+\bool_new:N \g__soranus_landscape_bool
 
-\cs_new_eq:NN \g__soranus_foot_sep_dim \footskip
 
-\cs_new_eq:NN \g__soranus_text_width_dim \textwidth
+\bool_new:N \g__soranus_twoside_bool
 
-\cs_new_eq:NN \g__soranus_text_height_dim \textheight
+
+\cs_new:Nn \__soranus_set_spine_margin:nn
+  {
+    \dim_gset:Nn \oddsidemargin {#1 + #2}
+    %\dim_gset_eq:NN \evensidemargin \oddsidemargin
+  }
+
+
+\cs_new:Nn \__soranus_set_top_margin_and_header:nnn
+  {
+    \dim_gset:Nn \topmargin {#1 - (#2 + #3)}
+    \dim_gset:Nn \headheight {#2}
+    \dim_gset:Nn \headsep {#3}
+  }
+
+
+\cs_new:Nn \__soranus_set_footer:nn
+  {\dim_gset:Nn \footskip {#1 + #2}}
+
+\cs_new:Nn \__soranus_set_text_area:nn
+  {
+    \dim_gset:Nn \textwidth {#1}
+    \dim_gset:Nn \textheight {#2}
+  }
 
 
 
@@ -55,14 +96,15 @@
 
 \DeclareTemplateInterface {pagelayout} {standard} {0}
   {
-    edge-trim    : length  = 0pt,
-    top-trim     : length  = 0pt,
-    page-width   : length  = 210mm,
-    page-height  : length  = 297mm,
-    spine-margin : length  = 10mm,
-    top-margin   : length  = 20mm,
-    text-width   : length  = 30pc,
-    text-height  : length  = 50pc
+    spine-margin   : length = 10mm,
+    binding-offset : length = 0pt,
+    top-margin     : length = 20mm,
+    text-width     : length = 30pc,
+    text-height    : length = 50pc,
+    header-sep     : length = 1pc,
+    header-height  : length = 1pc,
+    footer-sep     : length = 1pc,
+    footer-height  : length = 1pc
   }
 
 
@@ -71,35 +113,57 @@
 % Implementation
 %
 
-\bool_new:N \g__soranus_landscape_bool
-
-\dim_new:N \g__soranus_pagelayout_edge_trim_dim
-\dim_new:N \g__soranus_pagelayout_top_trim_dim
-\dim_new:N \g__soranus_pagelayout_page_width_dim
-\dim_new:N \g__soranus_pagelayout_page_height_dim
 \dim_new:N \g__soranus_pagelayout_spine_margin_dim
+\dim_new:N \g__soranus_pagelayout_binding_offset_dim
 \dim_new:N \g__soranus_pagelayout_top_margin_dim
 \dim_new:N \g__soranus_pagelayout_text_width_dim
 \dim_new:N \g__soranus_pagelayout_text_height_dim
+\dim_new:N \g__soranus_pagelayout_header_sep_dim
+\dim_new:N \g__soranus_pagelayout_header_height_dim
+\dim_new:N \g__soranus_pagelayout_footer_sep_dim
+\dim_new:N \g__soranus_pagelayout_footer_height_dim
 
 \DeclareTemplateCode {pagelayout} {standard} {0}
   {
-    edge-trim    = global \g__soranus_pagelayout_edge_trim_dim,
-    top-trim     = global \g__soranus_pagelayout_top_trim_dim,
-    page-width   = global \g__soranus_pagelayout_page_width_dim,
-    page-height  = global \g__soranus_pagelayout_page_height_dim,
-    spine-margin = global \g__soranus_pagelayout_spine_margin_dim,
-    top-margin   = global \g__soranus_pagelayout_top_margin_dim,
-    text-width   = global \g__soranus_pagelayout_text_width_dim,
-    text-height  = global \g__soranus_pagelayout_text_height_dim
+    spine-margin   = global \g__soranus_pagelayout_spine_margin_dim,
+    binding-offset = global \g__soranus_pagelayout_binding_offset_dim,
+    top-margin     = global \g__soranus_pagelayout_top_margin_dim,
+    text-width     = global \g__soranus_pagelayout_text_width_dim,
+    text-height    = global \g__soranus_pagelayout_text_height_dim,
+    header-sep     = global \g__soranus_pagelayout_header_sep_dim,
+    header-height  = global \g__soranus_pagelayout_header_height_dim,
+    footer-sep     = global \g__soranus_pagelayout_footer_sep_dim,
+    footer-height  = global \g__soranus_pagelayout_footer_height_dim
   }
   {
     \AssignTemplateKeys
-%    \dim_gset_eq:NN \oddsidemargin \g__soranus_pagelayout_spine_margin_dim
-%    \dim_gzero:N \g__soranus_head_height_dim
-%    \dim_gzero:N \headsep
-%    \dim_gzero:N \g__soranus_head_sep_dim
-%    \dim_gset_eq:NN \g__soranus_top_margin_dim \g__soranus_pagelayout_top_margin_dim
-    \dim_gset_eq:NN \g__soranus_text_width_dim \g__soranus_pagelayout_text_width_dim
-    \dim_gset_eq:NN \g__soranus_text_height_dim \g__soranus_pagelayout_text_height_dim
+    \__soranus_set_spine_margin:nn
+      {\g__soranus_pagelayout_spine_margin_dim}
+      {\g__soranus_pagelayout_binding_offset_dim}
+    \__soranus_set_top_margin_and_header:nnn
+      {\g__soranus_pagelayout_top_margin_dim}
+      {\g__soranus_pagelayout_header_height_dim}
+      {\g__soranus_pagelayout_header_sep_dim}
+    \__soranus_set_text_area:nn
+      {\g__soranus_pagelayout_text_width_dim}
+      {\g__soranus_pagelayout_text_height_dim}
+    \__soranus_set_footer:nn
+      {\g__soranus_pagelayout_footer_height_dim}
+      {\g__soranus_pagelayout_footer_sep_dim}
   }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Instance
+%
+
+\DeclareInstance {pagelayout} {thepagelayout} {standard} {}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Designer Utilities
+%
+

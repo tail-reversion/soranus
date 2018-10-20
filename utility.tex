@@ -56,6 +56,8 @@
 %
 
 % Function for applying a function to a comma pair.
+% In the case that there is only one element, then it is repeated as the
+% second argument of the function.
 \cs_new:Nn \soranus_apply_comma_pair:Nn
   {\__soranus_apply_comma_pair_aux:Nn #1 {#2}}
 
