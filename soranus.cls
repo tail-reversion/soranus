@@ -78,9 +78,9 @@
 \RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
 \RequirePackage{lmodern}
 
-\input{utility.tex}
-\input{fontsize.tex}
-\input{pagelayout.tex}
+\file_input:n {utility.tex}
+\file_input:n {fontsize.tex}
+\file_input:n {pagelayout.tex}
 
 
 
