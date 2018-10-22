@@ -26,10 +26,6 @@
 \cs_new_eq:NN \g__soranus_top_skip \tex_topskip:D
 \cs_new_eq:NN \g__soranus_max_depth_skip \tex_maxdepth:D
 
-\cs_new_eq:NN \g__soranus_small_amount_skip \smallskipamount
-\cs_new_eq:NN \g__soranus_med_amount_skip \medskipamount
-\cs_new_eq:NN \g__soranus_big_amount_skip \bigskipamount
-
 \cs_new_eq:NN \l__soranus_above_display_skip \tex_abovedisplayskip:D
 \cs_new_eq:NN \l__soranus_above_display_short_skip \tex_abovedisplayshortskip:D
 \cs_new_eq:NN \l__soranus_below_display_skip \tex_belowdisplayskip:D
@@ -68,19 +64,19 @@
     \dim_gset_eq:NN \g__soranus_point_size_dim \g__soranus_point_size_dim
     \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_point_size_dim
     \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
-    \skip_gset:Nn \g__soranus_small_amount_skip
+    \skip_gset:Nn \smallskipamount
       {
         \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.3}
         plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
         minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
       }
-    \skip_gset:Nn \g__soranus_med_amount_skip
+    \skip_gset:Nn \medskipamount
       {
         \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.6}
         plus \ScaleToNearestPoint {\g__soranus_point_size_dim1} {0.2}
         minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.2}
       }
-    \skip_gset:Nn \g__soranus_big_amount_skip
+    \skip_gset:Nn \bigskipamount
       {
         \ScaleToNearestPoint {\g__soranus_point_size_dim} {1.2}
         plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.4}
@@ -185,25 +181,32 @@
 % of each font size dependent on the normal font size and baseline scale, which
 % are set with class options.
 
-\DeclareInstance {fontsize} {miniscule} {standard}
+\NewDocumentCommand \DeclareFontSize {m m}
+  {\DeclareInstance {fontsize} {#1} {standard} {#2}}
+
+\NewDocumentCommand \EditFontSize {m m}
+  {\EditInstance {fontsize} {#1} {#2}}
+
+
+\DeclareFontSize {miniscule}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.5},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {tiny} {standard}
+\DeclareFontSize {tiny}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.6},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {scriptsize} {standard}
+\DeclareFontSize {scriptsize}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.7},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {footnotesize} {standard}
+\DeclareFontSize {footnotesize}
   {
     point-size               = \ScaleToNearestTenthPoint {\NormalPointSize} {0.8},
     baseline-scale           = \NormalBaselineScale,
@@ -214,7 +217,7 @@
     below-display-short-skip = 3pt plus 1pt minus 2pt
   }
 
-\DeclareInstance {fontsize} {small} {standard}
+\DeclareFontSize {small}
   {
     point-size               = \ScaleToNearestTenthPoint {\NormalPointSize} {0.9},
     baseline-scale           = \NormalBaselineScale,
@@ -225,7 +228,7 @@
     below-display-short-skip = 4pt plus 2pt minus 2pt
   }
 
-\DeclareInstance {fontsize} {normalsize} {standard}
+\DeclareFontSize {normalsize}
   {
     point-size               = \NormalPointSize,
     baseline-scale           = \NormalBaselineScale,
@@ -236,37 +239,37 @@
     below-display-short-skip = 6pt plus 3pt minus 3pt
   }
 
-\DeclareInstance {fontsize} {large} {standard}
+\DeclareFontSize {large}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.2},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {Large} {standard}
+\DeclareFontSize {Large}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.4},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {LARGE} {standard}
+\DeclareFontSize {LARGE}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.6},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {huge} {standard}
+\DeclareFontSize {huge}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {2.4},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {Huge} {standard}
+\DeclareFontSize {Huge}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {2.8},
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareInstance {fontsize} {HUGE} {standard}
+\DeclareFontSize {HUGE}
   {
     point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {3.2},
     baseline-scale = \NormalBaselineScale
@@ -281,38 +284,42 @@
 %
 % A font size command is changed by editing its respective instance.
 
+\NewDocumentCommand \UseFontSize {m}
+  {\UseInstance {fontsize} {#1}}
+
+
 \NewDocumentCommand \miniscule {}
-  {\UseInstance {fontsize} {miniscule}}
+  {\UseFontSize {miniscule}}
 
 \NewDocumentCommand \tiny {}
-  {\UseInstance {fontsize} {tiny}}
+  {\UseFontSize {tiny}}
 
 \NewDocumentCommand \scriptsize {}
-  {\UseInstance {fontsize} {scriptsize}}
+  {\UseFontSize {scriptsize}}
 
 \NewDocumentCommand \footnotesize {}
-  {\UseInstance {fontsize} {footnotesize}}
+  {\UseFontSize {footnotesize}}
 
 \NewDocumentCommand \small {}
-  {\UseInstance {fontsize} {small}}
+  {\UseFontSize {small}}
 
 \RenewDocumentCommand \normalsize {}
-  {\UseInstance {fontsize} {normalsize}}
+  {\UseFontSize {normalsize}}
 
 \NewDocumentCommand \large {}
-  {\UseInstance {fontsize} {large}}
+  {\UseFontSize {large}}
 
 \NewDocumentCommand \Large {}
-  {\UseInstance {fontsize} {Large}}
+  {\UseFontSize {Large}}
 
 \NewDocumentCommand \LARGE {}
-  {\UseInstance {fontsize} {LARGE}}
+  {\UseFontSize {LARGE}}
 
 \NewDocumentCommand \huge {}
-  {\UseInstance {fontsize} {huge}}
+  {\UseFontSize {huge}}
 
 \NewDocumentCommand \Huge {}
-  {\UseInstance {fontsize} {Huge}}
+  {\UseFontSize {Huge}}
 
 \NewDocumentCommand \HUGE {}
-  {\UseInstance {fontsize} {HUGE}}
+  {\UseFontSize {HUGE}}

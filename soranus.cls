@@ -258,6 +258,7 @@
     \__soranus_init:
   }
 
+\@onlypreamble {\SetClassOptions}
 
 
 
