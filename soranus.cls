@@ -270,4 +270,4 @@
 
 % Initialize the document.
 \__soranus_init:
-\AtBeginDocument {\UseInstance {pagelayout} {thepagelayout}}
+\UsePageLayout {thepagelayout}

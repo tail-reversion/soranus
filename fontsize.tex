@@ -31,6 +31,14 @@
 \cs_new_eq:NN \l__soranus_below_display_skip \tex_belowdisplayskip:D
 \cs_new_eq:NN \l__soranus_below_display_short_skip \tex_belowdisplayshortskip:D
 
+\cs_new:Nn \__soranus_set_display_skips:nnnn
+  {
+    \skip_set:Nn \l__soranus_above_display_skip {#1}
+    \skip_set:Nn \l__soranus_above_display_short_skip {#1}
+    \skip_set:Nn \l__soranus_below_display_skip {#1}
+    \skip_set:Nn \l__soranus_below_display_short_skip {#1}
+  }
+
 
 % Here I define global document font size variables.
 \dim_new:N \g__soranus_point_size_dim
@@ -148,7 +156,7 @@
       {
         \AssignTemplateKeys
         % I do not use \@setfontsize since I handle math mode in my own way
-        % and because \@currsize is of no use in this class.
+        % and because \@currsize is not used in this class.
         \fontsize
           \l__soranus_fontsize_point_size_dim
           {
@@ -159,14 +167,11 @@
         \selectfont
         \bool_if:nT {\l__soranus_fontsize_change_display_bool}
           {
-            \skip_set_eq:NN \l__soranus_above_display_skip
-              \l__soranus_fontsize_above_display_skip
-            \skip_set_eq:NN \l__soranus_above_display_short_skip
-              \l__soranus_fontsize_above_display_short_skip
-            \skip_set_eq:NN \l__soranus_below_display_skip
-              \l__soranus_fontsize_below_display_skip
-            \skip_set_eq:NN \l__soranus_below_display_short_skip
-              \l__soranus_fontsize_below_display_short_skip
+            \__soranus_set_display_skips:nnnn
+              {\l__soranus_fontsize_above_display_skip}
+              {\l__soranus_fontsize_above_display_short_skip}
+              {\l__soranus_fontsize_below_display_skip}
+              {\l__soranus_fontsize_below_display_short_skip}
           }
       }
   }
