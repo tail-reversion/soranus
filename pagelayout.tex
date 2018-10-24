@@ -31,28 +31,37 @@
 \cs_new_eq:NN \g__soranus_paper_width_dim \tex_pagewidth:D
 \cs_new_eq:NN \g__soranus_paper_height_dim \tex_pageheight:D
 
-\cs_new:Nn \__soranus_set_paper_size:nn
-  {
-    \dim_gset:Nn \g__soranus_paper_width_dim {#1}
-    \dim_gset:Nn \g__soranus_paper_height_dim {#2}
-  }
-
 \dim_new:N \g__soranus_edge_trim_dim
 \dim_new:N \g__soranus_top_trim_dim
-
-\cs_new:Nn \__soranus_set_page_trim:nn
-  {
-    \dim_gset:Nn \g__soranus_edge_trim_dim {#1}
-    \dim_gset:Nn \g__soranus_top_trim_dim {#2}
-  }
 
 \dim_new:N \g__soranus_page_width_dim
 \dim_new:N \g__soranus_page_height_dim
 
-\cs_new:Nn \__soranus_set_page_size:nn
+\bool_new:N \g__soranus_no_trim_bool
+\bool_new:N \g__soranus_landscape_bool
+\bool_new:N \g__soranus_twoside_bool
+
+
+\cs_new:Nn \__soranus_init_paper_and_trim:
   {
-    \dim_gset:Nn \g__soranus_page_width_dim {#1}
-    \dim_gset:Nn \g__soranus_page_height_dim {#2}
+    \bool_if:NT \g__soranus_no_trim_bool
+      {
+        \dim_gset_eq:NN \g__soranus_page_width_dim \g__soranus_paper_width_dim
+        \dim_gset_eq:NN \g__soranus_page_height_dim \g__soranus_paper_height_dim
+        \dim_gset_eq:NN \g__soranus_edge_trim_dim \c_zero_dim
+        \dim_gset_eq:NN \g__soranus_top_trim_dim \c_zero_dim
+      }
+
+    \bool_if:NT \g__soranus_landscape_bool
+      {
+        \dim_set_eq:NN \l_soranus_tmpa_dim \g__soranus_paper_width_dim
+        \dim_gset_eq:NN \g__soranus_paper_width_dim \g__soranus_paper_height_dim
+        \dim_gset_eq:NN \g__soranus_paper_height_dim \l_soranus_tmpa_dim
+      }
+
+    \bool_if:NTF \g__soranus_twoside_bool
+      {\@twosidetrue}
+      {\@twosidefalse}
   }
 
 
@@ -62,12 +71,6 @@
 %
 
 % Here, I define changeable layout parameters and commands.
-
-\bool_new:N \g__soranus_landscape_bool
-
-
-\bool_new:N \g__soranus_twoside_bool
-
 
 \cs_new:Nn \__soranus_set_spine_margin:nn
   {
@@ -172,7 +175,14 @@
 % Instance
 %
 
-\DeclareInstance {pagelayout} {thepagelayout} {standard} {}
+\NewDocumentCommand \DeclarePageLayout {m m}
+  {\DeclareInstance {pagelayout} {#1} {standard} {#2}}
+
+\NewDocumentCommand \EditPageLayout {m m}
+  {\EditInstance {pagelayout} {#1} {#2}}
+
+
+\DeclarePageLayout {thepagelayout} {}
 
 
 

@@ -55,42 +55,26 @@
 % General Utility Functions
 %
 
-% Function for applying a function to a comma pair.
-% In the case that there is only one element, then it is repeated as the
-% second argument of the function.
-\cs_new:Nn \soranus_apply_comma_pair:Nn
-  {\__soranus_apply_comma_pair_aux:Nn #1 {#2}}
-
-\cs_new:Nn \__soranus_apply_comma_pair_aux:Nn
-  {
-    \seq_set_from_clist:Nn \l_soranus_tmpa_seq {#2}
-    \seq_pop:NN \l_soranus_tmpa_seq \l_soranus_tmpa_tl
-    \seq_pop:NNTF \l_soranus_tmpa_seq \l_soranus_tmpb_tl
-      {\exp_args:NVV #1 \l_soranus_tmpa_tl \l_soranus_tmpb_tl}
-      {\exp_args:NVV #1 \l_soranus_tmpa_tl \l_soranus_tmpa_tl}
-  }
-
-
 % Function for scaling dimensions to nearest nth point. (avoid icky fp roundoff)
-\cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
-  {\fp_to_dim:n {round(#3 * #2 * \dim_to_fp:n {#1}) / #3}}
+%\cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
+%  {\fp_to_dim:n {round(#3 * #2 * \dim_to_fp:n {#1}) / #3}}
 
 % User-friendly commands for rounded dimension scaling.
 
-\NewDocumentCommand \ScaleToNearestPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {1}}
+\NewExpandableDocumentCommand \ScaleToNearestPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2)}}
 
-\NewDocumentCommand \ScaleToNearestHalfPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {2}}
+\NewExpandableDocumentCommand \ScaleToNearestHalfPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 2) / 2}}
 
-\NewDocumentCommand \ScaleToNearestQuarterPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {4}}
+\NewExpandableDocumentCommand \ScaleToNearestQuarterPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 4) / 4}}
 
-\NewDocumentCommand \ScaleToNearestEighthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {8}}
+\NewExpandableDocumentCommand \ScaleToNearestEighthPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 8) / 8}}
 
-\NewDocumentCommand \ScaleToNearestTenthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {10}}
+\NewExpandableDocumentCommand \ScaleToNearestTenthPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2, 1)}}
 
-\NewDocumentCommand \ScaleToNearestHundredthPoint {m m}
-  {\soranus_scale_to_nearest_nth_point:nnn {#1} {#2} {100}}
+\NewExpandableDocumentCommand \ScaleToNearestHundredthPoint {m m}
+  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2, 2)}}
