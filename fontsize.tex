@@ -41,8 +41,10 @@
 
 
 % Here I define global document font size variables.
-\dim_new:N \g__soranus_point_size_dim
-\fp_new:N \g__soranus_baseline_scale_fp
+\dim_new:N \g__soranus_normal_point_size_dim
+\dim_gset:Nn \g__soranus_normal_point_size_dim {10pt}
+\fp_new:N \g__soranus_normal_baseline_scale_fp
+\fp_gset:Nn \g__soranus_normal_baseline_scale_fp {1.2}
 
 
 
@@ -53,11 +55,11 @@
 
 % User command for safely accessing document point size.
 \NewDocumentCommand \NormalPointSize {}
-  {\dim_use:N \g__soranus_point_size_dim}
+  {\dim_use:N \g__soranus_normal_point_size_dim}
 
 % User command for safely accessing document baseline scale.
 \NewDocumentCommand \NormalBaselineScale {}
-  {\fp_to_decimal:N \g__soranus_baseline_scale_fp}
+  {\fp_to_decimal:N \g__soranus_normal_baseline_scale_fp}
 
 
 
@@ -69,25 +71,25 @@
 
 \cs_new:Nn \__soranus_init_document_point_size:
   {
-    \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_point_size_dim
+    \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_normal_point_size_dim
     \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
     \skip_gset:Nn \smallskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.3}
-        plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
-        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.1}
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.3}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
       }
     \skip_gset:Nn \medskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.6}
-        plus \ScaleToNearestPoint {\g__soranus_point_size_dim1} {0.2}
-        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.2}
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.6}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim1} {0.2}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.2}
       }
     \skip_gset:Nn \bigskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_point_size_dim} {1.2}
-        plus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.4}
-        minus \ScaleToNearestPoint {\g__soranus_point_size_dim} {0.4}
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {1.2}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
       }
   }
 
@@ -116,9 +118,13 @@
 
 
 % I forbid normal font size switches in the middle of a math environment.
-\msg_new:nnn {soranus} {fontsize-in-mmode}
+\msg_new:nnnn {soranus} {fontsize-in-math-mode}
   {
     Normal~font~size~commands~are~forbidden~in~math~mode.~Command~ignored.
+  }
+  {
+    If~you~need~to~have~differently-sized~math,~invoke~a~font~size~command~
+    before~the~math~environment.
   }
 
 
@@ -151,7 +157,7 @@
   {
     \mode_if_math:TF
       {
-        \msg_warning:nn {soranus} {fontsize-in-mmode}
+        \msg_error:nn {soranus} {fontsize-in-math-mode}
       }
       {
         \AssignTemplateKeys
