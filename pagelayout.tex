@@ -39,7 +39,7 @@
 
 \bool_new:N \g__soranus_no_trim_bool
 \bool_new:N \g__soranus_landscape_bool
-\bool_new:N \g__soranus_twoside_bool
+\bool_new:N \g__soranus_two_side_bool
 
 
 \cs_new:Nn \__soranus_init_paper_and_trim:
@@ -59,7 +59,7 @@
         \dim_gset_eq:NN \g__soranus_paper_height_dim \l_soranus_tmpa_dim
       }
 
-    \bool_if:NTF \g__soranus_twoside_bool
+    \bool_if:NTF \g__soranus_two_side_bool
       {\@twosidetrue}
       {\@twosidefalse}
   }

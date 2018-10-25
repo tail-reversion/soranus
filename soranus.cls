@@ -219,7 +219,7 @@
     landscape .default:n        = true,
 
 
-    two-side .bool_gset:N      = \g__soranus_twoside_bool,
+    two-side .bool_gset:N      = \g__soranus_two_side_bool,
     two-side .value_required:n = false,
     two-side .initial:n        = false,
     two-side .default:n        = true

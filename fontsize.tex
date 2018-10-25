@@ -119,9 +119,7 @@
 
 % I forbid normal font size switches in the middle of a math environment.
 \msg_new:nnnn {soranus} {fontsize-in-math-mode}
-  {
-    Normal~font~size~commands~are~forbidden~in~math~mode.~Command~ignored.
-  }
+  {Normal~font~size~commands~are~forbidden~in~math~mode.}
   {
     If~you~need~to~have~differently-sized~math,~invoke~a~font~size~command~
     before~the~math~environment.
@@ -156,9 +154,7 @@
   }
   {
     \mode_if_math:TF
-      {
-        \msg_error:nn {soranus} {fontsize-in-math-mode}
-      }
+      {\msg_error:nn {soranus} {fontsize-in-math-mode}}
       {
         \AssignTemplateKeys
         % I do not use \@setfontsize since I handle math mode in my own way
