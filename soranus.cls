@@ -67,6 +67,8 @@
 \clist_const:Nn \c__soranus_incompatible_packages_clist
   {changepage, crop, enumitem, fancyhdr, geometry, sidecap, titleps, titlesec, titletoc}
 
+\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n
+
 \AtBeginDocument
   {\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n}
 
@@ -91,7 +93,11 @@
 
 \msg_new:nnnn {soranus} {unknown-choice}
   {Key~`#1'~given~unknown~value~#2.}
-  {You~gave~the~key~`#1'~the~unknown~value~#2.~Accepted~values~are:~#3.}
+  {
+    You~gave~the~key~`#1'~the~unknown~value~#2.\iow_newline:
+    Accepted~values~are:\iow_newline:
+    #3.
+  }
 
 
 
@@ -148,17 +154,17 @@
 
     paper / unknown .code:n =
       {
-        \msg_error:nnnnn {soranus} {unknown-choice}
+        \msg_error:nnxxx {soranus} {unknown-choice}
           {paper}
-          {#1}
+          {\exp_not:n {#1}}
           {
-            a2,~a3,~a4,~a5,~a6,~
-            b2,~b3,~b4,~b5,~b6,~
-            c2,~c3,~c4,~c5,~c6,~
-            din-d2,~din-d3,~din-d4,~din-d5,~din-d6,~
-            jis-b2,~jis-b3,~jis-b4,~jis-b5,~jis-b6,~
-            half-letter,~letter,~government-letter,~
-            junior-legal,~government-legal,~legal,~
+            a2,~a3,~a4,~a5,~a6,\iow_newline:
+            b2,~b3,~b4,~b5,~b6,\iow_newline:
+            c2,~c3,~c4,~c5,~c6,\iow_newline:
+            din-d2,~din-d3,~din-d4,~din-d5,~din-d6,\iow_newline:
+            jis-b2,~jis-b3,~jis-b4,~jis-b5,~jis-b6,\iow_newline:
+            half-letter,~letter,~government-letter,\iow_newline:
+            junior-legal,~government-legal,~legal,\iow_newline:
             tabloid,~ledger,~broadsheet
           }
       },
@@ -220,9 +226,6 @@
   }
 
 
-\ProcessKeysOptions {soranus}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -245,7 +248,7 @@
 \@onlypreamble {\SetClassOptions}
 
 
-
 % Initialize the document.
+\ProcessKeysOptions {soranus}
 \__soranus_init:
 \UsePageLayout {thepagelayout}
