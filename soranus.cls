@@ -164,6 +164,7 @@
       },
 
     paper .value_required:n = true,
+    paper .initial:n        = a4,
 
 
 
@@ -191,6 +192,7 @@
 
     point-size .dim_gset:N       = \g__soranus_point_size_dim,
     point-size .value_required:n = true,
+    point-size .initial:n        = 10pt,
 
 
     baseline-scale .fp_gset:N        = \g__soranus_baseline_scale_fp,
@@ -207,42 +209,18 @@
 
     landscape .bool_gset:N      = \g__soranus_landscape_bool,
     landscape .value_required:n = false,
-    landscape .default:n        = true,
-
-
-    two-side .bool_gset:N      = \g__soranus_twoside_bool,
-    two-side .value_required:n = false,
-    two-side .default:n        = true
-  }
-
-
-
-\keys_define:nn {soranus/simple}
-  {
-    point-size .meta:nn          = {soranus} {point-size = #1},
-    point-size .value_required:n = true,
-    point-size .initial:n        = 10pt,
-
-
-    paper .meta:nn          = {soranus} {paper = #1},
-    paper .value_required:n = true,
-    paper .initial:n        = a4,
-
-
-    landscape .meta:nn          = {soranus} {landscape = #1},
-    landscape .value_required:n = false,
     landscape .initial:n        = false,
     landscape .default:n        = true,
 
 
-    two-side .meta:nn          = {soranus} {two-side = #1},
+    two-side .bool_gset:N      = \g__soranus_twoside_bool,
     two-side .value_required:n = false,
     two-side .initial:n        = false,
     two-side .default:n        = true
   }
 
 
-\ProcessKeysOptions {soranus/simple}
+\ProcessKeysOptions {soranus}
 
 
 
