@@ -76,8 +76,9 @@
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % Load Packages and Modules
+%
 
-\RequirePackage{l3keys2e,xcoffins,xgalley,xparse,xtemplate}
+\RequirePackage{l3keys2e,xparse,xtemplate}
 \RequirePackage{lmodern}
 
 \file_input:n {utility.tex}
