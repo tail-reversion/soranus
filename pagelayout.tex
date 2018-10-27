@@ -130,7 +130,13 @@
 
 
 \cs_new:Nn \__soranus_set_footer:nn
-  {\dim_gset:Nn \footskip {#1 + #2}}
+  {
+    \dim_gset:Nn \footskip
+      {
+        #1 % add the footer height
+         + #2 % add the footer sep
+      }
+  }
 
 
 
