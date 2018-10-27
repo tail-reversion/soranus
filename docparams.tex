@@ -174,7 +174,7 @@
         page-height:~\dim_use:N \g__soranus_page_height_dim\\
         edge-trim:~\dim_use:N \g__soranus_edge_trim_dim\\
         top-trim:~\dim_use:N \g__soranus_top_trim_dim\\
-        two-side:~\bool_if:NTF \g__soranus_two_side_bool {true} {false}
+        two-side:~\soranus_bool_to_text:N \g__soranus_two_side_bool
       }
   }
 
