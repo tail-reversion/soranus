@@ -89,3 +89,7 @@
 
 \NewExpandableDocumentCommand \ScaleToNearestHundredthPoint {m m}
   {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2, 2)}}
+
+
+% Command for printing booleans.
+\cs_new:Nn \soranus_bool_to_text:N {\bool_if:NTF #1 {true} {false}}
