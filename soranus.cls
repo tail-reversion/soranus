@@ -185,6 +185,11 @@
     top-trim .initial:n        = \c_zero_dim,
 
 
+    binding-offset .dim_gset:N       = \g__soranus_binding_offset_dim,
+    binding-offset .value_required:n = true,
+    binding-offset .initial:n        = \c_zero_dim,
+
+
 
     page-width .dim_gset:N       = \g__soranus_page_width_dim,
     page-width .value_required:n = true,
