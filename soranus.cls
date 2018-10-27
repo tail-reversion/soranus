@@ -82,6 +82,7 @@
 \RequirePackage{lmodern}
 
 \file_input:n {utility.tex}
+\file_input:n {docparams.tex}
 \file_input:n {fontsize.tex}
 \file_input:n {pagelayout.tex}
 
@@ -233,22 +234,12 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Initialization Commands
-%
-
-\cs_new:Nn \__soranus_init:
-  {
-    \__soranus_init_document_point_size:
-    \__soranus_init_paper_and_trim:
-  }
-
 
 \NewDocumentCommand \SetClassOptions {m}
   {
     \keys_set:nn {soranus} {#1}
-    \__soranus_init:
+    \__soranus_init_document_point_size:
+    \__soranus_init_paper_and_trim:
   }
 
 \@onlypreamble {\SetClassOptions}
@@ -256,5 +247,6 @@
 
 % Initialize the document.
 \ProcessKeysOptions {soranus}
-\__soranus_init:
+\__soranus_init_document_point_size:
+\__soranus_init_paper_and_trim:
 \UsePageLayout {thepagelayout}

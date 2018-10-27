@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Point Size
+%
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Parameters
+%
+
+% Here I create aliases for some TeX primitives.
+\cs_new_eq:NN \g__soranus_top_skip \tex_topskip:D
+\cs_new_eq:NN \g__soranus_max_depth_skip \tex_maxdepth:D
+
+% Here I define global document font size variables.
+\dim_new:N \g__soranus_normal_point_size_dim
+\dim_gset:Nn \g__soranus_normal_point_size_dim {10pt}
+\fp_new:N \g__soranus_normal_baseline_scale_fp
+\fp_gset:Nn \g__soranus_normal_baseline_scale_fp {1.2}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Initialization Command
+%
+
+\cs_new:Nn \__soranus_init_document_point_size:
+  {
+    \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_normal_point_size_dim
+    \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
+    \skip_gset:Nn \smallskipamount
+      {
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.3}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
+      }
+    \skip_gset:Nn \medskipamount
+      {
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.6}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim1} {0.2}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.2}
+      }
+    \skip_gset:Nn \bigskipamount
+      {
+        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {1.2}
+        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
+        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
+      }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Designer Commands
+%
+
+% User command for safely accessing document point size.
+\NewDocumentCommand \NormalPointSize {}
+  {\dim_use:N \g__soranus_normal_point_size_dim}
+
+% User command for safely accessing document baseline scale.
+\NewDocumentCommand \NormalBaselineScale {}
+  {\fp_to_decimal:N \g__soranus_normal_baseline_scale_fp}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paper Size and Trim
+%
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Parameters
+%
+
+\cs_new_eq:NN \g__soranus_paper_width_dim \tex_pagewidth:D
+\cs_new_eq:NN \g__soranus_paper_height_dim \tex_pageheight:D
+
+\dim_new:N \g__soranus_edge_trim_dim
+\dim_new:N \g__soranus_top_trim_dim
+\dim_new:N \g__soranus_binding_offset_dim
+
+\dim_new:N \g__soranus_page_width_dim
+\dim_new:N \g__soranus_page_height_dim
+
+\bool_new:N \g__soranus_no_trim_bool
+\bool_new:N \g__soranus_landscape_bool
+\bool_new:N \g__soranus_two_side_bool
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Initialization Command
+%
+
+\cs_new:Nn \__soranus_init_paper_and_trim:
+  {
+    \bool_if:NT \g__soranus_no_trim_bool
+      {
+        \dim_gset_eq:NN \g__soranus_page_width_dim \g__soranus_paper_width_dim
+        \dim_gset_eq:NN \g__soranus_page_height_dim \g__soranus_paper_height_dim
+        \dim_gset_eq:NN \g__soranus_edge_trim_dim \c_zero_dim
+        \dim_gset_eq:NN \g__soranus_top_trim_dim \c_zero_dim
+      }
+
+    \bool_if:NT \g__soranus_landscape_bool
+      {
+        \dim_set_eq:NN \l_soranus_tmpa_dim \g__soranus_paper_width_dim
+        \dim_gset_eq:NN \g__soranus_paper_width_dim \g__soranus_paper_height_dim
+        \dim_gset_eq:NN \g__soranus_paper_height_dim \l_soranus_tmpa_dim
+      }
+
+    % Do \paperwidth and \paperheight actually do anything?!?
+    \dim_gset_eq:NN \paperwidth \g__soranus_page_width_dim
+    \dim_gset_eq:NN \paperheight \g__soranus_page_height_dim
+
+    \bool_if:NTF \g__soranus_two_side_bool
+      {\@twosidetrue}
+      {\@twosidefalse}
+  }
