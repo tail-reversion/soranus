@@ -68,6 +68,24 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% Messages
+%
+
+\msg_new:nnn {soranus} {point-size-init}
+  {
+    The~document~main~font~size~has~the~following~parameters:\\
+    \iow_indent:n
+      {
+        point-size:~\dim_use:N \g__soranus_normal_point_size_dim\\
+        baseline-scale:~\fp_to_decimal:N \g__soranus_normal_baseline_scale_fp
+      }
+  }
+
+\AtBeginDocument {\msg_info:nn {soranus} {point-size-init}}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Designer Commands
 %
 
@@ -138,3 +156,26 @@
       {\@twosidetrue}
       {\@twosidefalse}
   }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Messages
+%
+
+\msg_new:nnn {soranus} {paper-init}
+  {
+    The~document~has~the~following~paper~and~page~properties:\\
+    \iow_indent:n
+      {
+        paper-width:~\dim_use:N \g__soranus_paper_width_dim\\
+        paper-height:~\dim_use:N \g__soranus_paper_height_dim\\
+        page-width:~\dim_use:N \g__soranus_page_width_dim\\
+        page-height:~\dim_use:N \g__soranus_page_height_dim\\
+        edge-trim:~\dim_use:N \g__soranus_edge_trim_dim\\
+        top-trim:~\dim_use:N \g__soranus_top_trim_dim\\
+        two-side:~\bool_if:NTF \g__soranus_two_side_bool {true} {false}
+      }
+  }
+
+\AtBeginDocument {\msg_info:nn {soranus} {paper-init}}
