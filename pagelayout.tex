@@ -144,10 +144,37 @@
 \dim_new:N \g__soranus_pagelayout_margin_par_push_dim
 \dim_new:N \g__soranus_pagelayout_spine_margin_dim
 \dim_new:N \g__soranus_pagelayout_top_margin_dim
+\dim_new:N \g__soranus_pagelayout_footer_height_dim
 \dim_new:N \g__soranus_pagelayout_header_sep_dim
 \dim_new:N \g__soranus_pagelayout_header_height_dim
 \dim_new:N \g__soranus_pagelayout_footer_sep_dim
-\dim_new:N \g__soranus_pagelayout_footer_height_dim
+
+
+\msg_new:nnn {soranus} {page-layout-change}
+  {
+    The~page~layout~was~set~with~the~following~parameters:\\
+    \iow_indent:n
+      {
+        text-width:~\dim_use:N \g__soranus_pagelayout_text_width_dim\\
+        text-height:~\dim_use:N \g__soranus_pagelayout_text_height_dim\\
+        two-column:~\soranus_bool_to_text:N \g__soranus_pagelayout_two_column_bool\\
+        \bool_if:NTF \g__soranus_pagelayout_two_column_bool
+          {
+            column-sep:~\dim_use:N \g__soranus_pagelayout_column_sep_dim\\
+            column-rule-width:~\dim_use:N \g__soranus_pagelayout_column_rule_width_dim\\
+          }
+        margin-par-width:~\dim_use:N \g__soranus_pagelayout_margin_par_width_dim\\
+        margin-par-sep:~\dim_use:N \g__soranus_pagelayout_margin_par_sep_dim\\
+        margin-par-push:~\dim_use:N \g__soranus_pagelayout_margin_par_push_dim\\
+        spine-margin:~\dim_use:N \g__soranus_pagelayout_spine_margin_dim\\
+        top-margin:~\dim_use:N \g__soranus_pagelayout_top_margin_dim\\
+        header-height:~\dim_use:N \g__soranus_pagelayout_header_height_dim\\
+        header-sep:~\dim_use:N \g__soranus_pagelayout_header_sep_dim\\
+        footer-height:~\dim_use:N \g__soranus_pagelayout_footer_height_dim\\
+        footer-sep:~\dim_use:N \g__soranus_pagelayout_footer_sep_dim
+      }
+  }
+
 
 \DeclareTemplateCode {pagelayout} {standard} {0}
   {
@@ -191,6 +218,7 @@
       {\g__soranus_pagelayout_text_width_dim}
       {\g__soranus_pagelayout_column_sep_dim}
       {\g__soranus_pagelayout_column_rule_width_dim}
+    \msg_info:nn {soranus} {page-layout-change}
   }
 
 
