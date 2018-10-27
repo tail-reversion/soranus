@@ -83,6 +83,16 @@
   }
 
 
+\cs_new:Nn \__soranus_set_column:nnn
+  {
+    \dim_gset:Nn \columnsep {#2}
+    \dim_gset:Nn \columnseprule {#3}
+    \bool_if:nTF {#1}
+      {\twocolumn}
+      {\onecolumn}
+  }
+
+
 \cs_new:Nn \__soranus_set_margin_par:nnn
   {
     \dim_gset:Nn \marginparwidth {#1}
@@ -150,18 +160,21 @@
 
 \DeclareTemplateInterface {pagelayout} {standard} {0}
   {
-    text-width       : length = 30pc,
-    text-height      : length = 50pc,
-    margin-par-width : length = 5pc,
-    margin-par-sep   : length = 1pc,
-    margin-par-push  : length = 5pt,
-    spine-margin     : length = 1in,
-    binding-offset   : length = 0pt,
-    top-margin       : length = 1in,
-    header-sep       : length = 1pc,
-    header-height    : length = 1pc,
-    footer-sep       : length = 1pc,
-    footer-height    : length = 1pc
+    text-width        : length  = 30pc,
+    text-height       : length  = 50pc,
+    two-column        : boolean = false,
+    column-sep        : length  = 1pc,
+    column-rule-width : length = 0.4pt,
+    margin-par-width  : length  = 5pc,
+    margin-par-sep    : length  = 1pc,
+    margin-par-push   : length  = 5pt,
+    spine-margin      : length  = 1in,
+    binding-offset    : length  = 0pt,
+    top-margin        : length  = 1in,
+    header-sep        : length  = 1pc,
+    header-height     : length  = 1pc,
+    footer-sep        : length  = 1pc,
+    footer-height     : length  = 1pc
   }
 
 
@@ -172,6 +185,9 @@
 
 \dim_new:N \g__soranus_pagelayout_text_width_dim
 \dim_new:N \g__soranus_pagelayout_text_height_dim
+\bool_new:N \g__soranus_pagelayout_two_column_bool
+\dim_new:N \g__soranus_pagelayout_column_sep_dim
+\dim_new:N \g__soranus_pagelayout_column_rule_width_dim
 \dim_new:N \g__soranus_pagelayout_margin_par_width_dim
 \dim_new:N \g__soranus_pagelayout_margin_par_sep_dim
 \dim_new:N \g__soranus_pagelayout_margin_par_push_dim
@@ -185,21 +201,28 @@
 
 \DeclareTemplateCode {pagelayout} {standard} {0}
   {
-    text-width       = global \g__soranus_pagelayout_text_width_dim,
-    text-height      = global \g__soranus_pagelayout_text_height_dim,
-    margin-par-width = global \g__soranus_pagelayout_margin_par_width_dim,
-    margin-par-sep   = global \g__soranus_pagelayout_margin_par_sep_dim,
-    margin-par-push  = global \g__soranus_pagelayout_margin_par_push_dim,
-    spine-margin     = global \g__soranus_pagelayout_spine_margin_dim,
-    binding-offset   = global \g__soranus_pagelayout_binding_offset_dim,
-    top-margin       = global \g__soranus_pagelayout_top_margin_dim,
-    header-sep       = global \g__soranus_pagelayout_header_sep_dim,
-    header-height    = global \g__soranus_pagelayout_header_height_dim,
-    footer-sep       = global \g__soranus_pagelayout_footer_sep_dim,
-    footer-height    = global \g__soranus_pagelayout_footer_height_dim
+    text-width        = global \g__soranus_pagelayout_text_width_dim,
+    text-height       = global \g__soranus_pagelayout_text_height_dim,
+    two-column        = global \g__soranus_pagelayout_two_column_bool,
+    column-sep        = global \g__soranus_pagelayout_column_sep_dim,
+    column-rule-width = global \g__soranus_pagelayout_column_rule_width_dim,
+    margin-par-width  = global \g__soranus_pagelayout_margin_par_width_dim,
+    margin-par-sep    = global \g__soranus_pagelayout_margin_par_sep_dim,
+    margin-par-push   = global \g__soranus_pagelayout_margin_par_push_dim,
+    spine-margin      = global \g__soranus_pagelayout_spine_margin_dim,
+    binding-offset    = global \g__soranus_pagelayout_binding_offset_dim,
+    top-margin        = global \g__soranus_pagelayout_top_margin_dim,
+    header-sep        = global \g__soranus_pagelayout_header_sep_dim,
+    header-height     = global \g__soranus_pagelayout_header_height_dim,
+    footer-sep        = global \g__soranus_pagelayout_footer_sep_dim,
+    footer-height     = global \g__soranus_pagelayout_footer_height_dim
   }
   {
     \AssignTemplateKeys
+    \__soranus_set_column:nnn
+      {\g__soranus_pagelayout_two_column_bool}
+      {\g__soranus_pagelayout_column_sep_dim}
+      {\g__soranus_pagelayout_column_rule_width_dim}
     \__soranus_set_text_area:nn
       {\g__soranus_pagelayout_text_width_dim}
       {\g__soranus_pagelayout_text_height_dim}
