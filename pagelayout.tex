@@ -86,7 +86,11 @@
 
 \cs_new:Nn \__soranus_set_column:nnnn
   {
-    \dim_gset:Nn \columnwidth {#2}
+    \dim_gset:Nn \columnwidth
+      {
+        #2 / 2 % Half the text area.
+        - #3 % Minus the column sep.
+      }
     \dim_gset:Nn \columnsep {#3}
     \dim_gset:Nn \columnseprule {#4}
     \bool_if:nTF {#1}
@@ -165,9 +169,8 @@
     text-width        : length  = 30pc,
     text-height       : length  = 50pc,
     two-column        : boolean = false,
-    column-width      : length  = 14.5pc,
     column-sep        : length  = 1pc,
-    column-rule-width : length = 0.4pt,
+    column-rule-width : length  = 0.4pt,
     margin-par-width  : length  = 5pc,
     margin-par-sep    : length  = 1pc,
     margin-par-push   : length  = 5pt,
@@ -206,7 +209,6 @@
     text-width        = global \g__soranus_pagelayout_text_width_dim,
     text-height       = global \g__soranus_pagelayout_text_height_dim,
     two-column        = global \g__soranus_pagelayout_two_column_bool,
-    column-width      = global \g__soranus_pagelayout_column_width_dim,
     column-sep        = global \g__soranus_pagelayout_column_sep_dim,
     column-rule-width = global \g__soranus_pagelayout_column_rule_width_dim,
     margin-par-width  = global \g__soranus_pagelayout_margin_par_width_dim,
@@ -214,10 +216,10 @@
     margin-par-push   = global \g__soranus_pagelayout_margin_par_push_dim,
     spine-margin      = global \g__soranus_pagelayout_spine_margin_dim,
     top-margin        = global \g__soranus_pagelayout_top_margin_dim,
-    header-sep        = global \g__soranus_pagelayout_header_sep_dim,
     header-height     = global \g__soranus_pagelayout_header_height_dim,
-    footer-sep        = global \g__soranus_pagelayout_footer_sep_dim,
-    footer-height     = global \g__soranus_pagelayout_footer_height_dim
+    header-sep        = global \g__soranus_pagelayout_header_sep_dim,
+    footer-height     = global \g__soranus_pagelayout_footer_height_dim,
+    footer-sep        = global \g__soranus_pagelayout_footer_sep_dim
   }
   {
     \AssignTemplateKeys
@@ -241,7 +243,7 @@
     % Set columns last to exploit the internal \clearpage.
     \__soranus_set_column:nnnn
       {\g__soranus_pagelayout_two_column_bool}
-      {\g__soranus_pagelayout_column_width_dim}
+      {\g__soranus_pagelayout_text_width_dim}
       {\g__soranus_pagelayout_column_sep_dim}
       {\g__soranus_pagelayout_column_rule_width_dim}
   }
