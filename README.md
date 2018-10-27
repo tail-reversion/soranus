@@ -20,6 +20,8 @@ This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 
 **File Manifest**
 - utility.tex
+- docparams.tex
+- classoptions.tex
 - fontsize.tex
 - pagelayout.tex
 - soranus.cls

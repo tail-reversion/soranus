@@ -52,12 +52,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% General Utility Functions
+% Messages
 %
 
-% Function for scaling dimensions to nearest nth point. (avoid icky fp roundoff)
-%\cs_new:Nn \soranus_scale_to_nearest_nth_point:nnn
-%  {\fp_to_dim:n {round(#3 * #2 * \dim_to_fp:n {#1}) / #3}}
+\msg_new:nnnn {soranus} {unknown-choice}
+  {Key~`#1'~given~unknown~value~#2.}
+  {
+    You~gave~the~key~`#1'~the~unknown~value~#2.\iow_newline:
+    Accepted~values~are:\iow_newline:
+    #3.
+  }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General Utility Functions
+%
 
 % User-friendly commands for rounded dimension scaling.
 
