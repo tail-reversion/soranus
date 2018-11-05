@@ -25,8 +25,8 @@
 
 \cs_new:Nn \__soranus_set_text_area:nn
   {
-    \dim_gset:Nn \textwidth {#1}
-    \dim_gset:Nn \textheight {#2}
+    \dim_gset:Nn \textwidth { #1 }
+    \dim_gset:Nn \textheight { #2 }
   }
 
 
@@ -37,19 +37,19 @@
         #2 / 2 % Half the text area.
         - #3 % Minus the column sep.
       }
-    \dim_gset:Nn \columnsep {#3}
-    \dim_gset:Nn \columnseprule {#4}
-    \bool_if:nTF {#1}
-      {\twocolumn}
-      {\onecolumn}
+    \dim_gset:Nn \columnsep { #3 }
+    \dim_gset:Nn \columnseprule { #4 }
+    \bool_if:nTF { #1 }
+      { \twocolumn }
+      { \onecolumn }
   }
 
 
 \cs_new:Nn \__soranus_set_margin_par:nnn
   {
-    \dim_gset:Nn \marginparwidth {#1}
-    \dim_gset:Nn \marginparsep {#2}
-    \dim_gset:Nn \marginparpush {#3}
+    \dim_gset:Nn \marginparwidth { #1 }
+    \dim_gset:Nn \marginparsep { #2 }
+    \dim_gset:Nn \marginparpush { #3 }
   }
 
 
@@ -86,8 +86,8 @@
         - #3 % subtract header sep
         - 1in % subtract one inch for hardcoded origin
       }
-    \dim_gset:Nn \headheight {#2}
-    \dim_gset:Nn \headsep {#3}
+    \dim_gset:Nn \headheight { #2 }
+    \dim_gset:Nn \headsep { #3 }
   }
 
 
@@ -107,10 +107,10 @@
 % Template
 %
 
-\DeclareObjectType {pagelayout} {0}
+\DeclareObjectType { pagelayout } { 0 }
 
 
-\DeclareTemplateInterface {pagelayout} {standard} {0}
+\DeclareTemplateInterface { pagelayout } { standard } { 0 }
   {
     text-width        : length  = 30pc,
     text-height       : length  = 50pc,
@@ -150,7 +150,7 @@
 \dim_new:N \g__soranus_pagelayout_footer_sep_dim
 
 
-\msg_new:nnn {soranus} {page-layout-change}
+\msg_new:nnn { soranus } { page-layout-change }
   {
     The~page~layout~was~set~with~the~following~parameters:\\
     \iow_indent:n
@@ -176,7 +176,7 @@
   }
 
 
-\DeclareTemplateCode {pagelayout} {standard} {0}
+\DeclareTemplateCode { pagelayout } { standard } { 0 }
   {
     text-width        = global \g__soranus_pagelayout_text_width_dim,
     text-height       = global \g__soranus_pagelayout_text_height_dim,
@@ -196,29 +196,29 @@
   {
     \AssignTemplateKeys
     \__soranus_set_text_area:nn
-      {\g__soranus_pagelayout_text_width_dim}
-      {\g__soranus_pagelayout_text_height_dim}
+      { \g__soranus_pagelayout_text_width_dim }
+      { \g__soranus_pagelayout_text_height_dim }
     \__soranus_set_margin_par:nnn
-      {\g__soranus_pagelayout_margin_par_width_dim}
-      {\g__soranus_pagelayout_margin_par_sep_dim}
-      {\g__soranus_pagelayout_margin_par_push_dim}
+      { \g__soranus_pagelayout_margin_par_width_dim }
+      { \g__soranus_pagelayout_margin_par_sep_dim }
+      { \g__soranus_pagelayout_margin_par_push_dim }
     \__soranus_set_spine_margin:nn
-      {\g__soranus_pagelayout_spine_margin_dim}
-      {\g__soranus_pagelayout_text_width_dim}
+      { \g__soranus_pagelayout_spine_margin_dim }
+      { \g__soranus_pagelayout_text_width_dim }
     \__soranus_set_top_margin_and_header:nnn
-      {\g__soranus_pagelayout_top_margin_dim}
-      {\g__soranus_pagelayout_header_height_dim}
-      {\g__soranus_pagelayout_header_sep_dim}
+      { \g__soranus_pagelayout_top_margin_dim }
+      { \g__soranus_pagelayout_header_height_dim }
+      { \g__soranus_pagelayout_header_sep_dim }
     \__soranus_set_footer:nn
-      {\g__soranus_pagelayout_footer_height_dim}
-      {\g__soranus_pagelayout_footer_sep_dim}
+      { \g__soranus_pagelayout_footer_height_dim }
+      { \g__soranus_pagelayout_footer_sep_dim }
     % Set columns last to exploit the internal \clearpage.
     \__soranus_set_column:nnnn
-      {\g__soranus_pagelayout_two_column_bool}
-      {\g__soranus_pagelayout_text_width_dim}
-      {\g__soranus_pagelayout_column_sep_dim}
-      {\g__soranus_pagelayout_column_rule_width_dim}
-    \msg_info:nn {soranus} {page-layout-change}
+      { \g__soranus_pagelayout_two_column_bool }
+      { \g__soranus_pagelayout_text_width_dim }
+      { \g__soranus_pagelayout_column_sep_dim }
+      { \g__soranus_pagelayout_column_rule_width_dim }
+    \msg_info:nn { soranus } { page-layout-change }
   }
 
 
@@ -227,17 +227,17 @@
 % Instance
 %
 
-\NewDocumentCommand \DeclarePageLayout {m m}
-  {\DeclareInstance {pagelayout} {#1} {standard} {#2}}
+\NewDocumentCommand \DeclarePageLayout { m m }
+  { \DeclareInstance { pagelayout } { #1 } { standard } { #2 } }
 
-\NewDocumentCommand \EditPageLayout {m m}
-  {\EditInstance {pagelayout} {#1} {#2}}
+\NewDocumentCommand \EditPageLayout { m m }
+  { \EditInstance { pagelayout } { #1 } { #2 } }
 
-\NewDocumentCommand \UsePageLayout {m}
-  {\UseInstance {pagelayout} {#1}}
+\NewDocumentCommand \UsePageLayout { m }
+  { \UseInstance { pagelayout } { #1 } }
 
 
-\DeclarePageLayout {thepagelayout} {}
+\DeclarePageLayout { thepagelayout } { }
 
 
 
