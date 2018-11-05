@@ -30,34 +30,27 @@
 
 \prop_new:N \g__soranus_document_metadata_prop
 
-\cs_new:Nn \__soranus_put_document_metadata_field:nn
-  { \prop_put:Nnn \g__soranus_document_metadata_prop { #1 } { #2 } }
-
-\cs_new:Nn \__soranus_get_document_metadata_field:n
-  {
-    \prop_get:NnNTF \g__soranus_document_metadata_prop { #1 } \l_soranus_tmpa_tl
-      { \tl_use:N \l_soranus_tmpa_tl }
-      { \msg_error:nnx { soranus } { document-field-not-set } { #1 } }
-  }
-
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % Title & Subtitle
 %
 
-\RenewDocumentCommand \title { m o }
+\cs_new:Nn \__soranus_set_document_title:n
+  { \prop_gput:Nnn \g__soranus_document_metadata_prop { title } { #1 } }
+
+\cs_new:Nn \__soranus_set_document_title_and_subtitle:nn
   {
-    \__soranus_put_document_metadata_field:nn { title } { #1 }
-    \IfNoValueF { #2 }
-      { \__soranus_put_document_metadata_field:nn { subtitle } { #2 } }
+    \__soranus_set_document_title:n { #1 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { subtitle } { #2 }
   }
 
-\NewDocumentCommand \thetitle { }
-  { \__soranus_get_document_metadata_field:n { title } }
-
-\NewDocumentCommand \thesubtitle { }
-  { \__soranus_get_document_metadata_field:n { subtitle } }
+\RenewDocumentCommand \title { m o }
+  {
+    \IfNoValueTF { #2 }
+      { \__soranus_set_document_title:n { #1 } }
+      { \__soranus_set_document_title_and_subtitle:nn { #1 } { #2 } }
+  }
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -65,11 +58,11 @@
 % Date
 %
 
-\RenewDocumentCommand \date { m }
-  { \__soranus_put_document_metadata_field:nn { date } { #1 } }
+\cs_new:Nn \__soranus_set_document_date:n
+  { \prop_gput:Nnn \g__soranus_document_metadata_prop { date } { #1 } }
 
-\NewDocumentCommand \thedate { }
-  { \__soranus_get_document_metadata_field:n { date } }
+\RenewDocumentCommand \date { m }
+  { \__soranus_set_document_date:n { #1 } }
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -77,27 +70,25 @@
 % Copyright
 %
 
-\NewDocumentCommand \copyright { m m o m }
+\cs_new:Nn \__soranus_set_document_copyright:nnn
   {
-    \__soranus_put_document_metadata_field:nn { copyright-year } { #1 }
-    \__soranus_put_document_metadata_field:nn { copyright-holder } { #2 }
-    \IfNoValueF { #3 }
-      { \__soranus_put_document_metadata_field:nn { copyright-tag } { #3 } }
-    \__soranus_put_document_metadata_field:nn { copyright-note } { #4 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-year } { #1 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-holder } { #2 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-note } { #3 }
   }
 
-\NewDocumentCommand \thecopyrightyear { }
-  { \__soranus_get_document_metadata_field:n { copyright-year } }
+\cs_new:Nn \__soranus_set_document_copyright_with_tag:nnnn
+  {
+    \__soranus_set_document_copyright:nnn { #1 } { #2 } { #4 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-tag } { #3 }
+  }
 
-\NewDocumentCommand \thecopyrightholder { }
-  { \__soranus_get_document_metadata_field:n { copyright-holder } }
-
-\NewDocumentCommand \thecopyrighttag { }
-  { \__soranus_get_document_metadata_field:n { copyright-tag } }
-
-\NewDocumentCommand \thecopyrightnote { }
-  { \__soranus_get_document_metadata_field:n { copyright-note } }
-
+\RenewDocumentCommand \copyright { m m o m }
+  {
+    \IfNoValueTF { #3 }
+      { \__soranus_set_document_copyright:nnn { #1 } { #2 } { #3 } }
+      { \__soranus_set_document_copyright_with_tag:nnnn { #1 } { #2 } { #3 } { #4 } }
+  }
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -105,17 +96,26 @@
 % Author
 %
 
-\seq_new:N \g__soranus_document_authors_seq
+\int_new:N \g__soranus_document_author_number_int
+\int_gzero:N \g__soranus_document_author_number_int
 
 \cs_new:Nn \__soranus_add_document_author:n
-  { \seq_put_right:Nn \g__soranus_document_authors_seq { #1 } }
+  {
+    \int_gincr:N \g__soranus_document_author_number_int
+    \tl_set:Nx \l_soranus_tmpa_tl
+      { author- \int_to_arabic:n { \g__soranus_document_author_number_int } }
+    \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #1 }
+  }
 
 \cs_new:Nn \__soranus_map_to_document_authors:N
-  { \seq_map_function:NN \g__soranus_document_authors_seq #1 }
+  {
+    \int_step_inline:nn { \g__soranus_document_author_number_int }
+      {
+        \prop_get:NnN \g__soranus_document_metadata_prop { author-##1 } \l_soranus_tmpa_tl
+        #1 \l_soranus_tmpa_tl
+      }
+  }
 
 
 \RenewDocumentCommand \author { m }
   { \__soranus_add_document_author:n { #1 } }
-
-\NewDocumentCommand \commalistauthors { }
-  { \seq_use:Nn \g__soranus_document_authors_seq { ,~ } }
