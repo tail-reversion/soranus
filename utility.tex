@@ -55,11 +55,11 @@
 % Messages
 %
 
-\msg_new:nnnn {soranus} {unknown-choice}
-  {Key~`#1'~given~unknown~value~#2.}
+\msg_new:nnnn { soranus } { unknown-choice }
+  { Key~`#1'~given~unknown~value~#2. }
   {
-    You~gave~the~key~`#1'~the~unknown~value~#2.\iow_newline:
-    Accepted~values~are:\iow_newline:
+    You~gave~the~key~`#1'~the~unknown~value~#2.\\
+    Accepted~values~are:\\
     #3.
   }
 
@@ -72,24 +72,24 @@
 
 % User-friendly commands for rounded dimension scaling.
 
-\NewExpandableDocumentCommand \ScaleToNearestPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2)}}
+\NewExpandableDocumentCommand \ScaleToNearestPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2) } }
 
-\NewExpandableDocumentCommand \ScaleToNearestHalfPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 2) / 2}}
+\NewExpandableDocumentCommand \ScaleToNearestHalfPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 2) / 2 } }
 
-\NewExpandableDocumentCommand \ScaleToNearestQuarterPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 4) / 4}}
+\NewExpandableDocumentCommand \ScaleToNearestQuarterPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 4) / 4 } }
 
-\NewExpandableDocumentCommand \ScaleToNearestEighthPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2 * 8) / 8}}
+\NewExpandableDocumentCommand \ScaleToNearestEighthPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 8) / 8 } }
 
-\NewExpandableDocumentCommand \ScaleToNearestTenthPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2, 1)}}
+\NewExpandableDocumentCommand \ScaleToNearestTenthPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2, 1) } }
 
-\NewExpandableDocumentCommand \ScaleToNearestHundredthPoint {m m}
-  {\fp_to_dim:n {round(\dim_to_fp:n {#1} * #2, 2)}}
+\NewExpandableDocumentCommand \ScaleToNearestHundredthPoint { m m }
+  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2, 2) } }
 
 
 % Command for printing booleans.
-\cs_new:Nn \soranus_bool_to_text:N {\bool_if:NTF #1 {true} {false}}
+\cs_new:Nn \soranus_bool_to_text:N { \bool_if:NTF #1 { true } { false } }
