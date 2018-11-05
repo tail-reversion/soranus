@@ -1,0 +1,42 @@
+% potpourri.tex
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Date Parsing
+%
+
+\regex_const:Nn \g__soranus_iso_datetime_regex
+  {
+    \d{4} % year
+    (:?
+      -[0-1]\d % month
+      (:?
+        -[0-2]\d % day
+        (:?
+          T[0-2]\d % hour
+          (:?
+            :[0-5]\d % minute
+            (:?
+              :[0-5]\d % second
+              Z? % UTC
+            )?
+          )?
+        )?
+      )?
+    )?
+  }

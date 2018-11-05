@@ -1,0 +1,121 @@
+% metadata.tex
+% Copyright (C) 2018 Kelly Smith.
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License (LPPL),
+% either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license
+% is in the file:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Kelly Smith.
+%
+% This work consists of the files listed in the README.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Fields
+%
+
+\msg_new:nnn { soranus } { document-field-already-set }
+  { The~document~field~`#1'~has~already~been~set. }
+
+\msg_new:nnn { soranus } { document-field-not-set }
+  { The~document~field~`#1'~has~not~yet~been~set. }
+
+
+\prop_new:N \g__soranus_document_metadata_prop
+
+\cs_new:Nn \__soranus_put_document_metadata_field:nn
+  { \prop_put:Nnn \g__soranus_document_metadata_prop { #1 } { #2 } }
+
+\cs_new:Nn \__soranus_get_document_metadata_field:n
+  {
+    \prop_get:NnNTF \g__soranus_document_metadata_prop { #1 } \l_soranus_tmpa_tl
+      { \tl_use:N \l_soranus_tmpa_tl }
+      { \msg_error:nnx { soranus } { document-field-not-set } { #1 } }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Title & Subtitle
+%
+
+\RenewDocumentCommand \title { m o }
+  {
+    \__soranus_put_document_metadata_field:nn { title } { #1 }
+    \IfNoValueF { #2 }
+      { \__soranus_put_document_metadata_field:nn { subtitle } { #2 } }
+  }
+
+\NewDocumentCommand \thetitle { }
+  { \__soranus_get_document_metadata_field:n { title } }
+
+\NewDocumentCommand \thesubtitle { }
+  { \__soranus_get_document_metadata_field:n { subtitle } }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Date
+%
+
+\RenewDocumentCommand \date { m }
+  { \__soranus_put_document_metadata_field:nn { date } { #1 } }
+
+\NewDocumentCommand \thedate { }
+  { \__soranus_get_document_metadata_field:n { date } }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Copyright
+%
+
+\NewDocumentCommand \copyright { m m o m }
+  {
+    \__soranus_put_document_metadata_field:nn { copyright-year } { #1 }
+    \__soranus_put_document_metadata_field:nn { copyright-holder } { #2 }
+    \IfNoValueF { #3 }
+      { \__soranus_put_document_metadata_field:nn { copyright-tag } { #3 } }
+    \__soranus_put_document_metadata_field:nn { copyright-note } { #4 }
+  }
+
+\NewDocumentCommand \thecopyrightyear { }
+  { \__soranus_get_document_metadata_field:n { copyright-year } }
+
+\NewDocumentCommand \thecopyrightholder { }
+  { \__soranus_get_document_metadata_field:n { copyright-holder } }
+
+\NewDocumentCommand \thecopyrighttag { }
+  { \__soranus_get_document_metadata_field:n { copyright-tag } }
+
+\NewDocumentCommand \thecopyrightnote { }
+  { \__soranus_get_document_metadata_field:n { copyright-note } }
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Author
+%
+
+\seq_new:N \g__soranus_document_authors_seq
+
+\cs_new:Nn \__soranus_add_document_author:n
+  { \seq_put_right:Nn \g__soranus_document_authors_seq { #1 } }
+
+\cs_new:Nn \__soranus_map_to_document_authors:N
+  { \seq_map_function:NN \g__soranus_document_authors_seq #1 }
+
+
+\RenewDocumentCommand \author { m }
+  { \__soranus_add_document_author:n { #1 } }
+
+\NewDocumentCommand \commalistauthors { }
+  { \seq_use:Nn \g__soranus_document_authors_seq { ,~ } }

@@ -83,6 +83,7 @@
 
 % The load order is critical!!!
 \file_input:n { utility.tex }
+\file_input:n { metadata.tex }
 \file_input:n { docparams.tex }
 \file_input:n { classoptions.tex }
 \file_input:n { fontsize.tex }

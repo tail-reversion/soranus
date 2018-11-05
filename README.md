@@ -19,7 +19,9 @@ Contributions and feedback are [always welcome](CONTRIBUTING.md).
 This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 
 **File Manifest**
+- potpourri.tex (various experiments; not used in the class)
 - utility.tex
+- metadata.tex
 - docparams.tex
 - classoptions.tex
 - fontsize.tex
