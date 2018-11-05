@@ -30,10 +30,10 @@
 
 \cs_new:Nn \__soranus_set_display_skips:nnnn
   {
-    \skip_set:Nn \l__soranus_above_display_skip {#1}
-    \skip_set:Nn \l__soranus_above_display_short_skip {#2}
-    \skip_set:Nn \l__soranus_below_display_skip {#3}
-    \skip_set:Nn \l__soranus_below_display_short_skip {#4}
+    \skip_set:Nn \l__soranus_above_display_skip { #1 }
+    \skip_set:Nn \l__soranus_above_display_short_skip { #2 }
+    \skip_set:Nn \l__soranus_below_display_skip { #3 }
+    \skip_set:Nn \l__soranus_below_display_short_skip { #4 }
   }
 
 
@@ -44,11 +44,11 @@
 %
 
 % Define an object that represents a font size command.
-\DeclareObjectType {fontsize} {0}
+\DeclareObjectType { fontsize } { 0 }
 
 
 % Define the interface for the standard (only) font size template.
-\DeclareTemplateInterface {fontsize} {standard} {0}
+\DeclareTemplateInterface { fontsize } { standard } { 0 }
   {
     point-size               : length  = 10pt,
     baseline-scale           : real    = 1.2,
@@ -61,8 +61,8 @@
 
 
 % I forbid normal font size switches in the middle of a math environment.
-\msg_new:nnnn {soranus} {fontsize-in-math-mode}
-  {Normal~font~size~commands~are~forbidden~in~math~mode.}
+\msg_new:nnnn { soranus } { fontsize-in-math-mode }
+  { Normal~font~size~commands~are~forbidden~in~math~mode. }
   {
     If~you~need~to~have~differently-sized~math,~invoke~a~font~size~command~
     before~the~math~environment.
@@ -85,7 +85,7 @@
 \skip_new:N \l__soranus_fontsize_below_display_short_skip
 
 
-\DeclareTemplateCode {fontsize} {standard} {0}
+\DeclareTemplateCode { fontsize } { standard } { 0 }
   {
     point-size               = \l__soranus_fontsize_point_size_dim,
     baseline-scale           = \l__soranus_fontsize_baseline_scale_fp,
@@ -97,7 +97,7 @@
   }
   {
     \mode_if_math:TF
-      {\msg_error:nn {soranus} {fontsize-in-math-mode}}
+      { \msg_error:nn { soranus } { fontsize-in-math-mode } }
       {
         \AssignTemplateKeys
         % I do not use \@setfontsize since I handle math mode in my own way
@@ -106,17 +106,17 @@
           \l__soranus_fontsize_point_size_dim
           {
             \ScaleToNearestTenthPoint
-              {\l__soranus_fontsize_point_size_dim}
-              {\l__soranus_fontsize_baseline_scale_fp}
+              { \l__soranus_fontsize_point_size_dim }
+              { \l__soranus_fontsize_baseline_scale_fp }
           }
         \selectfont
-        \bool_if:nT {\l__soranus_fontsize_change_display_bool}
+        \bool_if:nT { \l__soranus_fontsize_change_display_bool }
           {
             \__soranus_set_display_skips:nnnn
-              {\l__soranus_fontsize_above_display_skip}
-              {\l__soranus_fontsize_above_display_short_skip}
-              {\l__soranus_fontsize_below_display_skip}
-              {\l__soranus_fontsize_below_display_short_skip}
+              { \l__soranus_fontsize_above_display_skip }
+              { \l__soranus_fontsize_above_display_short_skip }
+              { \l__soranus_fontsize_below_display_skip }
+              { \l__soranus_fontsize_below_display_short_skip }
           }
       }
   }
@@ -130,100 +130,100 @@
 % of each font size dependent on the normal font size and baseline scale, which
 % are set with class options.
 
-\NewDocumentCommand \DeclareFontSize {m m}
-  {\DeclareInstance {fontsize} {#1} {standard} {#2}}
+\NewDocumentCommand \DeclareFontSize { m m }
+  { \DeclareInstance { fontsize } { #1 } { standard } { #2 } }
 
-\NewDocumentCommand \EditFontSize {m m}
-  {\EditInstance {fontsize} {#1} {#2}}
+\NewDocumentCommand \EditFontSize { m m }
+  { \EditInstance { fontsize } { #1 } { #2 } }
 
-\NewDocumentCommand \UseFontSize {m}
-  {\UseInstance {fontsize} {#1}}
+\NewDocumentCommand \UseFontSize { m }
+  { \UseInstance { fontsize } { #1 } }
 
 
-\DeclareFontSize {miniscule}
+\DeclareFontSize { miniscule }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.5},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.5 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {tiny}
+\DeclareFontSize { tiny }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.6},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.6 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {scriptsize}
+\DeclareFontSize { scriptsize }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {0.7},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.7 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {footnotesize}
+\DeclareFontSize { footnotesize }
   {
-    point-size               = \ScaleToNearestTenthPoint {\NormalPointSize} {0.8},
+    point-size               = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.8 },
     baseline-scale           = \NormalBaselineScale,
     change-display-skips     = true,
     above-display-skip       = 6pt plus 2pt minus 4pt,
     above-display-short-skip = 0pt plus 1pt,
-    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-skip       = \KeyValue { above-display-skip },
     below-display-short-skip = 3pt plus 1pt minus 2pt
   }
 
-\DeclareFontSize {small}
+\DeclareFontSize { small }
   {
-    point-size               = \ScaleToNearestTenthPoint {\NormalPointSize} {0.9},
+    point-size               = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
     baseline-scale           = \NormalBaselineScale,
     change-display-skips     = true,
     above-display-skip       = 8.5pt plus 3pt minus 4pt,
     above-display-short-skip = 0pt plus 2pt,
-    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-skip       = \KeyValue { above-display-skip },
     below-display-short-skip = 4pt plus 2pt minus 2pt
   }
 
-\DeclareFontSize {normalsize}
+\DeclareFontSize { normalsize }
   {
     point-size               = \NormalPointSize,
     baseline-scale           = \NormalBaselineScale,
     change-display-skips     = true,
     above-display-skip       = 10pt plus 2pt minus 5pt,
     above-display-short-skip = 0pt plus 3pt,
-    below-display-skip       = \KeyValue{above-display-skip},
+    below-display-skip       = \KeyValue { above-display-skip },
     below-display-short-skip = 6pt plus 3pt minus 3pt
   }
 
-\DeclareFontSize {large}
+\DeclareFontSize { large }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.2},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.2 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {Large}
+\DeclareFontSize { Large }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.4},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.4 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {LARGE}
+\DeclareFontSize { LARGE }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {1.6},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.6 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {huge}
+\DeclareFontSize { huge }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {2.4},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 2.4 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {Huge}
+\DeclareFontSize { Huge }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {2.8},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 2.8 },
     baseline-scale = \NormalBaselineScale
   }
 
-\DeclareFontSize {HUGE}
+\DeclareFontSize { HUGE }
   {
-    point-size     = \ScaleToNearestTenthPoint {\NormalPointSize} {3.2},
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 3.2 },
     baseline-scale = \NormalBaselineScale
   }
 
@@ -236,38 +236,38 @@
 %
 % A font size command is changed by editing its respective instance.
 
-\NewDocumentCommand \miniscule {}
-  {\UseFontSize {miniscule}}
+\NewDocumentCommand \miniscule { }
+  { \UseFontSize { miniscule } }
 
-\NewDocumentCommand \tiny {}
-  {\UseFontSize {tiny}}
+\NewDocumentCommand \tiny { }
+  { \UseFontSize { tiny } }
 
-\NewDocumentCommand \scriptsize {}
-  {\UseFontSize {scriptsize}}
+\NewDocumentCommand \scriptsize { }
+  { \UseFontSize { scriptsize } }
 
-\NewDocumentCommand \footnotesize {}
-  {\UseFontSize {footnotesize}}
+\NewDocumentCommand \footnotesize { }
+  { \UseFontSize { footnotesize } }
 
-\NewDocumentCommand \small {}
-  {\UseFontSize {small}}
+\NewDocumentCommand \small { }
+  { \UseFontSize { small } }
 
-\RenewDocumentCommand \normalsize {}
-  {\UseFontSize {normalsize}}
+\RenewDocumentCommand \normalsize { }
+  { \UseFontSize { normalsize } }
 
-\NewDocumentCommand \large {}
-  {\UseFontSize {large}}
+\NewDocumentCommand \large { }
+  { \UseFontSize { large } }
 
-\NewDocumentCommand \Large {}
-  {\UseFontSize {Large}}
+\NewDocumentCommand \Large { }
+  { \UseFontSize { Large } }
 
-\NewDocumentCommand \LARGE {}
-  {\UseFontSize {LARGE}}
+\NewDocumentCommand \LARGE { }
+  { \UseFontSize { LARGE } }
 
-\NewDocumentCommand \huge {}
-  {\UseFontSize {huge}}
+\NewDocumentCommand \huge { }
+  { \UseFontSize { huge } }
 
-\NewDocumentCommand \Huge {}
-  {\UseFontSize {Huge}}
+\NewDocumentCommand \Huge { }
+  { \UseFontSize { Huge } }
 
-\NewDocumentCommand \HUGE {}
-  {\UseFontSize {HUGE}}
+\NewDocumentCommand \HUGE { }
+  { \UseFontSize { HUGE } }
