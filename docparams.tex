@@ -42,24 +42,24 @@
 \cs_new:Nn \__soranus_init_document_point_size:
   {
     \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_normal_point_size_dim
-    \dim_gset:Nn \g__soranus_max_depth_skip {0.5\g__soranus_top_skip}
+    \dim_gset:Nn \g__soranus_max_depth_skip { 0.5\g__soranus_top_skip }
     \skip_gset:Nn \smallskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.3}
-        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
-        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.1}
+        \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.3 }
+        plus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.1 }
+        minus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.1 }
       }
     \skip_gset:Nn \medskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.6}
-        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.2}
-        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.2}
+        \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.6 }
+        plus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.2 }
+        minus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.2 }
       }
     \skip_gset:Nn \bigskipamount
       {
-        \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {1.2}
-        plus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
-        minus \ScaleToNearestPoint {\g__soranus_normal_point_size_dim} {0.4}
+        \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 1.2 }
+        plus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.4 }
+        minus \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.4 }
       }
   }
 
@@ -69,7 +69,7 @@
 % Messages
 %
 
-\msg_new:nnn {soranus} {point-size-init}
+\msg_new:nnn { soranus } { point-size-init }
   {
     The~document~has~the~following~main~font~size~parameters:\\
     \iow_indent:n
@@ -79,7 +79,7 @@
       }
   }
 
-\AtBeginDocument {\msg_info:nn {soranus} {point-size-init}}
+\AtBeginDocument { \msg_info:nn { soranus } { point-size-init } }
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -88,12 +88,12 @@
 %
 
 % User command for safely accessing document point size.
-\NewDocumentCommand \NormalPointSize {}
-  {\dim_use:N \g__soranus_normal_point_size_dim}
+\NewDocumentCommand \NormalPointSize { }
+  { \dim_use:N \g__soranus_normal_point_size_dim }
 
 % User command for safely accessing document baseline scale.
 \NewDocumentCommand \NormalBaselineScale {}
-  {\fp_to_decimal:N \g__soranus_normal_baseline_scale_fp}
+  { \fp_to_decimal:N \g__soranus_normal_baseline_scale_fp }
 
 
 
@@ -151,8 +151,8 @@
     \dim_gset_eq:NN \paperheight \g__soranus_page_height_dim
 
     \bool_if:NTF \g__soranus_two_side_bool
-      {\@twosidetrue}
-      {\@twosidefalse}
+      { \@twosidetrue }
+      { \@twosidefalse }
   }
 
 
@@ -161,7 +161,7 @@
 % Messages
 %
 
-\msg_new:nnn {soranus} {paper-init}
+\msg_new:nnn { soranus } { paper-init }
   {
     The~document~has~the~following~paper~and~page~parameters:\\
     \iow_indent:n
@@ -176,4 +176,4 @@
       }
   }
 
-\AtBeginDocument {\msg_info:nn {soranus} {paper-init}}
+\AtBeginDocument { \msg_info:nn { soranus } { paper-init } }
