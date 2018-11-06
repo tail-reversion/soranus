@@ -20,7 +20,8 @@
 % Class Options (Document Parameters)
 %
 
-\keys_define:nn { soranus / docparams }
+
+\keys_define:nn { soranus / document-setup }
   {
     paper-width .dim_gset:N       = \g__soranus_paper_width_dim,
     paper-width .value_required:n = true,
@@ -72,21 +73,7 @@
     paper / broadsheet        .meta:n = { paper-width = 17in, paper-height = 22in },
 
     paper / unknown .code:n =
-      {
-        \msg_error:nnxxx { soranus } { unknown-choice }
-          { paper }
-          { \exp_not:n { #1 } }
-          {
-            a2,~a3,~a4,~a5,~a6,\\
-            b2,~b3,~b4,~b5,~b6,\\
-            c2,~c3,~c4,~c5,~c6,\\
-            din-d2,~din-d3,~din-d4,~din-d5,~din-d6,\\
-            jis-b2,~jis-b3,~jis-b4,~jis-b5,~jis-b6,\\
-            half-letter,~letter,~government-letter,\\
-            junior-legal,~government-legal,~legal,\\
-            tabloid,~ledger,~broadsheet
-          }
-      },
+      { \msg_error:nnnn { soranus } { unknown-choice } { paper } { #1 } },
 
     paper .value_required:n = true,
     paper .initial:n        = a4,
@@ -150,13 +137,25 @@
   }
 
 
-
-
-\NewDocumentCommand \SetClassOptions { m }
+\keys_define:nn { soranus / class-options }
   {
-    \keys_set:nn { soranus / docparams } { #1 }
+    paper .meta:nn = { soranus / document-setup } { paper = #1 },
+
+    point-size .meta:nn = { soranus / document-setup } { point-size = #1 },
+
+    landscape .meta:nn           = { soranus / document-setup } { landscape },
+    landscape .value_forbidden:n = true,
+
+    two-side .meta:nn           = { soranus / document-setup } { two-side },
+    two-side .value_forbidden:n = true
+  }
+
+
+\NewDocumentCommand \DocumentSetup { m }
+  {
+    \keys_set:nn { soranus / document-setup } { #1 }
     \__soranus_init_document_point_size:
     \__soranus_init_paper_and_trim:
   }
 
-\@onlypreamble { \SetClassOptions }
+\@onlypreamble { \DocumentSetup }
