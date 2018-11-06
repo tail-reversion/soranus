@@ -59,7 +59,7 @@
   {
     \group_begin:
       \@ifpackageloaded { #1 }
-        { \msg_error:nnx { soranus } { incompatible-package } { #1 } }
+        { \msg_error:nnn { soranus } { incompatible-package } { #1 } }
         { }
     \group_end:
   }
@@ -79,7 +79,7 @@
 %
 
 \RequirePackage { l3keys2e, xparse, xtemplate }
-\RequirePackage { lmodern }
+\RequirePackage { etoolbox, lmodern }
 
 % The load order is critical!!!
 \file_input:n { utility.tex }
