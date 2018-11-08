@@ -107,18 +107,50 @@
     \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #1 }
   }
 
-\cs_new:Nn \__soranus_map_to_document_authors:N
+
+\keys_define:nn { soranus / author-info }
   {
-    \int_step_inline:nn { \g__soranus_document_author_number_int }
-      {
-        \prop_get:NnN \g__soranus_document_metadata_prop { author-##1 } \l_soranus_tmpa_tl
-        #1 \l_soranus_tmpa_tl
-      }
+    email .code:n           =
+      { \__soranus_add_document_author_info_aux:nn { email } { #1 } },
+    email .value_required:n = true,
+
+    institution .code:n           =
+      { \__soranus_add_document_author_info_aux:nn { institution } { #1 } },
+    institution .value_required:n = true,
+
+    phone .code:n           =
+      { \__soranus_add_document_author_info_aux:nn { phone } { #1 } },
+    phone .value_required:n = true,
+
+    fax .code:n           =
+      { \__soranus_add_document_author_info_aux:nn { fax } { #1 } },
+    fax .value_required:n = true,
+
+    address .code:n           =
+      { \__soranus_add_document_author_info_aux:nn { address } { #1 } },
+    address .value_required:n = true,
+  }
+
+\cs_new:Nn \__soranus_add_document_author_info_aux:nn
+  {
+    \tl_set:Nx \l_soranus_tmpa_tl
+      { author- \int_to_arabic:n { \g__soranus_document_author_number_int } -#1 }
+    \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #2 }
+  }
+
+\cs_new:Nn \__soranus_add_document_author_and_info:nn
+  {
+    \__soranus_add_document_author:n { #1 }
+    \keys_set:nn { soranus / author-info } { #2 }
   }
 
 
-\RenewDocumentCommand \author { m }
-  { \__soranus_add_document_author:n { #1 } }
+\RenewDocumentCommand \author { m o }
+  {
+    \IfNoValueTF { #2 }
+      { \__soranus_add_document_author:n { #1 } }
+      { \__soranus_add_document_author_and_info:nn { #1 } { #2 } }
+  }
 
 
 
