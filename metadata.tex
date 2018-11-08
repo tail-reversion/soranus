@@ -119,3 +119,15 @@
 
 \RenewDocumentCommand \author { m }
   { \__soranus_add_document_author:n { #1 } }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Disable Data Commands after Preamble
+%
+
+\@onlypreamble \title
+\@onlypreamble \date
+\@onlypreamble \author
+\@onlypreamble \copyright
