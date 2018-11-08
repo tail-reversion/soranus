@@ -93,6 +93,22 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% Publisher
+%
+
+\cs_new:Nn \__soranus_set_document_publisher:nnn
+  {
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-name } { #1 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-year } { #2 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-address } { #3 }
+  }
+
+\NewDocumentCommand \publisher { m m m }
+  { \__soranus_set_document_publisher:nnn { #1 } { #2 } { #3 } }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Author
 %
 
@@ -102,9 +118,14 @@
 \cs_new:Nn \__soranus_add_document_author:n
   {
     \int_gincr:N \g__soranus_document_author_number_int
+    \__soranus_add_document_author_info_aux:nn { name } { #1 }
+  }
+
+\cs_new:Nn \__soranus_add_document_author_info_aux:nn
+  {
     \tl_set:Nx \l_soranus_tmpa_tl
-      { author- \int_to_arabic:n { \g__soranus_document_author_number_int } }
-    \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #1 }
+      { author- \int_to_arabic:n { \g__soranus_document_author_number_int } -#1 }
+    \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #2 }
   }
 
 
@@ -131,12 +152,6 @@
     address .value_required:n = true,
   }
 
-\cs_new:Nn \__soranus_add_document_author_info_aux:nn
-  {
-    \tl_set:Nx \l_soranus_tmpa_tl
-      { author- \int_to_arabic:n { \g__soranus_document_author_number_int } -#1 }
-    \prop_gput:NVn \g__soranus_document_metadata_prop \l_soranus_tmpa_tl { #2 }
-  }
 
 \cs_new:Nn \__soranus_add_document_author_and_info:nn
   {
