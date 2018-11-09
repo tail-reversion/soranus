@@ -78,16 +78,16 @@
 % Load Packages and Modules
 %
 
-\RequirePackage { l3keys2e, xparse, xtemplate }
+\RequirePackage { l3keys2e, xparse, xtemplate, xcoffins }
 \RequirePackage { etoolbox, lmodern }
 
 % The load order is critical!!!
 \file_input:n { utility.tex }
+\file_input:n { metadata.tex }
 \file_input:n { docparams.tex }
 \file_input:n { classoptions.tex }
 \file_input:n { fontsize.tex }
 \file_input:n { pagelayout.tex }
-\file_input:n { metadata.tex }
 
 
 
@@ -96,3 +96,4 @@
 \__soranus_init_document_point_size:
 \__soranus_init_paper_and_trim:
 \UsePageLayout { thepagelayout }
+\UseInstance { pagestyle } { thepagestyle }
