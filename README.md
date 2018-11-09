@@ -26,4 +26,5 @@ This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 - classoptions.tex
 - fontsize.tex
 - pagelayout.tex
+- pagestyle.tex
 - soranus.cls
