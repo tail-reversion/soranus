@@ -78,35 +78,29 @@
 
 \cs_new:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \group_begin:
-    \normalsize
-    \SetVerticalCoffin \l__soranus_tmpa_coffin { 0.32\textwidth }
-      { \raggedright \strut \tl_use:N #3 }
-    \SetVerticalCoffin \l__soranus_tmpb_coffin { 0.32\textwidth }
-      { \centering \strut \tl_use:N #4 }
-    \SetVerticalCoffin \l__soranus_tmpc_coffin { 0.32\textwidth }
-      { \raggedleft \strut \tl_use:N #5 }
-    \JoinCoffins
-      \l__soranus_tmpa_coffin [ r , T ]
-      \l__soranus_tmpb_coffin [ l , T ]
-      ( 0.02\textwidth , 0pt )
-    \JoinCoffins
-      \l__soranus_tmpa_coffin [ r , T ]
-      \l__soranus_tmpc_coffin [ l , T ]
-      ( 0.02\textwidth , 0pt )
-    \SetHorizontalCoffin \l__soranus_tmpd_coffin
-      { \rule [ 3pt ] { \textwidth } { #1 } }
-    \SetHorizontalCoffin \l__soranus_tmpe_coffin
-      { \rule { \textwidth } { #2 } }
-    \JoinCoffins
-      \l__soranus_tmpa_coffin [ l , t ]
-      \l__soranus_tmpd_coffin [ l , b ]
-    \JoinCoffins
-      \l__soranus_tmpa_coffin [ l , b ]
-      \l__soranus_tmpe_coffin [ l , t ]
-    \TypesetCoffin \l__soranus_tmpa_coffin
-      [ \l__soranus_tmpe_coffin-l , \l__soranus_tmpe_coffin-b ]
-    \group_end:
+    \parbox { \textwidth } {
+        \dim_compare:nNnF { #1 } = { \c_zero_dim }
+          { \rule { \textwidth } { #1 } \\ }
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \tl_if_blank:VF #3
+              { \raggedright \tl_use:N #3 \strut }
+          }
+        \skip_horizontal:n { 0pt plus 1fill }
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \tl_if_blank:VF { #4 }
+              { \centering \tl_use:N #4 \strut }
+          }
+        \skip_horizontal:n { 0pt plus 1fill }
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \tl_if_blank:VF #5
+              { \raggedleft \tl_use:N #5 \strut }
+          }
+        \dim_compare:nNnF { #2 } = { \c_zero_dim }
+        { \\ \rule [ \NormalPointSize ] { \textwidth } { #2 } }
+      }
   }
 
 \DeclareTemplateCode { pagestyle } { standard } { 0 }
