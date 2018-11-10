@@ -26,25 +26,25 @@
 
 \DeclareTemplateInterface { pagestyle } { standard } { 0 }
   {
-%    page-numbering           : choice
-%      { arabic, small-roman, big-roman, big-letters, small-letters }
-%                                         = arabic,
+    page-numbering           : choice
+      { arabic, small-roman, big-roman, small-letters, big-letters }
+                                         = small-letters,
     header-top-rule-width    : length    = 0.4pt,
-    header-recto-left        : tokenlist = ABC,
-    header-recto-center      : tokenlist = EFG,
-    header-recto-right       : tokenlist = HIJ,
-    header-verso-left        : tokenlist = 123,
-    header-verso-center      : tokenlist = 456,
-    header-verso-right       : tokenlist = 789,
+    header-recto-left        : tokenlist = \thepage,
+    header-recto-center      : tokenlist = a,
+    header-recto-right       : tokenlist = a,
+    header-verso-left        : tokenlist = a,
+    header-verso-center      : tokenlist = a,
+    header-verso-right       : tokenlist = \thepage,
     header-bottom-rule-width : length    = 0.4pt,
-    footer-top-rule-width    : length    = 0.4pt,
-    footer-recto-left        : tokenlist = ABC,
-    footer-recto-center      : tokenlist = EFG,
-    footer-recto-right       : tokenlist = HIJ,
-    footer-verso-left        : tokenlist = 123,
-    footer-verso-center      : tokenlist = 456,
-    footer-verso-right       : tokenlist = 789,
-    footer-bottom-rule-width : length    = 0.4pt,
+    footer-top-rule-width    : length    = 0pt,
+    footer-recto-left        : tokenlist,
+    footer-recto-center      : tokenlist,
+    footer-recto-right       : tokenlist = ---\,\{\quad\}\,---,
+    footer-verso-left        : tokenlist,
+    footer-verso-center      : tokenlist = ---\,\{\quad\}\,---,
+    footer-verso-right       : tokenlist,
+    footer-bottom-rule-width : length    = 0pt,
   }
 
 
@@ -68,41 +68,47 @@
 
 \cs_new:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \SetVerticalCoffin \l__soranus_tmpa_coffin { 0.33\textwidth }
-      { \raggedright \tl_use:N #3 }
-    \SetVerticalCoffin \l__soranus_tmpb_coffin { 0.34\textwidth }
-      { \centering \tl_use:N #4 }
-    \SetVerticalCoffin \l__soranus_tmpc_coffin { 0.33\textwidth }
-      { \raggedleft \tl_use:N #5 }
+    \group_begin:
+    \normalsize
+    \SetVerticalCoffin \l__soranus_tmpa_coffin { 0.32\textwidth }
+      { \raggedright \strut \tl_use:N #3 }
+    \SetVerticalCoffin \l__soranus_tmpb_coffin { 0.32\textwidth }
+      { \centering \strut \tl_use:N #4 }
+    \SetVerticalCoffin \l__soranus_tmpc_coffin { 0.32\textwidth }
+      { \raggedleft \strut \tl_use:N #5 }
     \JoinCoffins
       \l__soranus_tmpa_coffin [ r , T ]
       \l__soranus_tmpb_coffin [ l , T ]
+      ( 0.02\textwidth , 0pt )
     \JoinCoffins
       \l__soranus_tmpa_coffin [ r , T ]
       \l__soranus_tmpc_coffin [ l , T ]
+      ( 0.02\textwidth , 0pt )
     \SetHorizontalCoffin \l__soranus_tmpd_coffin
-      { \rule { \textwidth } { #1 } }
+      { \rule [ 3pt ] { \textwidth } { #1 } }
     \SetHorizontalCoffin \l__soranus_tmpe_coffin
       { \rule { \textwidth } { #2 } }
     \JoinCoffins
       \l__soranus_tmpa_coffin [ l , t ]
       \l__soranus_tmpd_coffin [ l , b ]
-      ( 0pt , 3pt )
     \JoinCoffins
       \l__soranus_tmpa_coffin [ l , b ]
       \l__soranus_tmpe_coffin [ l , t ]
-      ( 0pt , -3pt )
     \TypesetCoffin \l__soranus_tmpa_coffin
       [ \l__soranus_tmpe_coffin-l , \l__soranus_tmpe_coffin-b ]
+    \group_end:
   }
 
 \DeclareTemplateCode { pagestyle } { standard } { 0 }
   {
-%    page-numbering           =
-%      {
-%        arabic = \tl_gset
-%      \g__soranus_pagestyle_page_numbering_tl
-%      },
+    page-numbering           =
+      {
+        arabic        = \pagenumbering { arabic },
+        small-roman   = \pagenumbering { roman },
+        big-roman     = \pagenumbering { Roman },
+        small-letters = \pagenumbering { alph },
+        big-letters   = \pagenumbering { Alph },
+      },
     header-top-rule-width    = global \g__soranus_pagestyle_header_top_rule_width_dim,
     header-recto-left        = global \g__soranus_pagestyle_header_recto_left_tl,
     header-recto-center      = global \g__soranus_pagestyle_header_recto_center_tl,
