@@ -64,13 +64,13 @@
     \group_end:
   }
 
-\clist_const:Nn \c__soranus_incompatible_packages_clist
+\seq_const_from_clist:Nn \c__soranus_incompatible_packages_seq
   { changepage, crop, enumitem, fancyhdr, geometry, sidecap, titleps, titlesec, titletoc }
 
-\clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n
+\seq_map_function:NN \c__soranus_incompatible_packages_seq \__soranus_load_check:n
 
 \AtBeginDocument
-  { \clist_map_function:NN \c__soranus_incompatible_packages_clist \__soranus_load_check:n }
+  { \seq_map_function:NN \c__soranus_incompatible_packages_seq \__soranus_load_check:n }
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -78,7 +78,7 @@
 % Load Packages and Modules
 %
 
-\RequirePackage { l3keys2e, xparse, xtemplate, xcoffins }
+\RequirePackage { xparse, xtemplate, xcoffins, l3keys2e }
 \RequirePackage { etoolbox, lmodern }
 
 % The load order is critical!!!
