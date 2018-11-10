@@ -67,6 +67,28 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% About
+%
+
+\cs_new:Nn \__soranus_set_document_subject:n
+  { \prop_gput:Nnn \g__soranus_document_metadata_prop { subject } { #1 } }
+
+\cs_new:Nn \__soranus_set_document_subject_and_keywords:nn
+  {
+    \__soranus_set_document_subject:n { #1 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { keywords } { #2 }
+  }
+
+\NewDocumentCommand \about { m o }
+  {
+    \IfNoValueTF { #2 }
+      { \__soranus_set_document_subject:n { #1 } }
+      { \__soranus_set_document_subject_and_keywords:nn { #1 } { #2 } }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Copyright
 %
 
@@ -74,7 +96,7 @@
   {
     \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-year } { #1 }
     \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-holder } { #2 }
-    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-note } { #3 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { copyright-notice } { #3 }
   }
 
 \cs_new:Nn \__soranus_set_document_copyright_with_tag:nnnn
@@ -98,9 +120,9 @@
 
 \cs_new:Nn \__soranus_set_document_publisher:nnn
   {
-    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-name } { #1 }
-    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-year } { #2 }
-    \prop_gput:Nnn \g__soranus_document_metadata_prop { publish-address } { #3 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publisher-name } { #1 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publisher-year } { #2 }
+    \prop_gput:Nnn \g__soranus_document_metadata_prop { publisher-address } { #3 }
   }
 
 \NewDocumentCommand \publisher { m m m }
@@ -174,8 +196,5 @@
 % Disable Data Commands after Preamble
 %
 
-\@onlypreamble \title
-\@onlypreamble \date
-\@onlypreamble \author
-\@onlypreamble \copyright
-\@onlypreamble \publisher
+\tl_map_function:nN { \title \date \about \author \copyright \publisher }
+  \@onlypreamble
