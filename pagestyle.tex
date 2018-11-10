@@ -18,6 +18,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Designer Commands
+%
+
+\NewDocumentCommand \PageNumber { }
+  { \thepage }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pagestyle
 %
 
@@ -29,20 +39,20 @@
     page-numbering           : choice
       { arabic, small-roman, big-roman, small-letters, big-letters }
                                          = small-letters,
-    header-top-rule-width    : length    = 0.4pt,
-    header-recto-left        : tokenlist = \thepage,
-    header-recto-center      : tokenlist = a,
-    header-recto-right       : tokenlist = a,
-    header-verso-left        : tokenlist = a,
-    header-verso-center      : tokenlist = a,
-    header-verso-right       : tokenlist = \thepage,
+    header-top-rule-width    : length    = 0pt,
+    header-recto-left        : tokenlist,
+    header-recto-center      : tokenlist = ---\enspace\{\,\PageNumber\,\}\enspace---,
+    header-recto-right       : tokenlist,
+    header-verso-left        : tokenlist,
+    header-verso-center      : tokenlist = ---\enspace\{\,\PageNumber\,\}\enspace---,
+    header-verso-right       : tokenlist,
     header-bottom-rule-width : length    = 0.4pt,
-    footer-top-rule-width    : length    = 0pt,
+    footer-top-rule-width    : length    = 0.4pt,
     footer-recto-left        : tokenlist,
     footer-recto-center      : tokenlist,
-    footer-recto-right       : tokenlist = ---\,\{\quad\}\,---,
+    footer-recto-right       : tokenlist,
     footer-verso-left        : tokenlist,
-    footer-verso-center      : tokenlist = ---\,\{\quad\}\,---,
+    footer-verso-center      : tokenlist,
     footer-verso-right       : tokenlist,
     footer-bottom-rule-width : length    = 0pt,
   }
