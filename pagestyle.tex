@@ -176,6 +176,27 @@
     \pagestyle { soranus }
   }
 
-\DeclareInstance { pagestyle } { thepagestyle } { standard } { }
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Instance
+%
+
+\NewDocumentCommand \DeclarePageStyle { m m }
+  { \DeclareInstance { pagestyle } { #1 } { standard } { #2 } }
+
+\NewDocumentCommand \EditPageStyle { m m }
+  { \EditInstance { pagestyle } { #1 } { #2 } }
+
+\NewDocumentCommand \UsePageStyle { m }
+  { \UseInstance { pagestyle } { #1 } }
 
 
+\DeclarePageLayout { thepagestyle } { }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Designer Utilities
+%
