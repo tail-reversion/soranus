@@ -17,10 +17,47 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Date Parsing
+% Date and Time Parsing
 %
+% When l3regex provides for including precompiled regexen, this will be nicer.
+%
+% This is NOT completely ISO 8601 compliant, but is good enough.
 
-\regex_const:Nn \g__soranus_iso_datetime_regex
+\regex_const:Nn \c__soranus_iso_date_regex
+  {
+    \A % must be start of tl
+      \d{4} % year
+      (:?
+        -[0-1]\d % month
+        (:?
+          -[0-2]\d % day
+        )?
+      )?
+    \Z % must be end of tl
+  }
+
+\regex_const:Nn \c__soranus_iso_time_regex
+  {
+    \A
+      [0-2]\d % hour
+      (:?
+        :[0-5]\d % minute
+        (:?
+          [0-5]\d % second
+          (:?
+            Z | % UTC or...
+            [\+\-\−] % offset plus or minus (third is a Unicode minus)
+            [0-1]\d % hour offset
+            (:?
+              :[0-5]\d % minute offset
+            )?
+          )?
+        )?
+      )?
+    \Z
+  }
+
+\regex_const:Nn \c__soranus_iso_datetime_regex
   {
     \A % must be start of tl
       \d{4} % year
@@ -34,7 +71,14 @@
               :[0-5]\d % minute
               (:?
                 :[0-5]\d % second
-                Z? % UTC
+                (:?
+                  Z | % UTC or...
+                  [\+\-\−] % offset plus or minus (third is a Unicode minus)
+                  [0-1]\d % hour offset
+                  (:?
+                    :[0-5]\d % minute offset
+                  )?
+                )?
               )?
             )?
           )?
