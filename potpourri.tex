@@ -22,21 +22,23 @@
 
 \regex_const:Nn \g__soranus_iso_datetime_regex
   {
-    \d{4} % year
-    (:?
-      -[0-1]\d % month
+    \A % must be start of tl
+      \d{4} % year
       (:?
-        -[0-2]\d % day
+        -[0-1]\d % month
         (:?
-          T[0-2]\d % hour
+          -[0-2]\d % day
           (:?
-            :[0-5]\d % minute
+            T[0-2]\d % hour
             (:?
-              :[0-5]\d % second
-              Z? % UTC
+              :[0-5]\d % minute
+              (:?
+                :[0-5]\d % second
+                Z? % UTC
+              )?
             )?
           )?
         )?
       )?
-    )?
+    \Z % must be end of tl
   }
