@@ -96,5 +96,5 @@
 \ProcessKeysOptions { soranus / class-options }
 \__soranus_init_document_point_size:
 \__soranus_init_paper_and_trim:
-\UsePageLayout { thepagelayout }
-\UsePageStyle { thepagestyle }
+\UsePageLayout { default }
+\UsePageStyle { default }
