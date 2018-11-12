@@ -44,14 +44,14 @@
         :[0-5]\d % minute
         (:?
           [0-5]\d % second
-          (:?
-            Z | % UTC or...
-            [\+\-\−] % offset plus or minus (third is a Unicode minus)
-            [0-1]\d % hour offset
-            (:?
-              :[0-5]\d % minute offset
-            )?
-          )?
+        )?
+      )?
+      (:?
+        Z | % UTC or...
+        [\+\-\−] % offset plus or minus (third is a Unicode minus)
+        [0-1]\d % hour offset
+        (:?
+          :[0-5]\d % minute offset
         )?
       )?
     \Z
@@ -71,14 +71,14 @@
               :[0-5]\d % minute
               (:?
                 :[0-5]\d % second
-                (:?
-                  Z | % UTC or...
-                  [\+\-\−] % offset plus or minus (third is a Unicode minus)
-                  [0-1]\d % hour offset
-                  (:?
-                    :[0-5]\d % minute offset
-                  )?
-                )?
+              )?
+            )?
+            (:?
+              Z | % UTC or...
+              [\+\-\−] % offset plus or minus (third is a Unicode minus)
+              [0-1]\d % hour offset
+              (:?
+                :[0-5]\d % minute offset
               )?
             )?
           )?
