@@ -27,8 +27,8 @@
 %
 
 % Here I create aliases for some TeX primitives.
-\cs_new_eq:NN \g__soranus_top_skip \tex_topskip:D
-\cs_new_eq:NN \g__soranus_max_depth_skip \tex_maxdepth:D
+\cs_new_eq:NN \g__soranus_topskip_dim \tex_topskip:D
+\cs_new_eq:NN \g__soranus_max_depth_dim \tex_maxdepth:D
 
 % Here I define global document font size variables.
 \dim_new:N \g__soranus_normal_point_size_dim
@@ -42,9 +42,9 @@
 
 \cs_new:Nn \__soranus_init_document_point_size:
   {
-    \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_normal_point_size_dim
-    \dim_gset:Nn \g__soranus_max_depth_skip { 0.5\g__soranus_top_skip }
-    \dim_gset_eq:NN \@maxdepth \g__soranus_max_depth_skip
+    \dim_gset_eq:NN \g__soranus_topskip_dim \g__soranus_normal_point_size_dim
+    \dim_gset:Nn \g__soranus_max_depth_dim { 0.5\g__soranus_topskip_dim }
+    \dim_gset_eq:NN \@maxdepth \g__soranus_max_depth_dim
     \skip_gset:Nn \smallskipamount
       {
         \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.3 }
