@@ -15,6 +15,7 @@
 %
 % This work consists of the files listed in the README.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main Point Size
@@ -43,6 +44,7 @@
   {
     \dim_gset_eq:NN \g__soranus_top_skip \g__soranus_normal_point_size_dim
     \dim_gset:Nn \g__soranus_max_depth_skip { 0.5\g__soranus_top_skip }
+    \dim_gset_eq:Nn \@maxdepth \g__soranus_max_depth_skip
     \skip_gset:Nn \smallskipamount
       {
         \ScaleToNearestPoint { \g__soranus_normal_point_size_dim } { 0.3 }
@@ -146,7 +148,7 @@
         \dim_gset_eq:NN \g__soranus_paper_height_dim \l_soranus_tmpa_dim
       }
 
-    % Do \paperwidth and \paperheight actually do anything?!?
+    % These don’t do anything, but some packages may rely on them???
     \dim_gset_eq:NN \paperwidth \g__soranus_page_width_dim
     \dim_gset_eq:NN \paperheight \g__soranus_page_height_dim
 
