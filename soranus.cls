@@ -65,7 +65,18 @@
   }
 
 \seq_const_from_clist:Nn \c__soranus_incompatible_packages_seq
-  { changepage, crop, enumitem, fancyhdr, geometry, sidecap, titleps, titlesec, titletoc }
+  {
+    changepage,
+    crop,
+    enumitem,
+    etoc,
+    fancyhdr,
+    geometry,
+    sidecap,
+    titleps,
+    titlesec,
+    titletoc
+  }
 
 \seq_map_function:NN \c__soranus_incompatible_packages_seq \__soranus_load_check:n
 
