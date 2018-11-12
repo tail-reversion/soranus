@@ -28,9 +28,9 @@
     \A % must be start of tl
       \d{4} % year
       (:?
-        -[0-1]\d % month
+        -(:? 0[1-9] | 1[0-2] ) % month
         (:?
-          -[0-2]\d % day
+          -(:? [0-2]\d | 3[0-1] ) % day
         )?
       )?
     \Z % must be end of tl
@@ -43,13 +43,13 @@
       (:?
         :[0-5]\d % minute
         (:?
-          [0-5]\d % second
+          :[0-5]\d % second
         )?
       )?
       (:?
         Z | % UTC or...
         [\+\-\−] % offset plus or minus (third is a Unicode minus)
-        [0-1]\d % hour offset
+        (:? 0\d | 1[0-4] ) % hour offset
         (:?
           :[0-5]\d % minute offset
         )?
@@ -62,9 +62,9 @@
     \A % must be start of tl
       \d{4} % year
       (:?
-        -[0-1]\d % month
+        -(:? 0[1-9] | 1[0-2] ) % month
         (:?
-          -[0-2]\d % day
+          -(:? [0-2]\d | 3[0-1] ) % day
           (:?
             T[0-2]\d % hour
             (:?
@@ -76,7 +76,7 @@
             (:?
               Z | % UTC or...
               [\+\-\−] % offset plus or minus (third is a Unicode minus)
-              [0-1]\d % hour offset
+              (:? 0\d | 1[0-4] ) % hour offset
               (:?
                 :[0-5]\d % minute offset
               )?
@@ -86,3 +86,36 @@
       )?
     \Z % must be end of tl
   }
+
+
+
+\cs_new:Nn \__soranus_date_is_valid:nT
+  { \regex_match:NnT \c__soranus_iso_date_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_date_is_valid:nF
+  { \regex_match:NnF \c__soranus_iso_date_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_date_is_valid:nTF
+  { \regex_match:NnTF \c__soranus_iso_date_regex { #1 } { #2 } { #3 } }
+
+\cs_new:Nn \__soranus_time_is_valid:nT
+  { \regex_match:NnT \c__soranus_iso_time_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_time_is_valid:nF
+  { \regex_match:NnF \c__soranus_iso_time_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_time_is_valid:nTF
+  { \regex_match:NnTF \c__soranus_iso_time_regex { #1 } { #2 } { #3 } }
+
+\cs_new:Nn \__soranus_datetime_is_valid:nT
+  { \regex_match:NnT \c__soranus_iso_datetime_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_datetime_is_valid:nF
+  { \regex_match:NnF \c__soranus_iso_datetime_regex { #1 } { #2 } }
+\cs_new:Nn \__soranus_datetime_is_valid:nTF
+  { \regex_match:NnTF \c__soranus_iso_datetime_regex { #1 } { #2 } { #3 } }
+
+
+\NewDocumentCommand \isgooddate { m }
+  { \__soranus_date_is_valid:nTF { #1 } { good~date } { bad~date } }
+
+\NewDocumentCommand \isgoodtime { m }
+  { \__soranus_time_is_valid:nTF { #1 } { good~time } { bad~time } }
+
+\NewDocumentCommand \isgooddatetime { m }
+  { \__soranus_datetime_is_valid:nTF { #1 } { good~datetime } { bad~datetime } }
