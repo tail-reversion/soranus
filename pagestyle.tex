@@ -78,29 +78,39 @@
 
 \cs_new:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \parbox { \textwidth } {
-        \dim_compare:nNnF { #1 } = { \c_zero_dim }
-          { \rule { \textwidth } { #1 } \\ }
-        \parbox [ t ] { 0.3\textwidth }
+    \SetHorizontalCoffin \l__soranus_tmpa_coffin
+      {
+        \hbox_to_wd:nn { \textwidth }
           {
-            \tl_if_blank:VF #3
+            \parbox [ t ] { 0.3\textwidth }
               { \raggedright \tl_use:N #3 \strut }
-          }
-        \skip_horizontal:n { 0pt plus 1fill }
-        \parbox [ t ] { 0.3\textwidth }
-          {
-            \tl_if_blank:VF { #4 }
+            \skip_horizontal:n { 0pt plus 1fill }
+            \parbox [ t ] { 0.3\textwidth }
               { \centering \tl_use:N #4 \strut }
-          }
-        \skip_horizontal:n { 0pt plus 1fill }
-        \parbox [ t ] { 0.3\textwidth }
-          {
-            \tl_if_blank:VF #5
+            \skip_horizontal:n { 0pt plus 1fill }
+            \parbox [ t ] { 0.3\textwidth }
               { \raggedleft \tl_use:N #5 \strut }
           }
-        \dim_compare:nNnF { #2 } = { \c_zero_dim }
-        { \\ \rule [ \NormalPointSize ] { \textwidth } { #2 } }
       }
+    \dim_compare:nNnF { #1 } = { \c_zero_dim }
+      {
+        \SetHorizontalCoffin \l__soranus_tmpc_coffin
+          { \rule { \textwidth } { #1 } }
+        \JoinCoffins
+          \l__soranus_tmpa_coffin [ l, t ]
+          \l__soranus_tmpc_coffin [ l, b ]
+          ( 0pt, 3pt )
+      }
+    \dim_compare:nNnF { #2 } = { \c_zero_dim }
+      {
+        \SetHorizontalCoffin \l__soranus_tmpc_coffin
+          { \rule { \textwidth } { #2 } }
+        \JoinCoffins
+          \l__soranus_tmpa_coffin [ l, b ]
+          \l__soranus_tmpc_coffin [ l, t ]
+          ( 0pt, -2pt )
+      }
+    \TypesetCoffin \l__soranus_tmpa_coffin ( 0pt, 2.5pt )
   }
 
 \DeclareTemplateCode { pagestyle } { standard } { 0 }
