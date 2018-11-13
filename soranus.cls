@@ -90,7 +90,7 @@
 %
 
 \RequirePackage { xparse, xtemplate, xcoffins, l3keys2e }
-\RequirePackage { etoolbox, lmodern }
+\RequirePackage { calc, etoolbox, lmodern }
 
 % The load order is critical!!!
 \file_input:n { utility.tex }
