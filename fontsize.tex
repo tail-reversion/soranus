@@ -18,28 +18,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Variables
-%
-
-% Here I create aliases for the some TeX font size primitives.
-
-\cs_new_eq:NN \l__soranus_above_display_skip \tex_abovedisplayskip:D
-\cs_new_eq:NN \l__soranus_above_display_short_skip \tex_abovedisplayshortskip:D
-\cs_new_eq:NN \l__soranus_below_display_skip \tex_belowdisplayskip:D
-\cs_new_eq:NN \l__soranus_below_display_short_skip \tex_belowdisplayshortskip:D
-
-\cs_new:Nn \__soranus_set_display_skips:nnnn
-  {
-    \skip_set:Nn \l__soranus_above_display_skip { #1 }
-    \skip_set:Nn \l__soranus_above_display_short_skip { #2 }
-    \skip_set:Nn \l__soranus_below_display_skip { #3 }
-    \skip_set:Nn \l__soranus_below_display_short_skip { #4 }
-  }
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Template
 %
 
@@ -51,12 +29,7 @@
 \DeclareTemplateInterface { fontsize } { standard } { 0 }
   {
     point-size               : length  = 10pt,
-    baseline-scale           : real    = 1.2,
-    change-display-skips     : boolean = false,
-    above-display-skip       : skip    = 0pt,
-    above-display-short-skip : skip    = 0pt,
-    below-display-skip       : skip    = 0pt,
-    below-display-short-skip : skip    = 0pt
+    baseline-scale           : real    = 1.2
   }
 
 
@@ -78,22 +51,12 @@
 
 \dim_new:N \l__soranus_fontsize_point_size_dim
 \fp_new:N \l__soranus_fontsize_baseline_scale_fp
-\bool_new:N \l__soranus_fontsize_change_display_bool
-\skip_new:N \l__soranus_fontsize_above_display_skip
-\skip_new:N \l__soranus_fontsize_above_display_short_skip
-\skip_new:N \l__soranus_fontsize_below_display_skip
-\skip_new:N \l__soranus_fontsize_below_display_short_skip
 
 
 \DeclareTemplateCode { fontsize } { standard } { 0 }
   {
     point-size               = \l__soranus_fontsize_point_size_dim,
-    baseline-scale           = \l__soranus_fontsize_baseline_scale_fp,
-    change-display-skips     = \l__soranus_fontsize_change_display_bool,
-    above-display-skip       = \l__soranus_fontsize_above_display_skip,
-    above-display-short-skip = \l__soranus_fontsize_above_display_short_skip,
-    below-display-skip       = \l__soranus_fontsize_below_display_skip,
-    below-display-short-skip = \l__soranus_fontsize_below_display_short_skip
+    baseline-scale           = \l__soranus_fontsize_baseline_scale_fp
   }
   {
     \mode_if_math:TF
@@ -110,14 +73,6 @@
               { \l__soranus_fontsize_baseline_scale_fp }
           }
         \selectfont
-        \bool_if:nT { \l__soranus_fontsize_change_display_bool }
-          {
-            \__soranus_set_display_skips:nnnn
-              { \l__soranus_fontsize_above_display_skip }
-              { \l__soranus_fontsize_above_display_short_skip }
-              { \l__soranus_fontsize_below_display_skip }
-              { \l__soranus_fontsize_below_display_short_skip }
-          }
       }
   }
 
@@ -160,35 +115,20 @@
 
 \DeclareFontSize { footnotesize }
   {
-    point-size               = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.8 },
-    baseline-scale           = \NormalBaselineScale,
-    change-display-skips     = true,
-    above-display-skip       = 6pt plus 2pt minus 4pt,
-    above-display-short-skip = 0pt plus 1pt,
-    below-display-skip       = \KeyValue { above-display-skip },
-    below-display-short-skip = 3pt plus 1pt minus 2pt
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.8 },
+    baseline-scale = \NormalBaselineScale
   }
 
 \DeclareFontSize { small }
   {
-    point-size               = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
-    baseline-scale           = \NormalBaselineScale,
-    change-display-skips     = true,
-    above-display-skip       = 8.5pt plus 3pt minus 4pt,
-    above-display-short-skip = 0pt plus 2pt,
-    below-display-skip       = \KeyValue { above-display-skip },
-    below-display-short-skip = 4pt plus 2pt minus 2pt
+    point-size    = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
+    baseline-scale = \NormalBaselineScale
   }
 
 \DeclareFontSize { normalsize }
   {
-    point-size               = \NormalPointSize,
-    baseline-scale           = \NormalBaselineScale,
-    change-display-skips     = true,
-    above-display-skip       = 10pt plus 2pt minus 5pt,
-    above-display-short-skip = 0pt plus 3pt,
-    below-display-skip       = \KeyValue { above-display-skip },
-    below-display-short-skip = 6pt plus 3pt minus 3pt
+    point-size     = \NormalPointSize,
+    baseline-scale = \NormalBaselineScale
   }
 
 \DeclareFontSize { large }
