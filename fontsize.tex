@@ -28,8 +28,8 @@
 % Define the interface for the standard (only) font size template.
 \DeclareTemplateInterface { fontsize } { standard } { 0 }
   {
-    point-size               : length  = 10pt,
-    baseline-scale           : real    = 1.2
+    point-size     : length  = 10pt,
+    baseline-scale : real    = 1.2
   }
 
 
@@ -55,8 +55,8 @@
 
 \DeclareTemplateCode { fontsize } { standard } { 0 }
   {
-    point-size               = \l__soranus_fontsize_point_size_dim,
-    baseline-scale           = \l__soranus_fontsize_baseline_scale_fp
+    point-size     = \l__soranus_fontsize_point_size_dim,
+    baseline-scale = \l__soranus_fontsize_baseline_scale_fp
   }
   {
     \mode_if_math:TF
@@ -121,7 +121,7 @@
 
 \DeclareFontSize { small }
   {
-    point-size    = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
+    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
     baseline-scale = \NormalBaselineScale
   }
 
