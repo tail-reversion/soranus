@@ -19,7 +19,7 @@
 \RequirePackage{expl3}[2018/02/21]
 
 \ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
-  {A modern, flexible class for articles, reports, and books of all sorts.}
+  {An experimental class for, like, papers and books and stuff.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
