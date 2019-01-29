@@ -47,41 +47,16 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-% Incompatible Packages
+% General Warning
 %
-% This list is nonexhaustive but covers the essentials.
 
-\msg_new:nnnn { soranus } { incompatible-package }
-  { Package~`#1'~incompatible. }
-  { The~#1~package~and~the~soranus~class~are~incompatible. }
-
-\cs_new_protected:Nn \__soranus_load_check:n
+\msg_new:nnn { soranus } { experimental }
   {
-    \group_begin:
-      \@ifpackageloaded { #1 }
-        { \msg_error:nnn { soranus } { incompatible-package } { #1 } }
-        { }
-    \group_end:
+    The~soranus~class~is~a~highly~experimental~work-in-progress~
+    and~is~incompatible~with~most~packages.~Do~not~use~in~production!
   }
 
-\seq_const_from_clist:Nn \c__soranus_incompatible_packages_seq
-  {
-    changepage,
-    crop,
-    enumitem,
-    etoc,
-    fancyhdr,
-    geometry,
-    sidecap,
-    titleps,
-    titlesec,
-    titletoc
-  }
-
-\seq_map_function:NN \c__soranus_incompatible_packages_seq \__soranus_load_check:n
-
-\AtBeginDocument
-  { \seq_map_function:NN \c__soranus_incompatible_packages_seq \__soranus_load_check:n }
+\msg_warning:nn { soranus } { experimental }
 
 
 %%%%%%%%%%%%%%%%%%%%
