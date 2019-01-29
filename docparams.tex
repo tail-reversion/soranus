@@ -150,18 +150,12 @@
     The~document~has~the~following~paper~and~page~parameters:\\
     \iow_indent:n
       {
-        paper-width:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_paper_width_dim }\\
-        paper-height:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_paper_height_dim }\\
-        page-width:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_page_width_dim }\\
-        page-height:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_page_height_dim }\\
-        edge-trim:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_edge_trim_dim }\\
-        top-trim:~\__soranus_for_msg_dim_to_decimal_in_common_units:n
-          { \g__soranus_top_trim_dim }\\
+        paper-width:~\dim_use:N \g__soranus_paper_width_dim\\
+        paper-height:~\dim_use:N \g__soranus_paper_height_dim\\
+        page-width:~\dim_use:N \g__soranus_page_width_dim\\
+        page-height:~\dim_use:N \g__soranus_page_height_dim\\
+        edge-trim:~\dim_use:N \g__soranus_edge_trim_dim\\
+        top-trim:~\dim_use:N \g__soranus_top_trim_dim\\
         two-side:~\soranus_bool_to_text:n { \g__soranus_two_side_bool }
       }
   }
