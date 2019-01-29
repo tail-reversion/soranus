@@ -21,9 +21,6 @@
 % Designer Commands
 %
 
-\NewDocumentCommand \PageNumber { }
-  { \thepage }
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,10 +38,10 @@
                                          = arabic,
     header-top-rule-width    : length    = 0pt,
     header-recto-left        : tokenlist,
-    header-recto-center      : tokenlist = ---\enspace\{\,\PageNumber\,\}\enspace---,
+    header-recto-center      : tokenlist = ---\enspace\{\,\thepage\,\}\enspace---,
     header-recto-right       : tokenlist,
     header-verso-left        : tokenlist,
-    header-verso-center      : tokenlist = ---\enspace\{\,\PageNumber\,\}\enspace---,
+    header-verso-center      : tokenlist = ---\enspace\{\,\thepage\,\}\enspace---,
     header-verso-right       : tokenlist,
     header-bottom-rule-width : length    = 0.4pt,
     footer-top-rule-width    : length    = 0.4pt,
