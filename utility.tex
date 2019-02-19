@@ -74,27 +74,6 @@
 % General Utility Functions
 %
 
-% User-friendly commands for rounded dimension scaling.
-
-\NewExpandableDocumentCommand \ScaleToNearestPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2) } }
-
-\NewExpandableDocumentCommand \ScaleToNearestHalfPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 2) / 2 } }
-
-\NewExpandableDocumentCommand \ScaleToNearestQuarterPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 4) / 4 } }
-
-\NewExpandableDocumentCommand \ScaleToNearestEighthPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2 * 8) / 8 } }
-
-\NewExpandableDocumentCommand \ScaleToNearestTenthPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2, 1) } }
-
-\NewExpandableDocumentCommand \ScaleToNearestHundredthPoint { m m }
-  { \fp_to_dim:n { round(\dim_to_fp:n { #1 } * #2, 2) } }
-
-
 % Command for printing booleans.
 \cs_new:Nn \soranus_bool_to_text:n { \bool_if:nTF { #1 } { true } { false } }
 
