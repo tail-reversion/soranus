@@ -1,5 +1,5 @@
 % soranus.cls
-% Copyright (C) 2018 Kelly Smith.
+% Copyright (C) 2018-2019 Kelly Smith.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License (LPPL),
@@ -18,7 +18,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{expl3}[2018/02/21]
 
-\ProvidesExplClass{soranus}{2018/10/06}{0.0.0}
+\ProvidesExplClass{soranus}{2019/02/18}{0.0.0}
   {An experimental class for, like, papers and books and stuff.}
 
 
