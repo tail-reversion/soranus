@@ -18,19 +18,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Template
+% Font Size Template
 %
 
 % Define an object that represents a font size command.
 \DeclareObjectType { fontsize } { 0 }
-
-
-% Define the interface for the standard (only) font size template.
-\DeclareTemplateInterface { fontsize } { standard } { 0 }
-  {
-    point-size     : length  = 10pt,
-    baseline-scale : real    = 1.2
-  }
 
 
 % I forbid normal font size switches in the middle of a math environment.
@@ -41,23 +33,8 @@
     before~the~math~environment.
   }
 
-
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Implementation
-%
-
-% Here I define the template variables.
-
-\dim_new:N \l__soranus_fontsize_point_size_dim
-\fp_new:N \l__soranus_fontsize_baseline_scale_fp
-
-
-\DeclareTemplateCode { fontsize } { standard } { 0 }
-  {
-    point-size     = \l__soranus_fontsize_point_size_dim,
-    baseline-scale = \l__soranus_fontsize_baseline_scale_fp
-  }
+% A general function to wrap boilerplate.
+\cs_new_protected:Nn \__soranus_set_fontsize:nn
   {
     \mode_if_math:TF
       { \msg_error:nn { soranus } { fontsize-in-math-mode } }
@@ -65,14 +42,110 @@
         \AssignTemplateKeys
         % I do not use \@setfontsize since I handle math mode in my own way
         % and because \@currsize is not used in this class.
-        \fontsize
-          \l__soranus_fontsize_point_size_dim
+        \fontsize { #1 } { #2 } \selectfont
+      }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Absolute Template
+%
+
+
+\DeclareTemplateInterface { fontsize } { absolute } { 0 }
+  {
+    point-size   : length = 10pt,
+    baseline-sep : length = 12pt
+  }
+
+
+% Here I define the template variables.
+\dim_new:N \l__soranus_fontsize_absolute_point_size_dim
+\dim_new:N \l__soranus_fontsize_absolute_baseline_sep_dim
+
+
+\DeclareTemplateCode { fontsize } { absolute } { 0 }
+  {
+    point-size   = \l__soranus_fontsize_absolute_point_size_dim,
+    baseline-sep = \l__soranus_fontsize_absolute_baseline_sep_dim
+  }
+  {
+    \__soranus_set_fontsize:nn
+      { \l__soranus_fontsize_absolute_point_size_dim }
+      { \l__soranus_fontsize_absolute_baseline_sep_dim }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Relative Template
+%
+
+\DeclareTemplateInterface { fontsize } { relative } { 0 }
+  {
+    scale : real = 1.1
+  }
+
+
+\fp_new:N \l__soranus_fontsize_relative_scale_fp
+
+\DeclareTemplateCode { fontsize } { relative } { 0 }
+  {
+    scale = \l__soranus_fontsize_relative_scale_fp
+  }
+  {
+    \__soranus_set_fontsize:nn
+      {
+        \fp_to_dim:n
           {
-            \ScaleToNearestTenthPoint
-              { \l__soranus_fontsize_point_size_dim }
-              { \l__soranus_fontsize_baseline_scale_fp }
+            \dim_to_fp:n { \f@size pt }
+            * \l__soranus_fontsize_relative_scale_fp
           }
-        \selectfont
+      }
+      {
+        \fp_to_dim:n
+          {
+            \dim_to_fp:n { \f@baselineskip }
+            * \l__soranus_fontsize_relative_scale_fp
+          }
+      }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Root Relative Template
+%
+
+\DeclareTemplateInterface { fontsize } { root-relative } { 0 }
+  {
+    scale : real = 1.1
+  }
+
+
+\fp_new:N \l__soranus_fontsize_root_relative_scale_fp
+
+\DeclareTemplateCode { fontsize } { root-relative } { 0 }
+  {
+    scale = \l__soranus_fontsize_root_relative_scale_fp
+  }
+  {
+    \__soranus_set_fontsize:nn
+      {
+        \fp_to_dim:n
+          {
+            \dim_to_fp:n { \g__soranus_normal_point_size_dim }
+            * \l__soranus_fontsize_root_relative_scale_fp
+          }
+      }
+      {
+        \fp_to_dim:n
+          {
+            \dim_to_fp:n { \g__soranus_normal_point_size_dim }
+            * \l__soranus_fontsize_root_relative_scale_fp
+            * \g__soranus_normal_baseline_scale_fp
+          }
       }
   }
 
@@ -81,133 +154,84 @@
 %%%%%%%%%%%%%%%%%%%%
 % Instances
 %
-% The default values for these instances make the font size and baseline scale
-% of each font size dependent on the normal font size and baseline scale, which
-% are set with class options.
 
-\NewDocumentCommand \DeclareFontSize { m m }
-  { \DeclareInstance { fontsize } { #1 } { standard } { #2 } }
-
-\NewDocumentCommand \EditFontSize { m m }
-  { \EditInstance { fontsize } { #1 } { #2 } }
-
-\NewDocumentCommand \UseFontSize { m }
-  { \UseInstance { fontsize } { #1 } }
-
-
-\DeclareFontSize { miniscule }
+\DeclareInstance { fontsize } { miniscule } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.5 },
-    baseline-scale = \NormalBaselineScale
+    scale = 0.5
   }
 
-\DeclareFontSize { tiny }
+\DeclareInstance { fontsize } { tiny } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.6 },
-    baseline-scale = \NormalBaselineScale
+    scale = 0.6
   }
 
-\DeclareFontSize { scriptsize }
+\DeclareInstance { fontsize } { scriptsize } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.7 },
-    baseline-scale = \NormalBaselineScale
+    scale = 0.7
   }
 
-\DeclareFontSize { footnotesize }
+\DeclareInstance { fontsize } { footnotesize } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.8 },
-    baseline-scale = \NormalBaselineScale
+    scale = 0.8
   }
 
-\DeclareFontSize { small }
+\DeclareInstance { fontsize } { small } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 0.9 },
-    baseline-scale = \NormalBaselineScale
+    scale = 0.9
   }
 
-\DeclareFontSize { normalsize }
+\DeclareInstance { fontsize } { normalsize } { root-relative }
   {
-    point-size     = \NormalPointSize,
-    baseline-scale = \NormalBaselineScale
+    scale = 1.0
   }
 
-\DeclareFontSize { large }
+\DeclareInstance { fontsize } { large } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.2 },
-    baseline-scale = \NormalBaselineScale
+    scale = 1.2
   }
 
-\DeclareFontSize { Large }
+\DeclareInstance { fontsize } { Large } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.4 },
-    baseline-scale = \NormalBaselineScale
+    scale = 1.4
   }
 
-\DeclareFontSize { LARGE }
+\DeclareInstance { fontsize } { LARGE } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 1.6 },
-    baseline-scale = \NormalBaselineScale
+    scale = 1.6
   }
 
-\DeclareFontSize { huge }
+\DeclareInstance { fontsize } { huge } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 2.4 },
-    baseline-scale = \NormalBaselineScale
+    scale = 2.4
   }
 
-\DeclareFontSize { Huge }
+\DeclareInstance { fontsize } { Huge } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 2.8 },
-    baseline-scale = \NormalBaselineScale
+    scale = 2.8
   }
 
-\DeclareFontSize { HUGE }
+\DeclareInstance { fontsize } { HUGE } { root-relative }
   {
-    point-size     = \ScaleToNearestTenthPoint { \NormalPointSize } { 3.2 },
-    baseline-scale = \NormalBaselineScale
+    scale = 3.2
   }
 
+\DeclareInstance { fontsize } { smaller } { relative }
+  {
+    scale = 0.9
+  }
+
+\DeclareInstance { fontsize } { larger } { relative }
+  {
+  
+  }
 
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-% Document Size Commands
+% normalsize
 %
-% A font size command is changed by editing its respective instance.
-
-\NewDocumentCommand \miniscule { }
-  { \UseFontSize { miniscule } }
-
-\NewDocumentCommand \tiny { }
-  { \UseFontSize { tiny } }
-
-\NewDocumentCommand \scriptsize { }
-  { \UseFontSize { scriptsize } }
-
-\NewDocumentCommand \footnotesize { }
-  { \UseFontSize { footnotesize } }
-
-\NewDocumentCommand \small { }
-  { \UseFontSize { small } }
+% Only \normalsize is defined, to keep 2e happy, otherwise templates are used.
 
 \RenewDocumentCommand \normalsize { }
-  { \UseFontSize { normalsize } }
-
-\NewDocumentCommand \large { }
-  { \UseFontSize { large } }
-
-\NewDocumentCommand \Large { }
-  { \UseFontSize { Large } }
-
-\NewDocumentCommand \LARGE { }
-  { \UseFontSize { LARGE } }
-
-\NewDocumentCommand \huge { }
-  { \UseFontSize { huge } }
-
-\NewDocumentCommand \Huge { }
-  { \UseFontSize { Huge } }
-
-\NewDocumentCommand \HUGE { }
-  { \UseFontSize { HUGE } }
+  { \UseInstance { fontsize } { normalsize } }
