@@ -79,7 +79,8 @@
 
 \cs_new:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \SetHorizontalCoffin \l__soranus_pagestyle_internal_a_coffin
+    \SetHorizontalCoffin 
+\coffin_new:N \l__soranus_pagestyle_internal_a_coffin
       {
         \hbox_to_wd:nn { \textwidth }
           {
@@ -104,7 +105,8 @@
       }
     \dim_compare:nNnF { #2 } = { \c_zero_dim }
       {
-        \SetHorizontalCoffin \l__soranus_pagestyle_internal_b_coffin
+        \SetHorizontalCoffin 
+\coffin_new:N \l__soranus_pagestyle_internal_b_coffin
           { \rule { \textwidth } { #2 } }
         \JoinCoffins
           \l__soranus_pagestyle_internal_a_coffin [ l, b ]
