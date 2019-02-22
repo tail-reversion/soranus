@@ -55,6 +55,10 @@
   }
 
 
+\coffin_new:N \l__soranus_pagestyle_internal_a_coffin
+\coffin_new:N \l__soranus_pagestyle_internal_b_coffin
+\coffin_new:N \l__soranus_pagestyle_internal_c_coffin
+
 \tl_new:N \g__soranus_pagestyle_page_numbering_tl
 \dim_new:N \g__soranus_pagestyle_header_top_rule_width_dim
 \tl_new:N \g__soranus_pagestyle_header_recto_left_tl
@@ -75,7 +79,7 @@
 
 \cs_new:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \SetHorizontalCoffin \l__soranus_tmpa_coffin
+    \SetHorizontalCoffin \l__soranus_pagestyle_internal_a_coffin
       {
         \hbox_to_wd:nn { \textwidth }
           {
@@ -91,23 +95,23 @@
       }
     \dim_compare:nNnF { #1 } = { \c_zero_dim }
       {
-        \SetHorizontalCoffin \l__soranus_tmpc_coffin
+        \SetHorizontalCoffin \l__soranus_pagestyle_internal_b_coffin
           { \rule { \textwidth } { #1 } }
         \JoinCoffins
-          \l__soranus_tmpa_coffin [ l, t ]
-          \l__soranus_tmpc_coffin [ l, b ]
+          \l__soranus_pagestyle_internal_a_coffin [ l, t ]
+          \l__soranus_pagestyle_internal_b_coffin [ l, b ]
           ( 0pt, 3pt )
       }
     \dim_compare:nNnF { #2 } = { \c_zero_dim }
       {
-        \SetHorizontalCoffin \l__soranus_tmpc_coffin
+        \SetHorizontalCoffin \l__soranus_pagestyle_internal_b_coffin
           { \rule { \textwidth } { #2 } }
         \JoinCoffins
-          \l__soranus_tmpa_coffin [ l, b ]
-          \l__soranus_tmpc_coffin [ l, t ]
+          \l__soranus_pagestyle_internal_a_coffin [ l, b ]
+          \l__soranus_pagestyle_internal_b_coffin [ l, t ]
           ( 0pt, -2pt )
       }
-    \TypesetCoffin \l__soranus_tmpa_coffin ( 0pt, 2.5pt )
+    \TypesetCoffin \l__soranus_pagestyle_internal_a_coffin ( 0pt, 2.5pt )
   }
 
 \DeclareTemplateCode { pagestyle } { standard } { 0 }
