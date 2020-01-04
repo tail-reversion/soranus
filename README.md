@@ -1,6 +1,6 @@
 # The Soranus Class
 
-This is an experimental class that is _somewhat_ functional but _not_ useful. It is (eventually) intended for general use, _i.e._ technical reports, journal articles, books of all kinds, _&c._ My hope is that even document authors and designers outside of mathematics and the natural sciences and will find this class both valuable and pleasant to use.
+This is an experimental class that is _somewhat_ functional but _not_ useful. It is (eventually) intended for general use, i.e. technical reports, journal articles, books of all kinds, &c. My hope is that even document authors and designers outside of mathematics and the natural sciences and will find this class both valuable and pleasant to use.
 
 Named after [the Roman](https://en.wikipedia.org/wiki/Quintus_Valerius_Soranus "Quintus Valerius Soranus") who is credited with inventing the table of contents.
 
@@ -19,7 +19,6 @@ Contributions and feedback are [always welcome](CONTRIBUTING.md).
 This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 
 **File Manifest**
-- potpourri.tex (various experiments; not used in the class)
 - utility.tex
 - metadata.tex
 - docparams.tex
