@@ -26,12 +26,8 @@
 
 
 % I forbid normal font size switches in the middle of a math environment.
-\msg_new:nnnn { soranus } { fontsize-in-math-mode }
+\msg_new:nnn { soranus } { fontsize-in-math-mode }
   { Normal~font~size~commands~are~forbidden~in~math~mode. }
-  {
-    If~you~need~to~have~differently-sized~math,~invoke~a~font~size~command~
-    before~the~math~environment.
-  }
 
 % A general function to wrap boilerplate.
 \cs_new_protected:Nn \__soranus_set_fontsize:nn
