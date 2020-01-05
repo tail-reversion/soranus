@@ -14,3 +14,85 @@
 % The Current Maintainer of this work is Kelly Smith.
 %
 % This work consists of the files listed in the README.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%
+
+\DeclareObjectType { title } { 0 }
+
+
+\DeclareTemplateInterface { title } { classic } { 0 }
+  {
+    title-font       : tokenlist,
+    author-font      : tokenlist,
+    date-font        : tokenlist,
+    title-author-sep : length = 12pt,
+    author-date-sep  : length = 12pt,
+    top-sep          : length = 16pt,
+    bottom-sep       : length = 16pt,
+  }
+
+
+\tl_new:N \g__soranus_title_classic_title_font_tl
+\tl_new:N \g__soranus_title_classic_author_font_tl
+\tl_new:N \g__soranus_title_classic_date_font_tl
+\dim_new:N \g__soranus_title_classic_title_author_sep_dim
+\dim_new:N \g__soranus_title_classic_author_date_sep_dim
+\dim_new:N \g__soranus_title_classic_top_sep_dim
+\dim_new:N \g__soranus_title_classic_bottom_sep_dim
+
+\tl_new:N \g__soranus_title_classic_author_temp_tl
+
+% ewwww...
+\cs_new_eq:NN \__soranus_par: \tex_par:D
+
+\DeclareTemplateCode { title } { classic } { 0 }
+  {
+    title-font       = global \g__soranus_title_classic_title_font_tl,
+    author-font      = global \g__soranus_title_classic_author_font_tl,
+    date-font        = global \g__soranus_title_classic_date_font_tl,
+    title-author-sep = global \g__soranus_title_classic_title_author_sep_dim,
+    author-date-sep  = global \g__soranus_title_classic_author_date_sep_dim,
+    top-sep          = global \g__soranus_title_classic_top_sep_dim,
+    bottom-sep       = global \g__soranus_title_classic_bottom_sep_dim
+  }
+  {
+    \AssignTemplateKeys
+    \mode_leave_vertical:
+    \skip_vertical:N \g__soranus_title_classic_top_sep_dim
+    {
+      \UseInstance { justification } { center }
+      \tl_use:N \g__soranus_title_classic_title_font_tl
+      \prop_item:Nn \g__soranus_document_metadata_prop { title }
+      \__soranus_par:
+    }
+    \skip_vertical:N \g__soranus_title_classic_author_date_sep_dim
+    {
+      \UseInstance { justification } { center }
+      \tl_use:N \g__soranus_title_classic_date_font_tl
+      \prop_item:Nn \g__soranus_document_metadata_prop { date }
+      \__soranus_par:
+    }
+    \skip_vertical:N \g__soranus_title_classic_title_author_sep_dim
+    {
+      \UseInstance { justification } { center }
+      \tl_use:N \g__soranus_title_classic_author_font_tl
+      \prop_item:Nn \g__soranus_author_i_data_prop { name }
+      \__soranus_par:
+    }
+    \skip_vertical:N \g__soranus_title_classic_bottom_sep_dim
+  }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Instances
+%
+
+\DeclareInstance { title } { default } { classic }
+  {
+  }

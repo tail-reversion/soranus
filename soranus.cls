@@ -64,7 +64,7 @@
 % Load Packages and Modules
 %
 
-\RequirePackage { xparse, xtemplate, xcoffins, l3keys2e }
+\RequirePackage { xparse, xtemplate, xgalley, xcoffins, l3keys2e }
 \RequirePackage { calc, etoolbox, lmodern }
 
 % The load order is critical!!!
@@ -75,6 +75,7 @@
 \file_input:n { fontsize.tex }
 \file_input:n { pagelayout.tex }
 \file_input:n { pagestyle.tex }
+\file_input:n { title.tex }
 
 
 
