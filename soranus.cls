@@ -1,5 +1,5 @@
 % soranus.cls
-% Copyright (C) 2018-2019 Kelly Smith.
+% Copyright (C) 2018-2020 Kelly Smith.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License (LPPL),
