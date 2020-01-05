@@ -40,10 +40,18 @@
   {
     name        .prop_gput:N      = \g__soranus_author_data_temp_prop,
     name        .value_required:n = true,
+
     institution .prop_gput:N      = \g__soranus_author_data_temp_prop,
+    institution .value_required:n = true,
+
     address     .prop_gput:N      = \g__soranus_author_data_temp_prop,
+    address     .value_required:n = true,
+
     email       .prop_gput:N      = \g__soranus_author_data_temp_prop,
-    phone       .prop_gput:N      = \g__soranus_author_data_temp_prop
+    email       .value_required:n = true,
+
+    phone       .prop_gput:N      = \g__soranus_author_data_temp_prop,
+    phone       .value_required:n = true
   }
 
 \cs_new_protected:Nn \__soranus_set_author_data:nn
@@ -56,25 +64,52 @@
 
 \keys_define:nn { soranus / document-metadata }
   {
-    title             .prop_gput:N       = \g__soranus_document_metadata_prop,
-    title             .value_required:n  = true,
-    subtitle          .prop_gput:N       = \g__soranus_document_metadata_prop,
-    date              .prop_gput:N       = \g__soranus_document_metadata_prop,
-    date              .default:o         =
+    title             .prop_gput:N      = \g__soranus_document_metadata_prop,
+    title             .value_required:n = true,
+
+    subtitle          .prop_gput:N      = \g__soranus_document_metadata_prop,
+    subtitle          .value_required:n = true,
+
+    date              .prop_gput:N      = \g__soranus_document_metadata_prop,
+    date              .initial:x        =
       { \int_use:N \c_sys_year_int - \int_use:N \c_sys_month_int - \int_use:N \c_sys_day_int },
-    author-one        .code:n            = { \__soranus_set_author_data:nn { i } { #1 } },
-    author-one        .value_required:n  = true,
-    author-two        .code:n            = { \__soranus_set_author_data:nn { ii } { #1 } },
-    author-three      .code:n            = { \__soranus_set_author_data:nn { iii } { #1 } },
-    author-four       .code:n            = { \__soranus_set_author_data:nn { iv } { #1 } },
-    author-five       .code:n            = { \__soranus_set_author_data:nn { v } { #1 } },
-    subject           .prop_gput:N       = \g__soranus_document_metadata_prop,
-    keywords          .prop_gput:N       = \g__soranus_document_metadata_prop,
-    copyright-year    .prop_gput:N       = \g__soranus_document_metadata_prop,
-    copyright-holder  .prop_gput:N       = \g__soranus_document_metadata_prop,
-    copyright-notice  .prop_gput:N       = \g__soranus_document_metadata_prop,
-    publisher         .prop_gput:N       = \g__soranus_document_metadata_prop,
-    publisher-address .prop_gput:N       = \g__soranus_document_metadata_prop
+    date              .value_required:n = true,
+
+    author-one        .code:n           = { \__soranus_set_author_data:nn { i } { #1 } },
+    author-one        .value_required:n = true,
+
+    author-two        .code:n           = { \__soranus_set_author_data:nn { ii } { #1 } },
+    author-two        .value_required:n = true,
+
+    author-three      .code:n           = { \__soranus_set_author_data:nn { iii } { #1 } },
+    author-three      .value_required:n = true,
+
+    author-four       .code:n           = { \__soranus_set_author_data:nn { iv } { #1 } },
+    author-four       .value_required:n = true,
+
+    author-five       .code:n           = { \__soranus_set_author_data:nn { v } { #1 } },
+    author-five       .value_required:n = true,
+
+    subject           .prop_gput:N      = \g__soranus_document_metadata_prop,
+    subject           .value_required:n = true,
+
+    keywords          .prop_gput:N      = \g__soranus_document_metadata_prop,
+    keywords          .value_required:n = true,
+
+    copyright-year    .prop_gput:N      = \g__soranus_document_metadata_prop,
+    copyright-year    .value_required:n = true,
+
+    copyright-holder  .prop_gput:N      = \g__soranus_document_metadata_prop,
+    copyright-holder  .value_required:n = true,
+
+    copyright-notice  .prop_gput:N      = \g__soranus_document_metadata_prop,
+    copyright-notice  .value_required:n = true,
+
+    publisher         .prop_gput:N      = \g__soranus_document_metadata_prop,
+    publisher         .value_required:n = true,
+
+    publisher-address .prop_gput:N      = \g__soranus_document_metadata_prop,
+    publisher-address .value_required:n = true
   }
 
 
