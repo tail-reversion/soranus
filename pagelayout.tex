@@ -23,14 +23,14 @@
 
 % Here, I define changeable layout parameters and commands.
 
-\cs_new:Nn \__soranus_set_text_area:nn
+\cs_new_protected:Nn \__soranus_set_text_area:nn
   {
     \dim_gset:Nn \textwidth { #1 }
     \dim_gset:Nn \textheight { #2 }
   }
 
 
-\cs_new:Nn \__soranus_set_column:nnnn
+\cs_new_protected:Nn \__soranus_set_column:nnnn
   {
     \dim_gset:Nn \columnwidth
       {
@@ -45,7 +45,7 @@
   }
 
 
-\cs_new:Nn \__soranus_set_margin_par:nnn
+\cs_new_protected:Nn \__soranus_set_margin_par:nnn
   {
     \dim_gset:Nn \marginparwidth { #1 }
     \dim_gset:Nn \marginparsep { #2 }
@@ -53,7 +53,7 @@
   }
 
 
-\cs_new:Nn \__soranus_set_spine_margin:nn
+\cs_new_protected:Nn \__soranus_set_spine_margin:nn
   {
     \dim_gset:Nn \oddsidemargin
       {
@@ -76,7 +76,7 @@
   }
 
 
-\cs_new:Nn \__soranus_set_top_margin_and_header:nnn
+\cs_new_protected:Nn \__soranus_set_top_margin_and_header:nnn
   {
     \dim_gset:Nn \topmargin
       {
@@ -91,7 +91,7 @@
   }
 
 
-\cs_new:Nn \__soranus_set_footer:nn
+\cs_new_protected:Nn \__soranus_set_footer:nn
   {
     \dim_gset:Nn \footskip
       {
