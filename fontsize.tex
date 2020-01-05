@@ -152,86 +152,14 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-% Instances
+% Instances (normalsize)
 %
-
-\DeclareInstance { fontsize } { miniscule } { root-relative }
-  {
-    scale = 0.5
-  }
-
-\DeclareInstance { fontsize } { tiny } { root-relative }
-  {
-    scale = 0.6
-  }
-
-\DeclareInstance { fontsize } { scriptsize } { root-relative }
-  {
-    scale = 0.7
-  }
-
-\DeclareInstance { fontsize } { footnotesize } { root-relative }
-  {
-    scale = 0.8
-  }
-
-\DeclareInstance { fontsize } { small } { root-relative }
-  {
-    scale = 0.9
-  }
+% Only \normalsize is defined, to keep 2e happy, otherwise templates are used.
 
 \DeclareInstance { fontsize } { normalsize } { root-relative }
   {
     scale = 1.0
   }
-
-\DeclareInstance { fontsize } { large } { root-relative }
-  {
-    scale = 1.2
-  }
-
-\DeclareInstance { fontsize } { Large } { root-relative }
-  {
-    scale = 1.4
-  }
-
-\DeclareInstance { fontsize } { LARGE } { root-relative }
-  {
-    scale = 1.6
-  }
-
-\DeclareInstance { fontsize } { huge } { root-relative }
-  {
-    scale = 2.4
-  }
-
-\DeclareInstance { fontsize } { Huge } { root-relative }
-  {
-    scale = 2.8
-  }
-
-\DeclareInstance { fontsize } { HUGE } { root-relative }
-  {
-    scale = 3.2
-  }
-
-\DeclareInstance { fontsize } { smaller } { relative }
-  {
-    scale = 0.9
-  }
-
-\DeclareInstance { fontsize } { larger } { relative }
-  {
-  
-  }
-
-
-
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% normalsize
-%
-% Only \normalsize is defined, to keep 2e happy, otherwise templates are used.
 
 \RenewDocumentCommand \normalsize { }
   { \UseInstance { fontsize } { normalsize } }
