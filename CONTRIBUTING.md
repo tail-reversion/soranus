@@ -4,4 +4,4 @@ Thank-you for your interest in the Soranus class! You can contribute by submitti
 
 ## Code Style
 
-This is a LaTeX3 class, so code should be written in the expl3 language, following the standard style defined by the LaTeX3 team (see `texdoc expl3` for a style overview and `texdoc interface3` for documentation on the expl3 language). The class namespace is `soranus`, and `xtemplate` variables should have the namespace `soranus_templatename`. When it is necessary to use a TeX primitive, define a wrapper command (_e.g._ wrap `\tex_pagewidth:D` as `\g__soranus_paper_width_dim`).
+This is a LaTeX3 class, so code should be written in the expl3 language, following the standard style defined by the LaTeX3 team (see `texdoc expl3` for a style overview and `texdoc interface3` for documentation on the expl3 language). The class namespace is `soranus`, and `xtemplate` variables should have the namespace `soranus_objectname_templatename`. When it is necessary to use a TeX primitive, define a wrapper command (e.g. wrap `\tex_pagewidth:D` as `\g__soranus_paper_width_dim`).
