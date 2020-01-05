@@ -33,20 +33,3 @@
 
 % Command for printing booleans.
 \cs_new:Nn \soranus_bool_to_text:n { \bool_if:nTF { #1 } { true } { false } }
-
-
-% Command for showing a dim in pt//in//mm
-\cs_new:Nn \__soranus_for_msg_dim_to_decimal_in_common_units:n
-  {
-    \iow_newline:
-    \iow_indent:n
-      {
-        \dim_to_decimal:n { #1 } pt
-        \iow_char:N \ 
-        \iow_char:N \ 
-        \dim_to_decimal_in_unit:nn { #1 } { 1in } in
-        \iow_char:N \ 
-        \iow_char:N \ 
-        \dim_to_decimal_in_unit:nn { #1 } { 1mm } mm
-      }
-  }
