@@ -55,31 +55,13 @@
   }
 
 
-\coffin_new:N \l__soranus_pagestyle_standard_internal_a_coffin
-\coffin_new:N \l__soranus_pagestyle_standard_internal_b_coffin
-\coffin_new:N \l__soranus_pagestyle_standard_internal_c_coffin
-
-\tl_new:N \g__soranus_pagestyle_standard_page_numbering_tl
-\dim_new:N \g__soranus_pagestyle_standard_header_top_rule_width_dim
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_right_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_right_tl
-\dim_new:N \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-\dim_new:N \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_right_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_right_tl
-\dim_new:N \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
+\NewCoffin \l__soranus_headfoot_a_coffin
+\NewCoffin \l__soranus_headfoot_b_coffin
+\NewCoffin \l__soranus_headfoot_c_coffin
 
 \cs_new_protected:Nn \__soranus_typeset_headfoot:NNNNN
   {
-    \SetHorizontalCoffin \l__soranus_pagestyle_standard_internal_a_coffin
+    \SetHorizontalCoffin \l__soranus_headfoot_a_coffin
       {
         \hbox_to_wd:nn { \textwidth }
           {
@@ -104,24 +86,43 @@
       }
     \dim_compare:nF { #1 = \c_zero_dim }
       {
-        \SetHorizontalCoffin \l__soranus_pagestyle_standard_internal_b_coffin
+        \SetHorizontalCoffin \l__soranus_headfoot_b_coffin
           { \rule { \textwidth } { #1 } }
         \JoinCoffins
-          \l__soranus_pagestyle_standard_internal_a_coffin [ l, t ]
-          \l__soranus_pagestyle_standard_internal_b_coffin [ l, b ]
+          \l__soranus_headfoot_a_coffin [ l, t ]
+          \l__soranus_headfoot_b_coffin [ l, b ]
           ( 0pt, 3pt )
       }
     \dim_compare:nF { #2 = \c_zero_dim }
       {
-        \SetHorizontalCoffin \l__soranus_pagestyle_standard_internal_b_coffin
+        \SetHorizontalCoffin \l__soranus_headfoot_b_coffin
           { \rule { \textwidth } { #2 } }
         \JoinCoffins
-          \l__soranus_pagestyle_standard_internal_a_coffin [ l, b ]
-          \l__soranus_pagestyle_standard_internal_b_coffin [ l, t ]
+          \l__soranus_headfoot_a_coffin [ l, b ]
+          \l__soranus_headfoot_b_coffin [ l, t ]
           ( 0pt, -2pt )
       }
-    \TypesetCoffin \l__soranus_pagestyle_standard_internal_a_coffin ( 0pt, 2.5pt )
+    \TypesetCoffin \l__soranus_headfoot_a_coffin ( 0pt, 2.5pt )
   }
+
+
+\tl_new:N \g__soranus_pagestyle_standard_page_numbering_tl
+\dim_new:N \g__soranus_pagestyle_standard_header_top_rule_width_dim
+\tl_new:N \g__soranus_pagestyle_standard_header_recto_left_tl
+\tl_new:N \g__soranus_pagestyle_standard_header_recto_center_tl
+\tl_new:N \g__soranus_pagestyle_standard_header_recto_right_tl
+\tl_new:N \g__soranus_pagestyle_standard_header_verso_left_tl
+\tl_new:N \g__soranus_pagestyle_standard_header_verso_center_tl
+\tl_new:N \g__soranus_pagestyle_standard_header_verso_right_tl
+\dim_new:N \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
+\dim_new:N \g__soranus_pagestyle_standard_footer_top_rule_width_dim
+\tl_new:N \g__soranus_pagestyle_standard_footer_recto_left_tl
+\tl_new:N \g__soranus_pagestyle_standard_footer_recto_center_tl
+\tl_new:N \g__soranus_pagestyle_standard_footer_recto_right_tl
+\tl_new:N \g__soranus_pagestyle_standard_footer_verso_left_tl
+\tl_new:N \g__soranus_pagestyle_standard_footer_verso_center_tl
+\tl_new:N \g__soranus_pagestyle_standard_footer_verso_right_tl
+\dim_new:N \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
 
 \DeclareTemplateCode { pagestyle } { standard } { 0 }
   {
