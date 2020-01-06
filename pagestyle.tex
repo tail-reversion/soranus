@@ -152,48 +152,43 @@
   }
   {
     \AssignTemplateKeys
-    \cs_gset_protected:Npn \ps@soranus
+    \cs_gset_protected:Npn \@mkboth { \markboth }
+    \cs_gset_protected:Npn \@oddhead
       {
-        \ps@empty
-        \cs_gset_protected:Npn \@mkboth { \markboth }
-        \cs_gset_protected:Npn \@oddhead
-          {
-            \__soranus_typeset_headfoot:NNNNN
-              \g__soranus_pagestyle_standard_header_top_rule_width_dim
-              \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-              \g__soranus_pagestyle_standard_header_recto_left_tl
-              \g__soranus_pagestyle_standard_header_recto_center_tl
-              \g__soranus_pagestyle_standard_header_recto_right_tl
-          }
-        \cs_gset_protected:Npn \@evenhead
-          {
-            \__soranus_typeset_headfoot:NNNNN
-              \g__soranus_pagestyle_standard_header_top_rule_width_dim
-              \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-              \g__soranus_pagestyle_standard_header_verso_left_tl
-              \g__soranus_pagestyle_standard_header_verso_center_tl
-              \g__soranus_pagestyle_standard_header_verso_right_tl
-          }
-        \cs_gset_protected:Npn \@oddfoot
-          {
-            \__soranus_typeset_headfoot:NNNNN
-              \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-              \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
-              \g__soranus_pagestyle_standard_footer_recto_left_tl
-              \g__soranus_pagestyle_standard_footer_recto_center_tl
-              \g__soranus_pagestyle_standard_footer_recto_right_tl
-          }
-        \cs_gset_protected:Npn \@evenfoot
-          {
-            \__soranus_typeset_headfoot:NNNNN
-              \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-              \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
-              \g__soranus_pagestyle_standard_footer_verso_left_tl
-              \g__soranus_pagestyle_standard_footer_verso_center_tl
-              \g__soranus_pagestyle_standard_footer_verso_right_tl
-          }
+        \__soranus_typeset_headfoot:NNNNN
+          \g__soranus_pagestyle_standard_header_top_rule_width_dim
+          \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
+          \g__soranus_pagestyle_standard_header_recto_left_tl
+          \g__soranus_pagestyle_standard_header_recto_center_tl
+          \g__soranus_pagestyle_standard_header_recto_right_tl
       }
-    \pagestyle { soranus }
+    \cs_gset_protected:Npn \@evenhead
+      {
+        \__soranus_typeset_headfoot:NNNNN
+          \g__soranus_pagestyle_standard_header_top_rule_width_dim
+          \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
+          \g__soranus_pagestyle_standard_header_verso_left_tl
+          \g__soranus_pagestyle_standard_header_verso_center_tl
+          \g__soranus_pagestyle_standard_header_verso_right_tl
+      }
+    \cs_gset_protected:Npn \@oddfoot
+      {
+        \__soranus_typeset_headfoot:NNNNN
+          \g__soranus_pagestyle_standard_footer_top_rule_width_dim
+          \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
+          \g__soranus_pagestyle_standard_footer_recto_left_tl
+          \g__soranus_pagestyle_standard_footer_recto_center_tl
+          \g__soranus_pagestyle_standard_footer_recto_right_tl
+      }
+    \cs_gset_protected:Npn \@evenfoot
+      {
+        \__soranus_typeset_headfoot:NNNNN
+          \g__soranus_pagestyle_standard_footer_top_rule_width_dim
+          \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
+          \g__soranus_pagestyle_standard_footer_verso_left_tl
+          \g__soranus_pagestyle_standard_footer_verso_center_tl
+          \g__soranus_pagestyle_standard_footer_verso_right_tl
+      }
   }
 
 
