@@ -18,6 +18,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deprecations
+%
+
+\tl_map_function:nN
+  { \title \@title \author \@author \date \@date \thanks \@thanks \and }
+  \cs_undefine:N
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document Fields
 %
 
