@@ -84,16 +84,25 @@
         \hbox_to_wd:nn { \textwidth }
           {
             \parbox [ t ] { 0.3\textwidth }
-              { \raggedright \tl_use:N #3 \strut }
+              {
+                \UseInstance { justification } { ragged-right }
+                \tl_use:N #3 \strut
+              }
             \skip_horizontal:n { 0pt plus 1fill }
             \parbox [ t ] { 0.3\textwidth }
-              { \centering \tl_use:N #4 \strut }
+              {
+                \UseInstance { justification } { center }
+                \tl_use:N #4 \strut
+              }
             \skip_horizontal:n { 0pt plus 1fill }
             \parbox [ t ] { 0.3\textwidth }
-              { \raggedleft \tl_use:N #5 \strut }
+              {
+                \UseInstance { justification } { ragged-left }
+                \tl_use:N #5 \strut
+              }
           }
       }
-    \dim_compare:nNnF { #1 } = { \c_zero_dim }
+    \dim_compare:nF { #1 = \c_zero_dim }
       {
         \SetHorizontalCoffin \l__soranus_pagestyle_standard_internal_b_coffin
           { \rule { \textwidth } { #1 } }
@@ -102,7 +111,7 @@
           \l__soranus_pagestyle_standard_internal_b_coffin [ l, b ]
           ( 0pt, 3pt )
       }
-    \dim_compare:nNnF { #2 } = { \c_zero_dim }
+    \dim_compare:nF { #2 = \c_zero_dim }
       {
         \SetHorizontalCoffin \l__soranus_pagestyle_standard_internal_b_coffin
           { \rule { \textwidth } { #2 } }
@@ -184,7 +193,7 @@
               \g__soranus_pagestyle_standard_footer_verso_right_tl
           }
       }
-    \pagestyle { soranus }
+      \pagestyle{soranus}
   }
 
 
