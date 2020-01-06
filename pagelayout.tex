@@ -29,6 +29,8 @@
     \dim_gset:Nn \textheight { #2 }
   }
 
+\cs_generate_variant:Nn \__soranus_set_text_area:nn { VV }
+
 
 \cs_new_protected:Nn \__soranus_set_column:nnnn
   {
@@ -44,6 +46,8 @@
       { \onecolumn }
   }
 
+\cs_generate_variant:Nn \__soranus_set_column:nnnn { VVVV }
+
 
 \cs_new_protected:Nn \__soranus_set_margin_par:nnn
   {
@@ -51,6 +55,8 @@
     \dim_gset:Nn \marginparsep { #2 }
     \dim_gset:Nn \marginparpush { #3 }
   }
+
+\cs_generate_variant:Nn \__soranus_set_margin_par:nnn { VVV }
 
 
 \cs_new_protected:Nn \__soranus_set_spine_margin:nn
@@ -75,6 +81,8 @@
       }
   }
 
+\cs_generate_variant:Nn \__soranus_set_spine_margin:nn { VV }
+
 
 \cs_new_protected:Nn \__soranus_set_top_margin_and_header:nnn
   {
@@ -90,6 +98,8 @@
     \dim_gset:Nn \headsep { #3 }
   }
 
+\cs_generate_variant:Nn \__soranus_set_top_margin_and_header:nnn { VVV }
+
 
 \cs_new_protected:Nn \__soranus_set_footer:nn
   {
@@ -100,6 +110,7 @@
       }
   }
 
+\cs_generate_variant:Nn \__soranus_set_footer:nn { VV }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,29 +180,29 @@
   }
   {
     \AssignTemplateKeys
-    \__soranus_set_text_area:nn
-      { \g__soranus_pagelayout_standard_text_width_dim }
-      { \g__soranus_pagelayout_standard_text_height_dim }
-    \__soranus_set_margin_par:nnn
-      { \g__soranus_pagelayout_standard_margin_par_width_dim }
-      { \g__soranus_pagelayout_standard_margin_par_sep_dim }
-      { \g__soranus_pagelayout_standard_margin_par_push_dim }
-    \__soranus_set_spine_margin:nn
-      { \g__soranus_pagelayout_standard_spine_margin_dim }
-      { \g__soranus_pagelayout_standard_text_width_dim }
-    \__soranus_set_top_margin_and_header:nnn
-      { \g__soranus_pagelayout_standard_top_margin_dim }
-      { \g__soranus_pagelayout_standard_header_height_dim }
-      { \g__soranus_pagelayout_standard_header_sep_dim }
-    \__soranus_set_footer:nn
-      { \g__soranus_pagelayout_standard_footer_height_dim }
-      { \g__soranus_pagelayout_standard_footer_sep_dim }
+    \__soranus_set_text_area:VV
+      \g__soranus_pagelayout_standard_text_width_dim
+      \g__soranus_pagelayout_standard_text_height_dim
+    \__soranus_set_margin_par:VVV
+      \g__soranus_pagelayout_standard_margin_par_width_dim
+      \g__soranus_pagelayout_standard_margin_par_sep_dim
+      \g__soranus_pagelayout_standard_margin_par_push_dim
+    \__soranus_set_spine_margin:VV
+      \g__soranus_pagelayout_standard_spine_margin_dim
+      \g__soranus_pagelayout_standard_text_width_dim
+    \__soranus_set_top_margin_and_header:VVV
+      \g__soranus_pagelayout_standard_top_margin_dim
+      \g__soranus_pagelayout_standard_header_height_dim
+      \g__soranus_pagelayout_standard_header_sep_dim
+    \__soranus_set_footer:VV
+      \g__soranus_pagelayout_standard_footer_height_dim
+      \g__soranus_pagelayout_standard_footer_sep_dim
     % Set columns last to exploit the internal \clearpage.
-    \__soranus_set_column:nnnn
-      { \g__soranus_pagelayout_standard_two_column_bool }
-      { \g__soranus_pagelayout_standard_text_width_dim }
-      { \g__soranus_pagelayout_standard_column_sep_dim }
-      { \g__soranus_pagelayout_standard_column_rule_width_dim }
+    \__soranus_set_column:VVVV
+      \g__soranus_pagelayout_standard_two_column_bool
+      \g__soranus_pagelayout_standard_text_width_dim
+      \g__soranus_pagelayout_standard_column_sep_dim
+      \g__soranus_pagelayout_standard_column_rule_width_dim
   }
 
 
@@ -200,21 +211,6 @@
 % Instance
 %
 
-\NewDocumentCommand \DeclarePageLayout { m m }
-  { \DeclareInstance { pagelayout } { #1 } { standard } { #2 } }
-
-\NewDocumentCommand \EditPageLayout { m m }
-  { \EditInstance { pagelayout } { #1 } { #2 } }
-
-\NewDocumentCommand \UsePageLayout { m }
-  { \UseInstance { pagelayout } { #1 } }
-
-
-\DeclarePageLayout { default } { }
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Designer Utilities
-%
+\DeclareInstance { pagelayout } { default } { standard }
+  {
+  }
