@@ -18,115 +18,152 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Designer Commands
-%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pagestyle
 %
+
+\DeclareObjectType { headfoot-content } { 0 }
+
+
+
+\DeclareTemplateInterface { headfoot-content } { triplet } { 0 }
+  {
+    left-content   : tokenlist,
+    center-content : tokenlist,
+    right-content  : tokenlist
+  }
+
+
+\tl_new:N \g__soranus_headfootcontent_triplet_left_tl
+\tl_new:N \g__soranus_headfootcontent_triplet_center_tl
+\tl_new:N \g__soranus_headfootcontent_triplet_right_tl
+
+\DeclareTemplateCode { headfoot-content } { triplet } { 0 }
+  {
+    left-content   = global \g__soranus_headfootcontent_triplet_left_tl,
+    center-content = global \g__soranus_headfootcontent_triplet_center_tl,
+    right-content  = global \g__soranus_headfootcontent_triplet_right_tl
+  }
+  {
+    \AssignTemplateKeys
+    \hbox_to_wd:nn { \textwidth }
+      {
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \UseInstance { justification } { ragged-right }
+            \tl_use:N \g__soranus_headfootcontent_triplet_left_tl
+            \strut
+          }
+        \skip_horizontal:n { 0pt plus 1fill }
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \UseInstance { justification } { center }
+            \tl_use:N \g__soranus_headfootcontent_triplet_center_tl
+            \strut
+          }
+        \skip_horizontal:n { 0pt plus 1fill }
+        \parbox [ t ] { 0.3\textwidth }
+          {
+            \UseInstance { justification } { ragged-left }
+            \tl_use:N \g__soranus_headfootcontent_triplet_right_tl
+            \strut
+          }
+      }
+  }
+
+
+
+
+\DeclareTemplateInterface { headfoot-content } { doublet } { 0 }
+  {
+    left-content   : tokenlist,
+    right-content  : tokenlist
+  }
+
+
+\tl_new:N \g__soranus_headfootcontent_doublet_left_tl
+\tl_new:N \g__soranus_headfootcontent_doublet_right_tl
+
+\DeclareTemplateCode { headfoot-content } { doublet } { 0 }
+  {
+    left-content   = global \g__soranus_headfootcontent_doublet_left_tl,
+    right-content  = global \g__soranus_headfootcontent_doublet_right_tl
+  }
+  {
+    \AssignTemplateKeys
+    \hbox_to_wd:nn { \textwidth }
+      {
+        \parbox [ t ] { 0.45\textwidth }
+          {
+            \UseInstance { justification } { ragged-right }
+            \tl_use:N \g__soranus_headfootcontent_doublet_left_tl
+            \strut
+          }
+        \skip_horizontal:n { 0pt plus 1fill }
+        \parbox [ t ] { 0.45\textwidth }
+          {
+            \UseInstance { justification } { ragged-left }
+            \tl_use:N \g__soranus_headfootcontent_doublet_right_tl
+            \strut
+          }
+      }
+  }
+
+
+
+
+\DeclareTemplateInterface { headfoot-content } { singlet } { 0 }
+  {
+    content : tokenlist
+  }
+
+
+\tl_new:N \g__soranus_headfootcontent_singlet_tl
+
+\DeclareTemplateCode { headfoot-content } { singlet } { 0 }
+  {
+    content = global \g__soranus_headfootcontent_singlet_tl
+  }
+  {
+    \AssignTemplateKeys
+    \parbox [ t ] { \textwidth }
+      {
+        \UseInstance { justification } { center }
+        \tl_use:N \g__soranus_headfootcontent_singlet_tl
+        \strut
+      }
+  }
+
+
+\DeclareInstance { headfoot-content } { pagenumber-centered } { singlet }
+  {
+    content = \thepage
+  }
+
+
+
 
 \DeclareObjectType { pagestyle } { 0 }
 
 
-\DeclareTemplateInterface { pagestyle } { standard } { 0 }
+\DeclareTemplateInterface { pagestyle } { full } { 0 }
   {
-    page-numbering           : choice
+    page-numbering : choice
       { arabic, small-roman, big-roman, small-letters, big-letters }
                                          = arabic,
-    header-top-rule-width    : length    = 0pt,
-    header-recto-left        : tokenlist,
-    header-recto-center      : tokenlist = ---\enspace\{\,\thepage\,\}\enspace---,
-    header-recto-right       : tokenlist,
-    header-verso-left        : tokenlist,
-    header-verso-center      : tokenlist = ---\enspace\{\,\thepage\,\}\enspace---,
-    header-verso-right       : tokenlist,
-    header-bottom-rule-width : length    = 0.4pt,
-    footer-top-rule-width    : length    = 0.4pt,
-    footer-recto-left        : tokenlist,
-    footer-recto-center      : tokenlist,
-    footer-recto-right       : tokenlist,
-    footer-verso-left        : tokenlist,
-    footer-verso-center      : tokenlist,
-    footer-verso-right       : tokenlist,
-    footer-bottom-rule-width : length    = 0pt,
+    header-recto   : instance { headfoot-content },
+    header-verso   : instance { headfoot-content },
+    footer-recto   : instance { headfoot-content },
+    footer-verso   : instance { headfoot-content }
   }
 
+\cs_new_eq:NN \__soranus_pagestyle_full_header_recto: \prg_do_nothing:
+\cs_new_eq:NN \__soranus_pagestyle_full_header_verso: \prg_do_nothing:
+\cs_new_eq:NN \__soranus_pagestyle_full_footer_recto: \prg_do_nothing:
+\cs_new_eq:NN \__soranus_pagestyle_full_footer_verso: \prg_do_nothing:
 
-\NewCoffin \l__soranus_headfoot_a_coffin
-\NewCoffin \l__soranus_headfoot_b_coffin
-\NewCoffin \l__soranus_headfoot_c_coffin
-
-\cs_new_protected:Nn \__soranus_typeset_headfoot:NNNNN
+\DeclareTemplateCode { pagestyle } { full } { 0 }
   {
-    \SetHorizontalCoffin \l__soranus_headfoot_a_coffin
-      {
-        \hbox_to_wd:nn { \textwidth }
-          {
-            \parbox [ t ] { 0.3\textwidth }
-              {
-                \UseInstance { justification } { ragged-right }
-                \tl_use:N #3 \strut
-              }
-            \skip_horizontal:n { 0pt plus 1fill }
-            \parbox [ t ] { 0.3\textwidth }
-              {
-                \UseInstance { justification } { center }
-                \tl_use:N #4 \strut
-              }
-            \skip_horizontal:n { 0pt plus 1fill }
-            \parbox [ t ] { 0.3\textwidth }
-              {
-                \UseInstance { justification } { ragged-left }
-                \tl_use:N #5 \strut
-              }
-          }
-      }
-    \dim_compare:nF { #1 = \c_zero_dim }
-      {
-        \SetHorizontalCoffin \l__soranus_headfoot_b_coffin
-          { \rule { \textwidth } { #1 } }
-        \JoinCoffins
-          \l__soranus_headfoot_a_coffin [ l, t ]
-          \l__soranus_headfoot_b_coffin [ l, b ]
-          ( 0pt, 3pt )
-      }
-    \dim_compare:nF { #2 = \c_zero_dim }
-      {
-        \SetHorizontalCoffin \l__soranus_headfoot_b_coffin
-          { \rule { \textwidth } { #2 } }
-        \JoinCoffins
-          \l__soranus_headfoot_a_coffin [ l, b ]
-          \l__soranus_headfoot_b_coffin [ l, t ]
-          ( 0pt, -2pt )
-      }
-    \TypesetCoffin \l__soranus_headfoot_a_coffin ( 0pt, 2.5pt )
-  }
-
-
-\tl_new:N \g__soranus_pagestyle_standard_page_numbering_tl
-\dim_new:N \g__soranus_pagestyle_standard_header_top_rule_width_dim
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_recto_right_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_header_verso_right_tl
-\dim_new:N \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-\dim_new:N \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_recto_right_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_left_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_center_tl
-\tl_new:N \g__soranus_pagestyle_standard_footer_verso_right_tl
-\dim_new:N \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
-
-\DeclareTemplateCode { pagestyle } { standard } { 0 }
-  {
-    page-numbering           =
+    page-numbering =
       {
         arabic        = \pagenumbering { arabic },
         small-roman   = \pagenumbering { roman },
@@ -134,62 +171,105 @@
         small-letters = \pagenumbering { alph },
         big-letters   = \pagenumbering { Alph },
       },
-    header-top-rule-width    = global \g__soranus_pagestyle_standard_header_top_rule_width_dim,
-    header-recto-left        = global \g__soranus_pagestyle_standard_header_recto_left_tl,
-    header-recto-center      = global \g__soranus_pagestyle_standard_header_recto_center_tl,
-    header-recto-right       = global \g__soranus_pagestyle_standard_header_recto_right_tl,
-    header-verso-left        = global \g__soranus_pagestyle_standard_header_verso_left_tl,
-    header-verso-center      = global \g__soranus_pagestyle_standard_header_verso_center_tl,
-    header-verso-right       = global \g__soranus_pagestyle_standard_header_verso_right_tl,
-    header-bottom-rule-width = global \g__soranus_pagestyle_standard_header_bottom_rule_width_dim,
-    footer-top-rule-width    = global \g__soranus_pagestyle_standard_footer_top_rule_width_dim,
-    footer-recto-left        = global \g__soranus_pagestyle_standard_footer_recto_left_tl,
-    footer-recto-center      = global \g__soranus_pagestyle_standard_footer_recto_center_tl,
-    footer-recto-right       = global \g__soranus_pagestyle_standard_footer_recto_right_tl,
-    footer-verso-left        = global \g__soranus_pagestyle_standard_footer_verso_left_tl,
-    footer-verso-center      = global \g__soranus_pagestyle_standard_footer_verso_center_tl,
-    footer-verso-right       = global \g__soranus_pagestyle_standard_footer_verso_right_tl,
-    footer-bottom-rule-width = global \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
+      header-recto = global \__soranus_pagestyle_full_header_recto:,
+      header-verso = global \__soranus_pagestyle_full_header_verso:,
+      footer-recto = global \__soranus_pagestyle_full_footer_recto:,
+      footer-verso = global \__soranus_pagestyle_full_footer_verso:
   }
   {
     \AssignTemplateKeys
     \cs_gset_protected:Npn \@mkboth { \markboth }
     \cs_gset_protected:Npn \@oddhead
-      {
-        \__soranus_typeset_headfoot:NNNNN
-          \g__soranus_pagestyle_standard_header_top_rule_width_dim
-          \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-          \g__soranus_pagestyle_standard_header_recto_left_tl
-          \g__soranus_pagestyle_standard_header_recto_center_tl
-          \g__soranus_pagestyle_standard_header_recto_right_tl
-      }
+      { \__soranus_pagestyle_full_header_recto: }
     \cs_gset_protected:Npn \@evenhead
-      {
-        \__soranus_typeset_headfoot:NNNNN
-          \g__soranus_pagestyle_standard_header_top_rule_width_dim
-          \g__soranus_pagestyle_standard_header_bottom_rule_width_dim
-          \g__soranus_pagestyle_standard_header_verso_left_tl
-          \g__soranus_pagestyle_standard_header_verso_center_tl
-          \g__soranus_pagestyle_standard_header_verso_right_tl
-      }
+      { \__soranus_pagestyle_full_header_verso: }
     \cs_gset_protected:Npn \@oddfoot
-      {
-        \__soranus_typeset_headfoot:NNNNN
-          \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-          \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
-          \g__soranus_pagestyle_standard_footer_recto_left_tl
-          \g__soranus_pagestyle_standard_footer_recto_center_tl
-          \g__soranus_pagestyle_standard_footer_recto_right_tl
-      }
+      { \__soranus_pagestyle_full_footer_recto: }
     \cs_gset_protected:Npn \@evenfoot
+      { \__soranus_pagestyle_full_footer_verso: }
+  }
+
+
+
+
+\DeclareTemplateInterface { pagestyle } { header-only } { 0 }
+  {
+    page-numbering : choice
+      { arabic, small-roman, big-roman, small-letters, big-letters }
+                                         = arabic,
+    recto          : instance { headfoot-content },
+    verso          : instance { headfoot-content }
+  }
+
+\cs_new_eq:NN \__soranus_pagestyle_header_only_recto: \prg_do_nothing:
+\cs_new_eq:NN \__soranus_pagestyle_header_only_verso: \prg_do_nothing:
+
+\DeclareTemplateCode { pagestyle } { header-only } { 0 }
+  {
+    page-numbering =
       {
-        \__soranus_typeset_headfoot:NNNNN
-          \g__soranus_pagestyle_standard_footer_top_rule_width_dim
-          \g__soranus_pagestyle_standard_footer_bottom_rule_width_dim
-          \g__soranus_pagestyle_standard_footer_verso_left_tl
-          \g__soranus_pagestyle_standard_footer_verso_center_tl
-          \g__soranus_pagestyle_standard_footer_verso_right_tl
-      }
+        arabic        = \pagenumbering { arabic },
+        small-roman   = \pagenumbering { roman },
+        big-roman     = \pagenumbering { Roman },
+        small-letters = \pagenumbering { alph },
+        big-letters   = \pagenumbering { Alph },
+      },
+      recto        = global \__soranus_pagestyle_header_only_recto:,
+      verso        = global \__soranus_pagestyle_header_only_verso:,
+  }
+  {
+    \AssignTemplateKeys
+    \cs_gset_protected:Npn \@mkboth { \markboth }
+    \cs_gset_protected:Npn \@oddhead
+      { \__soranus_pagestyle_header_only_recto: }
+    \cs_gset_protected:Npn \@evenhead
+      { \__soranus_pagestyle_header_only_verso: }
+    \cs_gset_protected:Npn \@oddfoot
+      { \prg_do_nothing: }
+    \cs_gset_protected:Npn \@evenfoot
+      { \prg_do_nothing: }
+  }
+
+
+
+
+
+\DeclareTemplateInterface { pagestyle } { footer-only } { 0 }
+  {
+    page-numbering : choice
+      { arabic, small-roman, big-roman, small-letters, big-letters }
+                                         = arabic,
+    recto          : instance { headfoot-content },
+    verso          : instance { headfoot-content }
+  }
+
+\cs_new_eq:NN \__soranus_pagestyle_footer_only_recto: \prg_do_nothing:
+\cs_new_eq:NN \__soranus_pagestyle_footer_only_verso: \prg_do_nothing:
+
+\DeclareTemplateCode { pagestyle } { footer-only } { 0 }
+  {
+    page-numbering =
+      {
+        arabic        = \pagenumbering { arabic },
+        small-roman   = \pagenumbering { roman },
+        big-roman     = \pagenumbering { Roman },
+        small-letters = \pagenumbering { alph },
+        big-letters   = \pagenumbering { Alph },
+      },
+      recto        = global \__soranus_pagestyle_footer_only_recto:,
+      verso        = global \__soranus_pagestyle_footer_only_verso:
+  }
+  {
+    \AssignTemplateKeys
+    \cs_gset_protected:Npn \@mkboth { \markboth }
+    \cs_gset_protected:Npn \@oddhead
+      { \prg_do_nothing: }
+    \cs_gset_protected:Npn \@evenhead
+      { \prg_do_nothing: }
+    \cs_gset_protected:Npn \@oddfoot
+      { \__soranus_pagestyle_footer_only_recto: }
+    \cs_gset_protected:Npn \@evenfoot
+      { \__soranus_pagestyle_footer_only_verso: }
   }
 
 
@@ -198,17 +278,11 @@
 % Instance
 %
 
-\NewDocumentCommand \DeclarePageStyle { m m }
-  { \DeclareInstance { pagestyle } { #1 } { standard } { #2 } }
-
-\NewDocumentCommand \EditPageStyle { m m }
-  { \EditInstance { pagestyle } { #1 } { #2 } }
-
-\NewDocumentCommand \UsePageStyle { m }
-  { \UseInstance { pagestyle } { #1 } }
-
-
-\DeclarePageStyle { default } { }
+\DeclareInstance { pagestyle } { plain } { footer-only }
+  {
+    recto = pagenumber-centered,
+    verso = pagenumber-centered
+  }
 
 
 
