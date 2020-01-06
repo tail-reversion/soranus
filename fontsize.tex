@@ -29,13 +29,12 @@
 \msg_new:nnn { soranus } { fontsize-in-math-mode }
   { Normal~font~size~commands~are~forbidden~in~math~mode. }
 
-% A general function to wrap boilerplate.
+% A general function to set font sizes.
 \cs_new_protected:Nn \__soranus_set_fontsize:nn
   {
     \mode_if_math:TF
       { \msg_error:nn { soranus } { fontsize-in-math-mode } }
       {
-        \AssignTemplateKeys
         % I do not use \@setfontsize since I handle math mode in my own way
         % and because \@currsize is not used in this class.
         \fontsize { #1 } { #2 } \selectfont
@@ -67,6 +66,7 @@
     baseline-sep = \l__soranus_fontsize_absolute_baseline_sep_dim
   }
   {
+    \AssignTemplateKeys
     \__soranus_set_fontsize:nn
       { \l__soranus_fontsize_absolute_point_size_dim }
       { \l__soranus_fontsize_absolute_baseline_sep_dim }
@@ -91,6 +91,7 @@
     scale = \l__soranus_fontsize_relative_scale_fp
   }
   {
+    \AssignTemplateKeys
     \__soranus_set_fontsize:nn
       {
         \fp_to_dim:n
@@ -127,6 +128,7 @@
     scale = \l__soranus_fontsize_root_relative_scale_fp
   }
   {
+    \AssignTemplateKeys
     \__soranus_set_fontsize:nn
       {
         \fp_to_dim:n
