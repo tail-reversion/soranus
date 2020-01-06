@@ -16,14 +16,18 @@
 % This work consists of the files listed in the README.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Pagestyle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Object: headFoot-content
 %
 
 \DeclareObjectType { headfoot-content } { 0 }
 
 
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: triplet
+%
 
 \DeclareTemplateInterface { headfoot-content } { triplet } { 0 }
   {
@@ -71,7 +75,10 @@
   }
 
 
-
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: doublet
+%
 
 \DeclareTemplateInterface { headfoot-content } { doublet } { 0 }
   {
@@ -109,7 +116,10 @@
   }
 
 
-
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: singlet
+%
 
 \DeclareTemplateInterface { headfoot-content } { singlet } { 0 }
   {
@@ -134,6 +144,11 @@
   }
 
 
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Instances
+%
+
 \DeclareInstance { headfoot-content } { pagenumber-centered } { singlet }
   {
     content = \thepage
@@ -141,9 +156,18 @@
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Object: pagestyle
+%
 
 \DeclareObjectType { pagestyle } { 0 }
 
+
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: full
+%
 
 \DeclareTemplateInterface { pagestyle } { full } { 0 }
   {
@@ -190,7 +214,10 @@
   }
 
 
-
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: header-only
+%
 
 \DeclareTemplateInterface { pagestyle } { header-only } { 0 }
   {
@@ -231,8 +258,10 @@
   }
 
 
-
-
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+% Template: footer-only
+%
 
 \DeclareTemplateInterface { pagestyle } { footer-only } { 0 }
   {
@@ -275,7 +304,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-% Instance
+% Instances
 %
 
 \DeclareInstance { pagestyle } { plain } { footer-only }
@@ -283,10 +312,3 @@
     recto = pagenumber-centered,
     verso = pagenumber-centered
   }
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Designer Utilities
-%
