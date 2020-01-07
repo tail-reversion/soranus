@@ -125,13 +125,3 @@
 
 \NewDocumentCommand \documentdata { m }
   { \keys_set:nn { soranus / document-metadata } { #1 } }
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Disable Data Commands after Preamble
-%
-
-\tl_map_function:nN { \title \date \author }
-  \@onlypreamble
