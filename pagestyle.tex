@@ -42,11 +42,13 @@
 
 \DeclareTemplateInterface { page-numbering } { standard } { 0 }
   {
-    format : choice { arabic, latin, latin-caps, roman, roman-caps } = arabic
+    format : choice { arabic, latin, latin-caps, roman, roman-caps } = arabic,
+    reset  : boolean = true
   }
 
 
 \cs_new_eq:NN \__soranus_page_numbering_standard_format:n \use_none:n
+\bool_new:N \g__soranus_page_numbering_standard_reset_bool
 
 \DeclareTemplateCode { page-numbering } { standard } { 0 }
   {
@@ -57,11 +59,13 @@
         latin-caps  = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_Alph:n,
         roman       = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_roman:n,
         roman-caps  = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_Roman:n
-      }
+      },
+    reset = global \g__soranus_page_numbering_standard_reset_bool
   }
   {
     \AssignTemplateKeys
-    \int_gset_eq:NN \c@page \c_one_int
+    \bool_if:NT \g__soranus_page_numbering_standard_reset_bool
+      { \int_gset_eq:NN \c@page \c_one_int }
     \cs_gset:Npn \thepage { \__soranus_page_numbering_standard_format:n { \c@page } }
   }
 
