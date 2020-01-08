@@ -22,8 +22,57 @@
 %
 
 \tl_map_function:nN
-  { \pagestyle \ps@empty \ps@plain \ps@headings \ps@myheadings }
+  { \pagenumbering \pagestyle \ps@empty \ps@plain \ps@headings \ps@myheadings }
   \cs_undefine:N
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Object: page-numbering
+%
+
+\DeclareObjectType { page-numbering } { 0 }
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Template: standard
+%
+
+\DeclareTemplateInterface { page-numbering } { standard } { 0 }
+  {
+    format : choice { arabic, latin, latin-caps, roman, roman-caps } = arabic
+  }
+
+
+\cs_new_eq:NN \__soranus_page_numbering_standard_format:n \use_none:n
+
+\DeclareTemplateCode { page-numbering } { standard } { 0 }
+  {
+    format =
+      {
+        arabic      = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_arabic:n,
+        latin       = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_alph:n,
+        latin-caps  = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_Alph:n,
+        roman       = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_roman:n,
+        roman-caps  = \cs_gset_eq:NN \__soranus_page_numbering_standard_format:n \int_to_Roman:n
+      }
+  }
+  {
+    \AssignTemplateKeys
+    \int_gset_eq:NN \c@page \c_one_int
+    \cs_gset:Npn \thepage { \__soranus_page_numbering_standard_format:n { \c@page } }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Instances
+%
+
+\DeclareInstance { page-numbering } { arabic } { standard }
+  { }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,8 +83,8 @@
 \DeclareObjectType { headfoot-content } { 0 }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: triplet
 %
 
@@ -85,8 +134,8 @@
   }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: doublet
 %
 
@@ -126,8 +175,8 @@
   }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: singlet
 %
 
@@ -154,8 +203,8 @@
   }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%$
+%%%%%%%%%%%%%%%%%%%$
 % Instances
 %
 
@@ -174,22 +223,22 @@
 \DeclareObjectType { pagestyle } { 0 }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: full
 %
 
 \DeclareTemplateInterface { pagestyle } { full } { 0 }
   {
-    page-numbering : choice
-      { arabic, small-roman, big-roman, small-letters, big-letters }
-                                         = arabic,
+    page-numbering : instance { page-numbering } = arabic,
     header-recto   : instance { headfoot-content },
     header-verso   : instance { headfoot-content },
     footer-recto   : instance { headfoot-content },
     footer-verso   : instance { headfoot-content }
   }
 
+
+\cs_new_eq:NN \__soranus_pagestyle_full_header_page_numbering: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_full_header_recto: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_full_header_verso: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_full_footer_recto: \prg_do_nothing:
@@ -197,21 +246,15 @@
 
 \DeclareTemplateCode { pagestyle } { full } { 0 }
   {
-    page-numbering =
-      {
-        arabic        = \pagenumbering { arabic },
-        small-roman   = \pagenumbering { roman },
-        big-roman     = \pagenumbering { Roman },
-        small-letters = \pagenumbering { alph },
-        big-letters   = \pagenumbering { Alph },
-      },
-      header-recto = global \__soranus_pagestyle_full_header_recto:,
-      header-verso = global \__soranus_pagestyle_full_header_verso:,
-      footer-recto = global \__soranus_pagestyle_full_footer_recto:,
-      footer-verso = global \__soranus_pagestyle_full_footer_verso:
+    page-numbering = global \__soranus_pagestyle_full_page_numbering:,
+    header-recto   = global \__soranus_pagestyle_full_header_recto:,
+    header-verso   = global \__soranus_pagestyle_full_header_verso:,
+    footer-recto   = global \__soranus_pagestyle_full_footer_recto:,
+    footer-verso   = global \__soranus_pagestyle_full_footer_verso:
   }
   {
     \AssignTemplateKeys
+    \__soranus_pagestyle_full_page_numbering:
     \cs_gset_protected:Npn \@mkboth { \markboth }
     \cs_gset_protected:Npn \@oddhead
       { \__soranus_pagestyle_full_header_recto: }
@@ -224,38 +267,32 @@
   }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: header-only
 %
 
 \DeclareTemplateInterface { pagestyle } { header-only } { 0 }
   {
-    page-numbering : choice
-      { arabic, small-roman, big-roman, small-letters, big-letters }
-                                         = arabic,
+    page-numbering : instance { page-numbering } = arabic,
     recto          : instance { headfoot-content },
     verso          : instance { headfoot-content }
   }
 
+
+\cs_new_eq:NN \__soranus_pagestyle_header_only_page_numbering: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_header_only_recto: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_header_only_verso: \prg_do_nothing:
 
 \DeclareTemplateCode { pagestyle } { header-only } { 0 }
   {
-    page-numbering =
-      {
-        arabic        = \pagenumbering { arabic },
-        small-roman   = \pagenumbering { roman },
-        big-roman     = \pagenumbering { Roman },
-        small-letters = \pagenumbering { alph },
-        big-letters   = \pagenumbering { Alph },
-      },
-      recto        = global \__soranus_pagestyle_header_only_recto:,
-      verso        = global \__soranus_pagestyle_header_only_verso:,
+    page-numbering = global \__soranus_pagestyle_header_only_page_numbering:,
+    recto          = global \__soranus_pagestyle_header_only_recto:,
+    verso          = global \__soranus_pagestyle_header_only_verso:,
   }
   {
     \AssignTemplateKeys
+    \__soranus_pagestyle_header_only_page_numbering:
     \cs_gset_protected:Npn \@mkboth { \markboth }
     \cs_gset_protected:Npn \@oddhead
       { \__soranus_pagestyle_header_only_recto: }
@@ -268,38 +305,32 @@
   }
 
 
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Template: footer-only
 %
 
 \DeclareTemplateInterface { pagestyle } { footer-only } { 0 }
   {
-    page-numbering : choice
-      { arabic, small-roman, big-roman, small-letters, big-letters }
-                                         = arabic,
+    page-numbering : instance { page-numbering } = arabic,
     recto          : instance { headfoot-content },
     verso          : instance { headfoot-content }
   }
 
+
+\cs_new_eq:NN \__soranus_pagestyle_footer_only_page_numbering: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_footer_only_recto: \prg_do_nothing:
 \cs_new_eq:NN \__soranus_pagestyle_footer_only_verso: \prg_do_nothing:
 
 \DeclareTemplateCode { pagestyle } { footer-only } { 0 }
   {
-    page-numbering =
-      {
-        arabic        = \pagenumbering { arabic },
-        small-roman   = \pagenumbering { roman },
-        big-roman     = \pagenumbering { Roman },
-        small-letters = \pagenumbering { alph },
-        big-letters   = \pagenumbering { Alph },
-      },
-      recto        = global \__soranus_pagestyle_footer_only_recto:,
-      verso        = global \__soranus_pagestyle_footer_only_verso:
+    page-numbering = global \__soranus_pagestyle_footer_only_page_numbering:,
+    recto          = global \__soranus_pagestyle_footer_only_recto:,
+    verso          = global \__soranus_pagestyle_footer_only_verso:
   }
   {
     \AssignTemplateKeys
+    \__soranus_pagestyle_footer_only_page_numbering:
     \cs_gset_protected:Npn \@mkboth { \markboth }
     \cs_gset_protected:Npn \@oddhead
       { \prg_do_nothing: }
