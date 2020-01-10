@@ -31,35 +31,39 @@
 
 \DeclareTemplateInterface { title } { classic } { 0 }
   {
-    title-font       : tokenlist,
-    author-font      : tokenlist,
-    date-font        : tokenlist,
-    title-author-sep : skip = 12pt,
-    author-date-sep  : skip = 12pt,
-    top-sep          : skip = 16pt,
-    bottom-sep       : skip = 16pt,
+    title-font        : tokenlist,
+    author-font       : tokenlist,
+    date-font         : tokenlist,
+    author-author-sep : skip = 16pt, 
+    title-author-sep  : skip = 12pt,
+    author-date-sep   : skip = 12pt,
+    top-sep           : skip = 12pt,
+    bottom-sep        : skip = 12pt,
   }
 
 
 \tl_new:N \g__soranus_title_classic_title_font_tl
 \tl_new:N \g__soranus_title_classic_author_font_tl
 \tl_new:N \g__soranus_title_classic_date_font_tl
+\skip_new:N \g__soranus_title_classic_author_author_sep_skip
 \skip_new:N \g__soranus_title_classic_title_author_sep_skip
 \skip_new:N \g__soranus_title_classic_author_date_sep_skip
 \skip_new:N \g__soranus_title_classic_top_sep_skip
 \skip_new:N \g__soranus_title_classic_bottom_sep_skip
 
-\tl_new:N \g__soranus_title_classic_author_temp_tl
+\tl_new:N \l__soranus_title_classic_author_temp_tl
+\seq_new:N \l__soranus_title_classic_authors_seq
 
 \DeclareTemplateCode { title } { classic } { 0 }
   {
-    title-font       = global \g__soranus_title_classic_title_font_tl,
-    author-font      = global \g__soranus_title_classic_author_font_tl,
-    date-font        = global \g__soranus_title_classic_date_font_tl,
-    title-author-sep = global \g__soranus_title_classic_title_author_sep_skip,
-    author-date-sep  = global \g__soranus_title_classic_author_date_sep_skip,
-    top-sep          = global \g__soranus_title_classic_top_sep_skip,
-    bottom-sep       = global \g__soranus_title_classic_bottom_sep_skip
+    title-font        = global \g__soranus_title_classic_title_font_tl,
+    author-font       = global \g__soranus_title_classic_author_font_tl,
+    date-font         = global \g__soranus_title_classic_date_font_tl,
+    author-author-sep = global \g__soranus_title_classic_author_author_sep_skip,
+    title-author-sep  = global \g__soranus_title_classic_title_author_sep_skip,
+    author-date-sep   = global \g__soranus_title_classic_author_date_sep_skip,
+    top-sep           = global \g__soranus_title_classic_top_sep_skip,
+    bottom-sep        = global \g__soranus_title_classic_bottom_sep_skip
   }
   {
     \AssignTemplateKeys
@@ -74,19 +78,31 @@
             \tl_use:N \g__soranus_title_classic_title_font_tl
             \prop_item:Nn \g__soranus_document_metadata_prop { title }
           }
+        \skip_vertical:N \g__soranus_title_classic_title_author_sep_skip
+        \parbox { \textwidth }
+          {
+            \UseInstance { justification } { center }
+            \tl_use:N \g__soranus_title_classic_author_font_tl
+            \seq_clear:N \l__soranus_title_classic_authors_seq
+            \clist_map_inline:nn { i, ii, iii, iv, v }
+              {
+                \prop_get:cnNT { g__soranus_author_##1_data_prop }
+                  { name }
+                  \l__soranus_title_classic_author_temp_tl
+                  {
+                    \seq_put_right:NV \l__soranus_title_classic_authors_seq
+                      \l__soranus_title_classic_author_temp_tl
+                  }
+              }
+            \seq_use:Nn \l__soranus_title_classic_authors_seq
+              { \skip_horizontal:N \g__soranus_title_classic_author_author_sep_skip }
+          }
         \skip_vertical:N \g__soranus_title_classic_author_date_sep_skip
         \parbox { \textwidth }
           {
             \UseInstance { justification } { center }
             \tl_use:N \g__soranus_title_classic_date_font_tl
             \prop_item:Nn \g__soranus_document_metadata_prop { date }
-          }
-        \skip_vertical:N \g__soranus_title_classic_title_author_sep_skip
-        \parbox { \textwidth }
-          {
-            \UseInstance { justification } { center }
-            \tl_use:N \g__soranus_title_classic_author_font_tl
-            \prop_item:Nn \g__soranus_author_i_data_prop { name }
           }
       }
     \skip_vertical:N \g__soranus_title_classic_bottom_sep_skip
