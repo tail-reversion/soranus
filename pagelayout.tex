@@ -21,7 +21,81 @@
 % Parameters and Setters
 %
 
-% Here, I define changeable layout parameters and commands.
+\dim_new:N \g__soranus_pagelayout_text_width_dim
+\dim_new:N \g__soranus_pagelayout_text_height_dim
+\bool_new:N \g__soranus_pagelayout_two_column_bool
+\dim_new:N \g__soranus_pagelayout_column_sep_dim
+\dim_new:N \g__soranus_pagelayout_column_rule_width_dim
+\dim_new:N \g__soranus_pagelayout_margin_par_width_dim
+\dim_new:N \g__soranus_pagelayout_margin_par_sep_dim
+\dim_new:N \g__soranus_pagelayout_margin_par_push_dim
+\dim_new:N \g__soranus_pagelayout_spine_margin_dim
+\dim_new:N \g__soranus_pagelayout_top_margin_dim
+\dim_new:N \g__soranus_pagelayout_footer_height_dim
+\dim_new:N \g__soranus_pagelayout_header_sep_dim
+\dim_new:N \g__soranus_pagelayout_header_height_dim
+\dim_new:N \g__soranus_pagelayout_footer_sep_dim
+
+
+\keys_define:nn { soranus / pagelayout }
+  {
+    text-width        .dim_gset:N       = \g__soranus_pagelayout_text_width_dim,
+    text-width        .value_required:n = true,
+    text-width        .initial:n        = 30pc,
+
+    text-height       .dim_gset:N       = \g__soranus_pagelayout_text_height_dim,
+    text-height       .value_required:n = true,
+    text-height       .initial:n        = 50pc,
+
+    two-column        .bool_gset:N      = \g__soranus_pagelayout_two_column_bool,
+    two-column        .value_required:n = true,
+    two-column        .initial:n        = false,
+
+    column-sep        .dim_gset:N       = \g__soranus_pagelayout_column_sep_dim,
+    column-sep        .value_required:n = true,
+    column-sep        .initial:n        = 1pc,
+
+    column-rule-width .dim_gset:N       = \g__soranus_pagelayout_column_rule_width_dim,
+    column-rule-width .value_required:n = true,
+    column-rule-width .initial:n        = 0.4pt,
+
+    margin-par-width  .dim_gset:N       = \g__soranus_pagelayout_margin_par_width_dim,
+    margin-par-width  .value_required:n = true,
+    margin-par-width  .initial:n        = 5pc,
+
+    margin-par-sep    .dim_gset:N       = \g__soranus_pagelayout_margin_par_sep_dim,
+    margin-par-sep    .value_required:n = true,
+    margin-par-sep    .initial:n        = 1pc,
+
+    margin-par-push   .dim_gset:N       = \g__soranus_pagelayout_margin_par_push_dim,
+    margin-par-push   .value_required:n = true,
+    margin-par-push   .initial:n        = 5pt,
+
+    spine-margin      .dim_gset:N       = \g__soranus_pagelayout_spine_margin_dim,
+    margin-par-push   .value_required:n = true,
+    spine-margin      .initial:n        = 1in,
+
+    top-margin        .dim_gset:N       = \g__soranus_pagelayout_top_margin_dim,
+    top-margin        .value_required:n = true,
+    top-margin        .initial:n        = 1in,
+
+    header-height     .dim_gset:N       = \g__soranus_pagelayout_header_height_dim,
+    header-height     .value_required:n = true,
+    header-height     .initial:n        = 1pc,
+
+    header-sep        .dim_gset:N       = \g__soranus_pagelayout_header_sep_dim,
+    header-sep        .value_required:n = true,
+    header-sep        .initial:n        = 1pc,
+
+    footer-height     .dim_gset:N       = \g__soranus_pagelayout_footer_height_dim,
+    footer-height     .value_required:n = true,
+    footer-height     .initial:n        = 1pc,
+
+    footer-sep        .dim_gset:N       = \g__soranus_pagelayout_footer_sep_dim,
+    footer-sep        .value_required:n = true,
+    footer-sep        .initial:n        = 1pc
+  }
+
 
 \cs_new_protected:Nn \__soranus_set_text_area:nn
   {
@@ -106,111 +180,47 @@
     \dim_gset:Nn \footskip
       {
         #1 % add the footer height
-         + #2 % add the footer sep
+        + #2 % add the footer sep
       }
   }
 
 \cs_generate_variant:Nn \__soranus_set_footer:nn { VV }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Template
-%
-
-\DeclareObjectType { pagelayout } { 0 }
-
-
-\DeclareTemplateInterface { pagelayout } { standard } { 0 }
+\cs_new_protected:Nn \__soranus_set_pagelayout:n
   {
-    text-width        : length  = 30pc,
-    text-height       : length  = 50pc,
-    two-column        : boolean = false,
-    column-sep        : length  = 1pc,
-    column-rule-width : length  = 0.4pt,
-    margin-par-width  : length  = 5pc,
-    margin-par-sep    : length  = 1pc,
-    margin-par-push   : length  = 5pt,
-    spine-margin      : length  = 1in,
-    top-margin        : length  = 1in,
-    header-sep        : length  = 1pc,
-    header-height     : length  = 1pc,
-    footer-sep        : length  = 1pc,
-    footer-height     : length  = 1pc
-  }
-
-
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Implementation
-%
-
-\dim_new:N \g__soranus_pagelayout_standard_text_width_dim
-\dim_new:N \g__soranus_pagelayout_standard_text_height_dim
-\bool_new:N \g__soranus_pagelayout_standard_two_column_bool
-\dim_new:N \g__soranus_pagelayout_standard_column_sep_dim
-\dim_new:N \g__soranus_pagelayout_standard_column_rule_width_dim
-\dim_new:N \g__soranus_pagelayout_standard_margin_par_width_dim
-\dim_new:N \g__soranus_pagelayout_standard_margin_par_sep_dim
-\dim_new:N \g__soranus_pagelayout_standard_margin_par_push_dim
-\dim_new:N \g__soranus_pagelayout_standard_spine_margin_dim
-\dim_new:N \g__soranus_pagelayout_standard_top_margin_dim
-\dim_new:N \g__soranus_pagelayout_standard_footer_height_dim
-\dim_new:N \g__soranus_pagelayout_standard_header_sep_dim
-\dim_new:N \g__soranus_pagelayout_standard_header_height_dim
-\dim_new:N \g__soranus_pagelayout_standard_footer_sep_dim
-
-
-\DeclareTemplateCode { pagelayout } { standard } { 0 }
-  {
-    text-width        = global \g__soranus_pagelayout_standard_text_width_dim,
-    text-height       = global \g__soranus_pagelayout_standard_text_height_dim,
-    two-column        = global \g__soranus_pagelayout_standard_two_column_bool,
-    column-sep        = global \g__soranus_pagelayout_standard_column_sep_dim,
-    column-rule-width = global \g__soranus_pagelayout_standard_column_rule_width_dim,
-    margin-par-width  = global \g__soranus_pagelayout_standard_margin_par_width_dim,
-    margin-par-sep    = global \g__soranus_pagelayout_standard_margin_par_sep_dim,
-    margin-par-push   = global \g__soranus_pagelayout_standard_margin_par_push_dim,
-    spine-margin      = global \g__soranus_pagelayout_standard_spine_margin_dim,
-    top-margin        = global \g__soranus_pagelayout_standard_top_margin_dim,
-    header-height     = global \g__soranus_pagelayout_standard_header_height_dim,
-    header-sep        = global \g__soranus_pagelayout_standard_header_sep_dim,
-    footer-height     = global \g__soranus_pagelayout_standard_footer_height_dim,
-    footer-sep        = global \g__soranus_pagelayout_standard_footer_sep_dim
-  }
-  {
-    \AssignTemplateKeys
+    \keys_set:nn { soranus / pagelayout } { #1 }
     \__soranus_set_text_area:VV
-      \g__soranus_pagelayout_standard_text_width_dim
-      \g__soranus_pagelayout_standard_text_height_dim
+      \g__soranus_pagelayout_text_width_dim
+      \g__soranus_pagelayout_text_height_dim
     \__soranus_set_margin_par:VVV
-      \g__soranus_pagelayout_standard_margin_par_width_dim
-      \g__soranus_pagelayout_standard_margin_par_sep_dim
-      \g__soranus_pagelayout_standard_margin_par_push_dim
+      \g__soranus_pagelayout_margin_par_width_dim
+      \g__soranus_pagelayout_margin_par_sep_dim
+      \g__soranus_pagelayout_margin_par_push_dim
     \__soranus_set_spine_margin:VV
-      \g__soranus_pagelayout_standard_spine_margin_dim
-      \g__soranus_pagelayout_standard_text_width_dim
+      \g__soranus_pagelayout_spine_margin_dim
+      \g__soranus_pagelayout_text_width_dim
     \__soranus_set_top_margin_and_header:VVV
-      \g__soranus_pagelayout_standard_top_margin_dim
-      \g__soranus_pagelayout_standard_header_height_dim
-      \g__soranus_pagelayout_standard_header_sep_dim
+      \g__soranus_pagelayout_top_margin_dim
+      \g__soranus_pagelayout_header_height_dim
+      \g__soranus_pagelayout_header_sep_dim
     \__soranus_set_footer:VV
-      \g__soranus_pagelayout_standard_footer_height_dim
-      \g__soranus_pagelayout_standard_footer_sep_dim
+      \g__soranus_pagelayout_footer_height_dim
+      \g__soranus_pagelayout_footer_sep_dim
     % Set columns last to exploit the internal \clearpage.
     \__soranus_set_column:VVVV
-      \g__soranus_pagelayout_standard_two_column_bool
-      \g__soranus_pagelayout_standard_text_width_dim
-      \g__soranus_pagelayout_standard_column_sep_dim
-      \g__soranus_pagelayout_standard_column_rule_width_dim
+      \g__soranus_pagelayout_two_column_bool
+      \g__soranus_pagelayout_text_width_dim
+      \g__soranus_pagelayout_column_sep_dim
+      \g__soranus_pagelayout_column_rule_width_dim
   }
 
 
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Instance
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Designer Interface
 %
 
-\DeclareInstance { pagelayout } { default } { standard }
-  {
-  }
+\NewDocumentCommand \SetPageLayout { m }
+  { \__soranus_set_pagelayout:n { #1 } }
