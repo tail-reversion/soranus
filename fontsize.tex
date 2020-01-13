@@ -41,19 +41,20 @@
   }
 
 
+% Needs reworking.
 \cs_new_protected:Nn \__soranus_set_root_relative_fontsize:n
   {
     \__soranus_set_fontsize:nn
-      { #1 * \g__soranus_normal_point_size_dim }
-      { #1 * \g__soranus_normal_baseline_scale_fp }
+      { \g__soranus_normal_point_size_dim * #1}
+      { \g__soranus_normal_baseline_scale_fp * #1 }
   }
 
 
 \cs_new_protected:Nn \__soranus_set_relative_fontsize:n
   {
     \__soranus_set_fontsize:nn
-      { #1 * \f@size pt }
-      { #1 * \f@baselineskip }
+      { \f@size pt * #1 }
+      { \f@baselineskip * #1 }
   }
 
 
@@ -65,11 +66,11 @@
 \NewDocumentCommand \AbsoluteFontSize { m m }
   { \__soranus_set_fontsize:nn { #1 } { #2 } }
 
-\NewDocumentCommand \RootRelativeFontSize { m }
-  { \__soranus_set_root_relative_fontsize:n { #1 } }
+%\NewDocumentCommand \RootRelativeFontSize { m }
+%  { \__soranus_set_root_relative_fontsize:n { #1 } }
 
 \NewDocumentCommand \RelativeFontSize { m }
-  { \__soranus_set_relative_font_size:n { #1 } }
+  { \__soranus_set_relative_fontsize:n { #1 } }
 
 
 
