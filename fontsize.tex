@@ -18,12 +18,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Font Size Template
+% Font Size Setters
 %
-
-% Define an object that represents a font size command.
-\DeclareObjectType { fontsize } { 0 }
-
 
 % I forbid normal font size switches in the middle of a math environment.
 \msg_new:nnn { soranus } { fontsize-in-math-mode }
@@ -37,127 +33,51 @@
       {
         % I do not use \@setfontsize since I handle math mode in my own way
         % and because \@currsize is not used in this class.
-        \fontsize { #1 } { #2 } \selectfont
+        \exp_args:Nxx \fontsize
+          { \dim_eval:n { #1 } }
+          { \dim_eval:n { #2 } }
+        \selectfont
       }
   }
 
 
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Absolute Template
+\cs_new_protected:Nn \__soranus_set_root_relative_fontsize:n
+  {
+    \__soranus_set_fontsize:nn
+      { #1 * \g__soranus_normal_point_size_dim }
+      { #1 * \g__soranus_normal_baseline_scale_fp }
+  }
+
+
+\cs_new_protected:Nn \__soranus_set_relative_fontsize:n
+  {
+    \__soranus_set_fontsize:nn
+      { #1 * \f@size pt }
+      { #1 * \f@baselineskip }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Designer Interface
 %
 
+\NewDocumentCommand \AbsoluteFontSize { m m }
+  { \__soranus_set_fontsize:nn { #1 } { #2 } }
 
-\DeclareTemplateInterface { fontsize } { absolute } { 0 }
-  {
-    point-size   : length = 10pt,
-    baseline-sep : length = 12pt
-  }
+\NewDocumentCommand \RootRelativeFontSize { m }
+  { \__soranus_set_root_relative_fontsize:n { #1 } }
 
+\NewDocumentCommand \RelativeFontSize { m }
+  { \__soranus_set_relative_font_size:n { #1 } }
 
-% Here I define the template variables.
-\dim_new:N \l__soranus_fontsize_absolute_point_size_dim
-\dim_new:N \l__soranus_fontsize_absolute_baseline_sep_dim
-
-
-\DeclareTemplateCode { fontsize } { absolute } { 0 }
-  {
-    point-size   = \l__soranus_fontsize_absolute_point_size_dim,
-    baseline-sep = \l__soranus_fontsize_absolute_baseline_sep_dim
-  }
-  {
-    \AssignTemplateKeys
-    \__soranus_set_fontsize:nn
-      { \l__soranus_fontsize_absolute_point_size_dim }
-      { \l__soranus_fontsize_absolute_baseline_sep_dim }
-  }
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-% Relative Template
-%
-
-\DeclareTemplateInterface { fontsize } { relative } { 0 }
-  {
-    scale : real = 1.1
-  }
-
-
-\fp_new:N \l__soranus_fontsize_relative_scale_fp
-
-\DeclareTemplateCode { fontsize } { relative } { 0 }
-  {
-    scale = \l__soranus_fontsize_relative_scale_fp
-  }
-  {
-    \AssignTemplateKeys
-    \__soranus_set_fontsize:nn
-      {
-        \fp_to_dim:n
-          {
-            \dim_to_fp:n { \f@size pt }
-            * \l__soranus_fontsize_relative_scale_fp
-          }
-      }
-      {
-        \fp_to_dim:n
-          {
-            \dim_to_fp:n { \f@baselineskip }
-            * \l__soranus_fontsize_relative_scale_fp
-          }
-      }
-  }
-
-
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Root Relative Template
-%
-
-\DeclareTemplateInterface { fontsize } { root-relative } { 0 }
-  {
-    scale : real = 1.1
-  }
-
-
-\fp_new:N \l__soranus_fontsize_root_relative_scale_fp
-
-\DeclareTemplateCode { fontsize } { root-relative } { 0 }
-  {
-    scale = \l__soranus_fontsize_root_relative_scale_fp
-  }
-  {
-    \AssignTemplateKeys
-    \__soranus_set_fontsize:nn
-      {
-        \fp_to_dim:n
-          {
-            \dim_to_fp:n { \g__soranus_normal_point_size_dim }
-            * \l__soranus_fontsize_root_relative_scale_fp
-          }
-      }
-      {
-        \fp_to_dim:n
-          {
-            \dim_to_fp:n { \g__soranus_normal_point_size_dim }
-            * \l__soranus_fontsize_root_relative_scale_fp
-            * \g__soranus_normal_baseline_scale_fp
-          }
-      }
-  }
-
-
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-% Instances (normalsize)
+% Normal Size
 %
 % Only \normalsize is defined, to keep 2e happy, otherwise templates are used.
 
-\DeclareInstance { fontsize } { normalsize } { root-relative }
-  {
-    scale = 1.0
-  }
-
 \RenewDocumentCommand \normalsize { }
-  { \UseInstance { fontsize } { normalsize } }
+  { \AbsoluteFontSize { 10pt } { 12pt } }
