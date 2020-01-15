@@ -27,4 +27,5 @@ This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 - pagelayout.tex
 - pagestyle.tex
 - title.tex
+- sectioning.tex
 - soranus.cls
