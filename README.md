@@ -22,7 +22,6 @@ This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 - utility.tex
 - metadata.tex
 - docparams.tex
-- classoptions.tex
 - fontsize.tex
 - pagelayout.tex
 - pagestyle.tex

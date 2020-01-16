@@ -79,5 +79,28 @@
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Class Options (Document Parameters)
+%
+
+\keys_define:nn { }
+  {
+    soranus / class-options .inherit:n =
+      {
+        soranus / paper-and-trim,
+        soranus / font-size
+      }
+  }
+
+
+\NewDocumentCommand \DocumentSetup { m }
+  {
+    \keys_set:nn { soranus / class-options } { #1 }
+  }
+
+\@onlypreamble \DocumentSetup
+
+
 % Initialize the document.
 \__soranus_set_pagelayout:n { }
