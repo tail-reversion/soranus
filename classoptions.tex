@@ -124,13 +124,8 @@
     no-trim .default:n        = true,
 
 
-    landscape .bool_gset:N      = \g__soranus_landscape_bool,
-    landscape .value_required:n = false,
-    landscape .initial:n        = false,
-    landscape .default:n        = true,
-
-
-    two-side .bool_gset:N      = \g__soranus_two_side_bool,
+    two-side .choices:nn       = { true, false }
+                                 { \use:c { @twoside#1 } },
     two-side .value_required:n = false,
     two-side .initial:n        = false,
     two-side .default:n        = true
@@ -143,9 +138,6 @@
 
     point-size .meta:nn = { soranus / document-setup } { point-size = #1 },
 
-    landscape .meta:nn           = { soranus / document-setup } { landscape },
-    landscape .value_forbidden:n = true,
-
     two-side .meta:nn           = { soranus / document-setup } { two-side },
     two-side .value_forbidden:n = true
   }
@@ -155,7 +147,6 @@
   {
     \keys_set:nn { soranus / document-setup } { #1 }
     \__soranus_init_document_point_size:
-    \__soranus_init_paper_and_trim:
   }
 
 \@onlypreamble \DocumentSetup

@@ -82,5 +82,4 @@
 % Initialize the document.
 \ProcessKeysOptions { soranus / class-options }
 \__soranus_init_document_point_size:
-\__soranus_init_paper_and_trim:
 \__soranus_set_pagelayout:n { }
