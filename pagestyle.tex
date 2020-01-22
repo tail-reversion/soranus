@@ -22,7 +22,10 @@
 %
 
 \tl_map_function:nN
-  { \pagenumbering \pagestyle \ps@empty \ps@plain \ps@headings \ps@myheadings }
+  {
+    \pagenumbering \@roman \@Roman \@slowromancap \@alph \@Alph
+    \pagestyle \ps@empty \ps@plain \ps@headings \ps@myheadings
+  }
   \cs_undefine:N
 
 
