@@ -29,62 +29,62 @@
 
 \keys_define:nn { soranus / pagelayout }
   {
-    text-width        .dim_gset:N       = \textwidth,
-    text-width        .value_required:n = true,
-    text-width        .initial:n        = 30pc,
+    text-width .dim_gset:N       = \textwidth,
+    text-width .value_required:n = true,
+    text-width .initial:n        = 30pc,
 
-    text-height       .dim_gset:N       = \textheight,
-    text-height       .value_required:n = true,
-    text-height       .initial:n        = 50pc,
+    text-height .dim_gset:N       = \textheight,
+    text-height .value_required:n = true,
+    text-height .initial:n        = 50pc,
 
-    two-column        .choices:nn       = { true, false }
-                                          { \use:c { @twocolumn#1 } },
-    two-column        .value_required:n = true,
-    two-column        .initial:n        = false,
+    two-column .choices:nn       = { true, false }
+                                   { \use:c { @twocolumn#1 } },
+    two-column .value_required:n = true,
+    two-column .initial:n        = false,
 
-    column-sep        .dim_gset:N       = \columnsep,
-    column-sep        .value_required:n = true,
-    column-sep        .initial:n        = 1pc,
+    column-sep .dim_gset:N       = \columnsep,
+    column-sep .value_required:n = true,
+    column-sep .initial:n        = 1pc,
 
     column-rule-width .dim_gset:N       = \columnseprule,
     column-rule-width .value_required:n = true,
     column-rule-width .initial:n        = 0.4pt,
 
-    margin-par-width  .dim_gset:N       = \marginparwidth,
-    margin-par-width  .value_required:n = true,
-    margin-par-width  .initial:n        = 5pc,
+    margin-par-width .dim_gset:N       = \marginparwidth,
+    margin-par-width .value_required:n = true,
+    margin-par-width .initial:n        = 5pc,
 
-    margin-par-sep    .dim_gset:N       = \marginparsep,
-    margin-par-sep    .value_required:n = true,
-    margin-par-sep    .initial:n        = 1pc,
+    margin-par-sep .dim_gset:N       = \marginparsep,
+    margin-par-sep .value_required:n = true,
+    margin-par-sep .initial:n        = 1pc,
 
-    margin-par-push   .dim_gset:N       = \marginparpush,
-    margin-par-push   .value_required:n = true,
-    margin-par-push   .initial:n        = 5pt,
+    margin-par-push .dim_gset:N       = \marginparpush,
+    margin-par-push .value_required:n = true,
+    margin-par-push .initial:n        = 5pt,
 
-    spine-margin      .dim_gset:N       = \g__soranus_pagelayout_spine_margin_dim,
-    spine-margin      .value_required:n = true,
-    spine-margin      .initial:n        = 1in,
+    spine-margin .dim_gset:N       = \g__soranus_pagelayout_spine_margin_dim,
+    spine-margin .value_required:n = true,
+    spine-margin .initial:n        = 1in,
 
-    top-margin        .dim_gset:N       = \g__soranus_pagelayout_top_margin_dim,
-    top-margin        .value_required:n = true,
-    top-margin        .initial:n        = 1in,
+    top-margin .dim_gset:N       = \g__soranus_pagelayout_top_margin_dim,
+    top-margin .value_required:n = true,
+    top-margin .initial:n        = 1in,
 
-    header-height     .dim_gset:N       = \headheight,
-    header-height     .value_required:n = true,
-    header-height     .initial:n        = 1pc,
+    header-height .dim_gset:N       = \headheight,
+    header-height .value_required:n = true,
+    header-height .initial:n        = 1pc,
 
-    header-sep        .dim_gset:N       = \headsep,
-    header-sep        .value_required:n = true,
-    header-sep        .initial:n        = 1pc,
+    header-sep .dim_gset:N       = \headsep,
+    header-sep .value_required:n = true,
+    header-sep .initial:n        = 1pc,
 
-    footer-height     .dim_gset:N       = \g__soranus_pagelayout_footer_height_dim,
-    footer-height     .value_required:n = true,
-    footer-height     .initial:n        = 1pc,
+    footer-height .dim_gset:N       = \g__soranus_pagelayout_footer_height_dim,
+    footer-height .value_required:n = true,
+    footer-height .initial:n        = 1pc,
 
-    footer-sep        .dim_gset:N       = \g__soranus_pagelayout_footer_sep_dim,
-    footer-sep        .value_required:n = true,
-    footer-sep        .initial:n        = 1pc
+    footer-sep .dim_gset:N       = \g__soranus_pagelayout_footer_sep_dim,
+    footer-sep .value_required:n = true,
+    footer-sep .initial:n        = 1pc
   }
 
 

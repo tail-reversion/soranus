@@ -33,7 +33,7 @@
 %
 
 \@ifpackagelater { expl3 } { 2020/01/22 }
-  {}
+  { }
   {
     \ClassError { soranus } { Support~package~expl3~too~old }
       {
@@ -138,7 +138,7 @@
     paper / unknown .code:n =
       { \msg_error:nnnn { soranus } { unknown-choice } { paper } { #1 } },
 
-    paper .value_required:n = true,
+    paper .value_required:n = true
   }
 
 
