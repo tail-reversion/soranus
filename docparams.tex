@@ -48,7 +48,6 @@
     point-size .initial:n        = 10pt,
 
     baseline-scale .fp_gset:N        = \g__soranus_normal_baseline_scale_fp,
-    baseline-scale .value_required:n = true,
     baseline-scale .initial:n        = 1.2,
   }
 
@@ -78,31 +77,24 @@
 \keys_define:nn { soranus / paper-and-trim } 
   {
     paper-width .dim_gset:N       = \g__soranus_paper_width_dim,
-    paper-width .value_required:n = true,
     paper-width .initial:n        = 210mm,
 
     paper-height .dim_gset:N       = \g__soranus_paper_height_dim,
-    paper-height .value_required:n = true,
     paper-height .initial:n        = 297mm,
 
     edge-trim .dim_gset:N       = \g__soranus_edge_trim_dim,
-    edge-trim .value_required:n = true,
     edge-trim .initial:n        = \c_zero_dim,
 
     top-trim .dim_gset:N       = \g__soranus_top_trim_dim,
-    top-trim .value_required:n = true,
     top-trim .initial:n        = \c_zero_dim,
 
     binding-offset .dim_gset:N       = \g__soranus_binding_offset_dim,
-    binding-offset .value_required:n = true,
     binding-offset .initial:n        = \c_zero_dim,
 
     page-width .dim_gset:N       = \g__soranus_page_width_dim,
-    page-width .value_required:n = true,
     page-width .initial:n        = 210mm,
 
     page-height .dim_gset:N       = \g__soranus_page_height_dim,
-    page-height .value_required:n = true,
     page-height .initial:n        = 297mm,
 
     two-side .choices:nn       = { true, false }
