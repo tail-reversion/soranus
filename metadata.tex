@@ -38,7 +38,12 @@
   { The~document~field~`#1'~has~not~yet~been~set. }
 
 
-\prop_new:N \g__soranus_document_metadata_prop
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Author(s)
+%
+
 \prop_new:N \g__soranus_author_data_temp_prop
 \prop_new:N \g__soranus_author_i_data_prop
 \prop_new:N \g__soranus_author_ii_data_prop
@@ -72,18 +77,62 @@
   }
 
 
-\keys_define:nn { soranus / document-metadata }
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Copyright
+%
+
+\prop_new:N \g__soranus_copyright_data_prop
+
+\keys_define:nn { soranus / copyright-data }
   {
-    title .prop_gput:N      = \g__soranus_document_metadata_prop,
+    year .prop_gput:N = \g__soranus_copyright_data_prop,
+
+    holder .prop_gput:N = \g__soranus_copyright_data_prop,
+
+    notice .prop_gput:N = \g__soranus_copyright_data_prop
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Publisher
+%
+
+\prop_new:N \g__soranus_publisher_data_prop
+
+\keys_define:nn { soranus / publisher-data }
+  {
+    name .prop_gput:N = \g__soranus_publisher_data_prop,
+
+    address .prop_gput:N = \g__soranus_publisher_data_prop
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Document
+%
+
+\prop_new:N \g__soranus_document_data_prop
+
+\keys_define:nn { soranus / document-data }
+  {
+    title .prop_gput:N      = \g__soranus_document_data_prop,
     title .value_required:n = true,
 
-    subtitle .prop_gput:N      = \g__soranus_document_metadata_prop,
+    subtitle .prop_gput:N      = \g__soranus_document_data_prop,
     subtitle .value_required:n = true,
 
-    date .prop_gput:N      = \g__soranus_document_metadata_prop,
-    date .initial:x        =
+    date .prop_gput:N      = \g__soranus_document_data_prop,
+    date .default:x        =
       { \int_use:N \c_sys_year_int - \int_use:N \c_sys_month_int - \int_use:N \c_sys_day_int },
-    date .value_required:n = true,
+
+    subject .prop_gput:N      = \g__soranus_document_data_prop,
+    subject .value_required:n = true,
+
+    keywords .prop_gput:N      = \g__soranus_document_data_prop,
+    keywords .value_required:n = true,
 
     author-one .code:n           = { \__soranus_set_author_data:nn { i } { #1 } },
     author-one .value_required:n = true,
@@ -100,28 +149,13 @@
     author-five .code:n           = { \__soranus_set_author_data:nn { v } { #1 } },
     author-five .value_required:n = true,
 
-    subject .prop_gput:N      = \g__soranus_document_metadata_prop,
-    subject .value_required:n = true,
+    copyright .meta:nn          = { soranus / copyright-data } { #1 },
+    copyright .value_required:n = true,
 
-    keywords .prop_gput:N      = \g__soranus_document_metadata_prop,
-    keywords .value_required:n = true,
-
-    copyright-year .prop_gput:N      = \g__soranus_document_metadata_prop,
-    copyright-year .value_required:n = true,
-
-    copyright-holder .prop_gput:N      = \g__soranus_document_metadata_prop,
-    copyright-holder .value_required:n = true,
-
-    copyright-notice .prop_gput:N      = \g__soranus_document_metadata_prop,
-    copyright-notice .value_required:n = true,
-
-    publisher .prop_gput:N      = \g__soranus_document_metadata_prop,
-    publisher .value_required:n = true,
-
-    publisher-address .prop_gput:N      = \g__soranus_document_metadata_prop,
-    publisher-address .value_required:n = true
+    publisher .meta:nn = { soranus / publisher-data } { #1 },
+    publisher .value_required:n = true
   }
 
 
 \NewDocumentCommand \documentdata { m }
-  { \keys_set:nn { soranus / document-metadata } { #1 } }
+  { \keys_set:nn { soranus / document-data } { #1 } }
