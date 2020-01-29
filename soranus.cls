@@ -61,6 +61,38 @@
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% (Some) Incompatible Packages
+%
+
+\msg_new:nnnn { soranus } { incompatible-package }
+  { Package~`#1'~incompatible. }
+  { The~package~`#1'~is~incompatible~with~the~soranus~class. }
+
+\seq_const_from_clist:Nn \c__soranus_incompatible_packages_seq
+  {
+    geometry,
+    array, booktabs, longtable,
+    amsmath, mathtools,
+    titlesec, fancyhdr,
+    babel, polyglossia,
+    hyperref
+  }
+
+\cs_new_protected:Nn \__soranus_load_check:
+  {
+    \seq_map_inline:Nn \c__soranus_incompatible_packages_seq
+      {
+        \@ifpackageloaded { ##1 }
+          { \msg_error:nnn { soranus } { incompatible-package } { ##1 } }
+          { }
+      }
+  }
+
+\AtBeginDocument { \__soranus_load_check: }
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % Load Packages and Modules
 %
 
