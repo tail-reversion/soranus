@@ -35,7 +35,7 @@
 \keys_define:nn { soranus / font }
   {
     size .dim_set:N = \l__soranus_font_size_dim,
-    size .default:n = \f@size,
+    size .default:n = \f@size pt,
 
     baseline .dim_set:N = \l__soranus_font_baseline_dim,
     baseline .default:n = \f@baselineskip,
@@ -83,7 +83,7 @@
           ultra-expanded
         }
         {
-          \str_set:Nx \l__soranus_font_width
+          \str_set:Nx \l__soranus_font_width_str
             {
               \str_case:nn { #1 }
                 {
