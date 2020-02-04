@@ -71,9 +71,12 @@
 \seq_const_from_clist:Nn \c__soranus_incompatible_packages_seq
   {
     geometry,
+    color, xcolor,
+    graphics, graphicx,
     array, booktabs, longtable,
     amsmath, mathtools,
     titlesec, fancyhdr,
+    enumitem,
     babel, polyglossia,
     hyperref
   }
