@@ -22,7 +22,7 @@ This project is licensed under the [LaTeX Project Public License](LICENSE.txt).
 - utility.tex
 - metadata.tex
 - docparams.tex
-- fontsize.tex
+- fonts.tex
 - pagelayout.tex
 - pagestyle.tex
 - title.tex
