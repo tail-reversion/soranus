@@ -15,10 +15,18 @@
 %
 % This work consists of the files listed in the README.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deprecations
+%
+
+\tl_map_function:nN { \upshape \itshape \swshape \scshape }
+  \cs_undefine:N
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Font Setters
+% Font Setter
 %
 
 % I forbid normal font switches in the middle of a math environment.
@@ -31,14 +39,15 @@
 \str_new:N \l__soranus_font_weight_str
 \str_new:N \l__soranus_font_width_str
 \str_new:N \l__soranus_font_shape_str
+\str_new:N \l__soranus_font_caps_str
 
 \keys_define:nn { soranus / font }
   {
     size .dim_set:N = \l__soranus_font_size_dim,
-    size .default:n = \f@size pt,
+    size .initial:n = 10pt,
 
     baseline .dim_set:N = \l__soranus_font_baseline_dim,
-    baseline .default:n = \f@baselineskip,
+    baseline .initial:n = 12pt,
 
     weight .choices:nn =
       {
@@ -69,6 +78,7 @@
               }
           }
       },
+    weight .initial:n = medium,
 
       width .choices:nn =
         {
@@ -99,13 +109,31 @@
                 }
             }
         },
+      width .initial:n = medium,
+
+      caps .choices:nn =
+        {
+          upper-lowercase,
+          small-caps
+        }
+        {
+          \str_set:Nx \l__soranus_font_caps_str
+            {
+              \str_case:nn { #1 }
+                {
+                  { upper-lowercase } { }
+                  { small-caps } { sc }
+                }
+            }
+        },
+      caps .initial:n = upper-lowercase,
 
       shape .choices:nn =
         {
           upright,
           italic,
           slanted,
-          small-caps
+          swash
         }
         {
           \str_set:Nx \l__soranus_font_shape_str
@@ -115,43 +143,54 @@
                   { upright } { n }
                   { italic } { it }
                   { slanted } { sl }
-                  { small-caps } { sc }
+                  { swash } { sw }
                 }
             }
         },
-      shape .default:n = \f@shape
+      shape .initial:n = upright
   }
 
-\cs_new_protected:Nn \__soranus_set_font:n
+\cs_new_protected:Nn \__soranus_font_set:n
   {
     \mode_if_math:TF
       { \msg_error:nn { soranus } { font-switch-in-math-mode } }
       {
         \keys_set:nn { soranus / font } { #1 }
-        \exp_args:NVV \fontsize
+        \__soranus_font_set_aux:VVxx
           \l__soranus_font_size_dim
           \l__soranus_font_baseline_dim
-        \exp_args:Nx \fontseries
           {
-            \bool_if:nTF
+            \str_if_eq:VnTF \l__soranus_font_weight_str { m }
+              { \str_use:N \l__soranus_font_width_str }
               {
-                \str_if_eq_p:Vn \l__soranus_font_weight_str { m }
-                &&
-                \str_if_eq_p:Vn \l__soranus_font_width_str { m }
-              }
-              { m }
-              {
-                \str_use:N \l__soranus_font_weight_str
-                \str_use:N \l__soranus_font_width_str
+                \str_if_eq:VnTF \l__soranus_font_width_str { m }
+                  { \str_use:N \l__soranus_font_weight_str }
+                  {
+                    \str_use:N \l__soranus_font_weight_str
+                    \str_use:N \l__soranus_font_width_str
+                  }
               }
           }
-        \exp_args:NV \fontshape \l__soranus_font_shape_str
-        \selectfont
+          {
+            \str_if_eq:VnTF \l__soranus_font_shape_str { n }
+              { \str_if_eq:VnTF \l__soranus_font_caps_str { sc } { sc } { n } }
+              {
+                \str_use:N \l__soranus_font_caps_str
+                \str_use:N \l__soranus_font_shape_str
+              }
+          }
       }
   }
 
+\cs_new_protected:Nn \__soranus_font_set_aux:nnnn
+  {
+    \fontsize { #1 } { #2 }
+    \fontseriesforce { #3 }
+    \fontshape { #4 }
+    \selectfont
+  }
 
-
+\cs_generate_variant:Nn \__soranus_font_set_aux:nnnn { VVxx }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,7 +199,7 @@
 %
 
 \NewDocumentCommand \SetFont { m }
-  { \__soranus_set_font:n { #1 } }
+  { \__soranus_font_set:n { #1 } }
 
 
 %%%%%%%%%%%%%%%%%%%%
