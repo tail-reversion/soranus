@@ -29,11 +29,6 @@
 % Font Setter
 %
 
-% I forbid normal font switches in the middle of a math environment.
-\msg_new:nnn { soranus } { font-switch-in-math-mode }
-  { Normal~font~switch~commands~are~forbidden~in~math~mode. }
-
-
 \dim_new:N \l__soranus_font_size_dim
 \dim_new:N \l__soranus_font_baseline_dim
 \str_new:N \l__soranus_font_weight_str
@@ -149,6 +144,10 @@
         },
       shape .initial:n = upright
   }
+
+% I forbid normal font switches in the middle of a math environment.
+\msg_new:nnn { soranus } { font-switch-in-math-mode }
+  { Normal~font~switch~commands~are~forbidden~in~math~mode. }
 
 \cs_new_protected:Nn \__soranus_font_set:n
   {
