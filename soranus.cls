@@ -16,9 +16,9 @@
 % This work consists of the files listed in the README.
 
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{expl3}[2020/01/22]
+\RequirePackage{expl3}[2020/02/11]
 
-\ProvidesExplClass{soranus}{2020/01/25}{0.0.0}
+\ProvidesExplClass{soranus}{2020/02/13}{0.0.0}
   {An experimental class for, like, papers and books and stuff.}
 
 
@@ -32,7 +32,7 @@
 % Outdated l3kernel and l3packages
 %
 
-\@ifpackagelater { expl3 } { 2020/01/22 }
+\@ifpackagelater { expl3 } { 2020/02/11 }
   { }
   {
     \ClassError { soranus } { Support~package~expl3~too~old }
